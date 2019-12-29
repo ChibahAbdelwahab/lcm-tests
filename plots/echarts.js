@@ -219,7 +219,7 @@
         };
     }
 
-// See https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection
+// See https://raw.githubusercontent.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection
 // function detectPassiveSupport() {
 //     // Test via a getter in the options object to see if the passive property is accessed
 //     var supportsPassive = false;
@@ -1343,7 +1343,7 @@
      * Event Mixin
      * @module zrender/mixin/Eventful
      * @author Kener (@Kener-林峰, kener.linfeng@gmail.com)
-     *         pissang (https://www.github.com/pissang)
+     *         pissang (https://www.raw.githubusercontent.com/pissang)
      */
 
     var arrySlice = Array.prototype.slice;
@@ -1931,7 +1931,7 @@
         }
 
         // Add which for click: 1 === left; 2 === middle; 3 === right; otherwise: 0;
-        // See jQuery: https://github.com/jquery/jquery/blob/master/src/event.js
+        // See jQuery: https://raw.githubusercontent.com/jquery/jquery/blob/master/src/event.js
         // If e.which has been defined, it may be readonly,
         // see: https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/which
         var button = e.button;
@@ -1958,7 +1958,7 @@
             // Consider marking event handler as 'passive' to make the page more responsive.
             // Just set console log level: verbose in chrome dev tool.
             // then the warning log will be printed when addEventListener called.
-            // See https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
+            // See https://raw.githubusercontent.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
             // We have not yet found a neat way to using passive. Because in zrender the dom event
             // listener delegate all of the upper events of element. Some of those events need
             // to prevent default. For example, the feature `preventDefaultMouseMove` of echarts.
@@ -2699,7 +2699,7 @@
     /**
      * 提供变换扩展
      * @module zrender/mixin/Transformable
-     * @author pissang (https://www.github.com/pissang)
+     * @author pissang (https://www.raw.githubusercontent.com/pissang)
      */
 
     var mIdentity = identity;
@@ -2990,8 +2990,8 @@
     };
 
     /**
-     * 缓动代码来自 https://github.com/sole/tween.js/blob/master/src/Tween.js
-     * @see http://sole.github.io/tween.js/examples/03_graphs.html
+     * 缓动代码来自 https://raw.githubusercontent.com/sole/tween.js/blob/master/src/Tween.js
+     * @see http://sole.raw.githubusercontent.io/tween.js/examples/03_graphs.html
      * @exports zrender/animation/easing
      */
     var easing = {
@@ -5919,7 +5919,7 @@
 
     inherits(Group, Element);
 
-// https://github.com/mziccard/node-timsort
+// https://raw.githubusercontent.com/mziccard/node-timsort
     var DEFAULT_MIN_MERGE = 32;
 
     var DEFAULT_MIN_GALLOPING = 7;
@@ -6592,7 +6592,7 @@
                 // if (a.z2 === b.z2) {
                 //     // FIXME Slow has renderidx compare
                 //     // http://stackoverflow.com/questions/20883421/sorting-in-javascript-should-every-compare-function-have-a-return-0-statement
-                //     // https://github.com/v8/v8/blob/47cce544a31ed5577ffe2963f67acb4144ee0232/src/js/array.js#L1012
+                //     // https://raw.githubusercontent.com/v8/v8/blob/47cce544a31ed5577ffe2963f67acb4144ee0232/src/js/array.js#L1012
                 //     return a.__renderidx - b.__renderidx;
                 // }
                 return a.z2 - b.z2;
@@ -7354,7 +7354,7 @@
 
     /**
      * @module zrender/Layer
-     * @author pissang(https://www.github.com/pissang)
+     * @author pissang(https://www.raw.githubusercontent.com/pissang)
      */
 
     function returnFalse() {
@@ -7591,7 +7591,7 @@
         typeof window !== 'undefined'
         && (
             (window.requestAnimationFrame && window.requestAnimationFrame.bind(window))
-            // https://github.com/ecomfe/zrender/issues/189#issuecomment-224919809
+            // https://raw.githubusercontent.com/ecomfe/zrender/issues/189#issuecomment-224919809
             || (window.msRequestAnimationFrame && window.msRequestAnimationFrame.bind(window))
             || window.mozRequestAnimationFrame
             || window.webkitRequestAnimationFrame
@@ -10560,7 +10560,7 @@
      * 动画主类, 调度和管理所有动画控制器
      *
      * @module zrender/animation/Animation
-     * @author pissang(https://github.com/pissang)
+     * @author pissang(https://raw.githubusercontent.com/pissang)
      */
 // TODO Additive animation
 // http://iosoteric.com/additive-animations-animatewithduration-in-ios-8/
@@ -10849,7 +10849,7 @@
 
     /**
      * Prevent mouse event from being dispatched after Touch Events action
-     * @see <https://github.com/deltakosh/handjs/blob/master/src/hand.base.js>
+     * @see <https://raw.githubusercontent.com/deltakosh/handjs/blob/master/src/hand.base.js>
      * 1. Mobile browsers dispatch mouse events 300ms after touchend.
      * 2. Chrome for Android dispatch mousedown for long-touch about 650ms
      * Result: Blocking Mouse Events for 700ms.
@@ -11154,7 +11154,7 @@
 * All rights reserved.
 *
 * LICENSE
-* https://github.com/ecomfe/zrender/blob/master/LICENSE.txt
+* https://raw.githubusercontent.com/ecomfe/zrender/blob/master/LICENSE.txt
 */
 
     var useVML = !env$1.canvasSupported;
@@ -12559,7 +12559,7 @@
     /**
      * 曲线辅助模块
      * @module zrender/core/curve
-     * @author pissang(https://www.github.com/pissang)
+     * @author pissang(https://www.raw.githubusercontent.com/pissang)
      */
 
     var mathPow = Math.pow;
@@ -12804,7 +12804,7 @@
         x0, y0, x1, y1, x2, y2, x3, y3,
         x, y, out
     ) {
-        // http://pomax.github.io/bezierinfo/#projections
+        // http://pomax.raw.githubusercontent.io/bezierinfo/#projections
         var t;
         var interval = 0.005;
         var d = Infinity;
@@ -13003,7 +13003,7 @@
         x0, y0, x1, y1, x2, y2,
         x, y, out
     ) {
-        // http://pomax.github.io/bezierinfo/#projections
+        // http://pomax.raw.githubusercontent.io/bezierinfo/#projections
         var t;
         var interval = 0.005;
         var d = Infinity;
@@ -13065,7 +13065,7 @@
     }
 
     /**
-     * @author Yi Shen(https://github.com/pissang)
+     * @author Yi Shen(https://raw.githubusercontent.com/pissang)
      */
 
     var mathMin$3 = Math.min;
@@ -13292,7 +13292,7 @@
      * 可以用于 isInsidePath 判断以及获取boundingRect
      *
      * @module zrender/core/PathProxy
-     * @author Yi Shen (http://www.github.com/pissang)
+     * @author Yi Shen (http://www.raw.githubusercontent.com/pissang)
      */
 
 // TODO getTotalLength, getPointAtLength
@@ -15850,7 +15850,7 @@
     /**
      * Catmull-Rom spline 插值折线
      * @module zrender/shape/util/smoothSpline
-     * @author pissang (https://www.github.com/pissang)
+     * @author pissang (https://www.raw.githubusercontent.com/pissang)
      *         Kener (@Kener-林峰, kener.linfeng@gmail.com)
      *         errorrik (errorrik@gmail.com)
      */
@@ -15918,7 +15918,7 @@
     /**
      * 贝塞尔平滑曲线
      * @module zrender/shape/util/smoothBezier
-     * @author pissang (https://www.github.com/pissang)
+     * @author pissang (https://www.raw.githubusercontent.com/pissang)
      *         Kener (@Kener-林峰, kener.linfeng@gmail.com)
      *         errorrik (errorrik@gmail.com)
      */
@@ -19118,7 +19118,7 @@
                 );
             }
                 // Timezoneoffset of Javascript Date has considered DST (Daylight Saving Time,
-                // https://tc39.github.io/ecma262/#sec-daylight-saving-time-adjustment).
+                // https://tc39.raw.githubusercontent.io/ecma262/#sec-daylight-saving-time-adjustment).
                 // For example, system timezone is set as "Time Zone: America/Toronto",
                 // then these code will get different result:
                 // `new Date(1478411999999).getTimezoneOffset();  // get 240`
@@ -19240,7 +19240,7 @@
 
     /**
      * This code was copied from "d3.js"
-     * <https://github.com/d3/d3/blob/9cc9a875e636a1dcf36cc1e07bdf77e1ad6e2c74/src/arrays/quantile.js>.
+     * <https://raw.githubusercontent.com/d3/d3/blob/9cc9a875e636a1dcf36cc1e07bdf77e1ad6e2c74/src/arrays/quantile.js>.
      * See the license statement at the head of this file.
      * @param {Array.<number>} ascArr
      */
@@ -31255,7 +31255,7 @@
             if (diff <= maxDistance && dist <= minDist) {
                 // For the case of two data are same on xAxis, which has sequence data.
                 // Show the nearest index
-                // https://github.com/ecomfe/echarts/issues/2869
+                // https://raw.githubusercontent.com/ecomfe/echarts/issues/2869
                 if (dist < minDist || (diff >= 0 && minDiff < 0)) {
                     minDist = dist;
                     minDiff = diff;
@@ -34197,7 +34197,7 @@
 
     /**
      * This implementation was originally copied from "d3.js"
-     * <https://github.com/d3/d3/blob/b516d77fb8566b576088e73410437494717ada26/src/time/scale.js>
+     * <https://raw.githubusercontent.com/d3/d3/blob/b516d77fb8566b576088e73410437494717ada26/src/time/scale.js>
      * with some modifications made for this program.
      * See the license statement at the head of this file.
      */
@@ -50016,7 +50016,7 @@
     /*
 * A third-party license is embeded for some of the code in this file:
 * The tree layoutHelper implementation was originally copied from
-* "d3.js"(https://github.com/d3/d3-hierarchy) with
+* "d3.js"(https://raw.githubusercontent.com/d3/d3-hierarchy) with
 * some modifications made for this project.
 * (see more details in the comment of the specific method below.)
 * The use of the source code of this file is also subject to the terms
@@ -50074,7 +50074,7 @@
 
     /**
      * The implementation of this function was originally copied from "d3.js"
-     * <https://github.com/d3/d3-hierarchy/blob/4c1f038f2725d6eae2e49b61d01456400694bac4/src/tree.js>
+     * <https://raw.githubusercontent.com/d3/d3-hierarchy/blob/4c1f038f2725d6eae2e49b61d01456400694bac4/src/tree.js>
      * with some modifications made for this program.
      * See the license statement at the head of this file.
      *
@@ -50115,7 +50115,7 @@
 
     /**
      * The implementation of this function was originally copied from "d3.js"
-     * <https://github.com/d3/d3-hierarchy/blob/4c1f038f2725d6eae2e49b61d01456400694bac4/src/tree.js>
+     * <https://raw.githubusercontent.com/d3/d3-hierarchy/blob/4c1f038f2725d6eae2e49b61d01456400694bac4/src/tree.js>
      * with some modifications made for this program.
      * See the license statement at the head of this file.
      *
@@ -50170,7 +50170,7 @@
      * performed by this function.
      *
      * The implementation of this function was originally copied from "d3.js"
-     * <https://github.com/d3/d3-hierarchy/blob/4c1f038f2725d6eae2e49b61d01456400694bac4/src/tree.js>
+     * <https://raw.githubusercontent.com/d3/d3-hierarchy/blob/4c1f038f2725d6eae2e49b61d01456400694bac4/src/tree.js>
      * with some modifications made for this program.
      * See the license statement at the head of this file.
      *
@@ -50192,7 +50192,7 @@
 
     /**
      * The implementation of this function was originally copied from "d3.js"
-     * <https://github.com/d3/d3-hierarchy/blob/4c1f038f2725d6eae2e49b61d01456400694bac4/src/tree.js>
+     * <https://raw.githubusercontent.com/d3/d3-hierarchy/blob/4c1f038f2725d6eae2e49b61d01456400694bac4/src/tree.js>
      * with some modifications made for this program.
      * See the license statement at the head of this file.
      *
@@ -50295,7 +50295,7 @@
 
     /**
      * The implementation of this function was originally copied from "d3.js"
-     * <https://github.com/d3/d3-hierarchy/blob/4c1f038f2725d6eae2e49b61d01456400694bac4/src/tree.js>
+     * <https://raw.githubusercontent.com/d3/d3-hierarchy/blob/4c1f038f2725d6eae2e49b61d01456400694bac4/src/tree.js>
      * with some modifications made for this program.
      * See the license statement at the head of this file.
      *
@@ -50317,7 +50317,7 @@
 
     /**
      * The implementation of this function was originally copied from "d3.js"
-     * <https://github.com/d3/d3-hierarchy/blob/4c1f038f2725d6eae2e49b61d01456400694bac4/src/tree.js>
+     * <https://raw.githubusercontent.com/d3/d3-hierarchy/blob/4c1f038f2725d6eae2e49b61d01456400694bac4/src/tree.js>
      * with some modifications made for this program.
      * See the license statement at the head of this file.
      */
@@ -53828,7 +53828,7 @@
      * was made by Mark Bruls, Kees Huizing, and Jarke J. van Wijk
      * <https://graphics.ethz.ch/teaching/scivis_common/Literature/squarifiedTreeMaps.pdf>.
      * The implementation of this algorithm was originally copied from "d3.js"
-     * <https://github.com/d3/d3/blob/9cc9a875e636a1dcf36cc1e07bdf77e1ad6e2c74/src/layout/treemap.js>
+     * <https://raw.githubusercontent.com/d3/d3/blob/9cc9a875e636a1dcf36cc1e07bdf77e1ad6e2c74/src/layout/treemap.js>
      * with some modifications made for this program.
      * See the license statement at the head of this file.
      *
@@ -57085,7 +57085,7 @@
 
             /**
              * Some formulas were originally copied from "d3.js"
-             * https://github.com/d3/d3/blob/b516d77fb8566b576088e73410437494717ada26/src/layout/force.js
+             * https://raw.githubusercontent.com/d3/d3/blob/b516d77fb8566b576088e73410437494717ada26/src/layout/force.js
              * with some modifications made for this project.
              * See the license statement at the head of this file.
              */
@@ -94658,7 +94658,7 @@
     };
 
 // Myers' Diff Algorithm
-// Modified from https://github.com/kpdecker/jsdiff/blob/master/src/diff/base.js
+// Modified from https://raw.githubusercontent.com/kpdecker/jsdiff/blob/master/src/diff/base.js
 
     function Diff() {}
 

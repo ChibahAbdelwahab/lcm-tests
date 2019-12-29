@@ -27,9 +27,9 @@
 
     var filters = {"DEPARTEMENT": [], "SEX": [], "AGE": [], "STATION_MGT_TYPE": []}
 
-    d3.csv("users/" + file_name,
+    d3.csv("https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/users/" + file_name,
         function (users) {
-            d3.csv('links/' + file_name,
+            d3.csv('https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/links/' + file_name,
                 function (row) {
                     return {
                         source: row.source,
@@ -43,7 +43,7 @@
                     };
                 },
                 function (links) {
-                    d3.csv('groups/' + file_name,
+                    d3.csv('https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/groups/' + file_name,
                         function (row) {
                             row["name"] = row[""]
                             row["size"] = parseInt(row.size)
@@ -55,9 +55,9 @@
                             return row
                         },
                         function (data) {
-                            d3.json('stats/users/' + file_name,
+                            d3.json('https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/stats/users/' + file_name,
                                 function (users_stats) {
-                                    d3.json('stats/groups/' + file_name,
+                                    d3.json('https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/stats/groups/' + file_name,
                                         function (groups_stats) {
                                             console.log(groups_stats)
                                             var stats = []
