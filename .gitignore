@@ -142,11 +142,7 @@ lcm_results/
 
 plots/links/
 
-plots/stats/
 
-plots/users_stats/
-
-*.out
 
 results/
 
@@ -160,4 +156,8 @@ PFE-plots/
 
 *.json
 
-stats
+
+
+reduced_groups/
+
+groups_interactions/
