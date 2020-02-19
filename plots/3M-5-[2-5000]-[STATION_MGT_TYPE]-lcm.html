@@ -29,15 +29,16 @@
 
     d3.csv("https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/users/" + file_name,
         function (users) {
-            d3.csv('https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/links/' + file_name,
+            d3.csv('labeled_links/' + file_name,
                 function (row) {
                     return {
                         source: row.source,
                         target: row.target,
+                        label : row.label,
                         user_id: row.user_id.replace('"', "").split(","),
                         value: row.user_id.replace('"', "").split(",").length,
                         lineStyle: {
-                            color: colors_list[row.user_id % 1000],
+                            color: colors_list[row.label*100],
                             opacity: 1
                         }
                     };
@@ -148,6 +149,7 @@
                     }
                     if (x.dataType == "edge") {
                         return "<b>Users: </b>" + x.data.user_id +
+                            "<br><b>Label: </b>" + x.data.label +
                             "<br><b>Count: </b>" + x.data.value +
                             "<hr><b>" + x.data.source + "</b>" + "=><b>" + x.data.target
                     } else

@@ -26,6 +26,8 @@ var/
 wheels/
 pip-wheel-metadata/
 share/python-wheels/
+results
+lcm_results
 *.egg-info/
 .installed.cfg
 *.egg
@@ -148,7 +150,6 @@ lcm_temp/
 
 *.csv
 
-*.dat
 
 PFE-plots/
 
@@ -159,3 +160,4 @@ PFE-plots/
 reduced_groups/
 
 groups_interactions/
+*.dat
