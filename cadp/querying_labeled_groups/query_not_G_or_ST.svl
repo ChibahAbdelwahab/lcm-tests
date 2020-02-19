@@ -1,0 +1,95 @@
+-- First argument: name of the graph in BCG format (without extension)
+
+% GRAPH=$1
+
+-- Definition of the query (for a given group, inspect the first operation
+-- other than G or ST)
+
+property FIRST_OPERATION_OTHER_THAN_G_ST (GROUP)
+	"Querying group ${GROUP}"
+is
+	-- Check the property and store its diagnostic
+
+%	DIAG="d_${GRAPH}_${GROUP}"
+	"$DIAG.bcg" =
+	"$GRAPH.bcg" |= with evaluator4
+            (* Fix the group *)
+            < true* . { SELF !"${GROUP}" ?any } >
+            [
+                (* Enumerate all sequences of G or ST operations
+                 * until the first other operation *)
+                ({ G ... } or { ST ...})* .
+                { ?O:String ... where (O <> "SELF") and (O <> "G") and (O <> "ST") } .
+                (* Traverse the current self-loop to get
+                 * the current group information *)
+                { SELF ... }
+            ] true;
+
+	-- Post-process the diagnostic (breadth-first search) and print:
+	-- for each operation other than G or ST
+	--   what is this operation
+	--   at which date it occurs
+	--   after how many operations it occurs
+	--   the groups at the current date
+
+	"$DIAG.bcg" |= with xtl
+            macro get_group (T) =
+                if T -> [ SELF ?G:raw _ ] then G else "" end_if
+            end_macro
+
+            macro get_date (T) =
+                if T -> [ SELF _ ?D:raw ] then D else "" end_if
+            end_macro
+
+            for
+                in    (LEVEL:stateset, NUMBER:number)
+                while LEVEL <> {}
+                apply (replace, +)
+                from  ({ init }, #0)
+                to    
+                    let the:action =
+                        if exists S:state among LEVEL, T:edge among out (S) in T -> [ SELF ... ] and (succ (T) = empty) end_exists then
+                            printf ("After ") fby print (NUMBER - 2) fby
+                            printf (" operations (at date ") fby
+                            print (get_date (T)) fby printf ("):\n")
+                        else
+                            nop
+                        end_if fby
+                        <| fby on S:state among LEVEL |>
+                            if exists T:edge among out (S) in T -> [ SELF ... ] and (succ (T) = empty) end_exists then
+                                printf ("Group: ") fby print (get_group (T)) fby
+                                printf (" after operation ") fby 
+                                <| fby on T2:edge among in (S) |>
+                                    print (label (T2)) fby printf ("\n")
+                            else
+                                nop
+                            end_if
+                        ,
+                        NEXT:stateset = <| union on S:state among LEVEL |> succ (S)
+                        in
+                            (NEXT, 1)
+                    end_let
+                    printf(GROUP)
+
+           end_for;
+
+	-- Clean up
+%	SVL_REMOVE "${DIAG}"*
+end property
+
+-- Extract the initial date from the graph
+
+% INITIAL_DATE=`printf "~[SELF.*]*\n[SELF.*]\n" | bcg_open "$GRAPH.bcg" exhibitor -first | grep "SELF \!" | sed -e 's/"SELF \!.* \!\(.*\)"/\1/'`
+% SVL_REMOVE "exhibitor"
+
+-- Extract the initial groups present in the graph (at INITIAL_DATE)
+
+% GROUP_LIST=`bcg_info -labels "$GRAPH.bcg" | grep "SELF.*\!${INITIAL_DATE}$" | sed -e 's/SELF \!\(.*\) \!.*/\1/'`
+
+-- Evaluate the query for each group
+
+% for GROUP in $GROUP_LIST
+% do
+	check FIRST_OPERATION_OTHER_THAN_G_ST ("$GROUP");
+% done
+
