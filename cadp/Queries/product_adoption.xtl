@@ -1,0 +1,23 @@
+library natset.xtl end_library
+
+(*
+ * Product adoption queries: customers who adopted a product in P 
+ * during time period T - those customers who exist in T-1 but 
+ * did not purchase  products in P during T-1.
+ *)
+
+macro P () =
+    insert (1, insert (3, insert (15, insert (20, empty))))
+end_macro
+
+(* Scan all customer groups at time T0 *)
+<| fby on E:edge where E -> [ SELF ?C0:raw ?P0:raw !`T0` ] |> (
+    (* Select those that did not buy products in P *)
+    if inter (raw2natset (P0), P) = empty then
+        print (C0) fby printf (" ") fby
+        print (P0) fby printf ("\n")
+    else
+        nop
+    end_if
+)
+

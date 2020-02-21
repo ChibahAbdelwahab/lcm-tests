@@ -1,0 +1,81 @@
+(* XTL library for using an external type "natset" (set of natural numbers) *)
+
+(*---------------------------------------------------------------------------*)
+(* Declare the external type and functions *)
+
+type natset
+    !implementedby "natset"
+    !comparedby "cmp_natset"
+    !printedby "print_natset"
+end_type
+
+func empty () : natset
+    !implementedby "empty_natset"
+end_func
+
+func insert (natural, natset) : natset
+    !implementedby "insert_natset"
+end_func
+
+func remove (natural, natset) : natset
+    !implementedby "remove_natset"
+end_func
+
+func union (natset, natset) : natset
+    !implementedby "union_natset"
+end_func
+
+func inter (natset, natset) : natset
+    !implementedby "inter_natset"
+end_func
+
+func diff (natset, natset) : natset
+    !implementedby "diff_natset"
+end_func
+
+func isin (natural, natset) : boolean
+    !implementedby "isin_natset"
+end_func
+
+func eq (natset, natset) : boolean
+    !implementedby "eq_natset"
+end_func
+
+func ne (natset, natset) : boolean
+    !implementedby "ne_natset"
+end_func
+
+func lt (natset, natset) : boolean
+    !implementedby "lt_natset"
+end_func
+
+func gt (natset, natset) : boolean
+    !implementedby "gt_natset"
+end_func
+
+func le (natset, natset) : boolean
+    !implementedby "le_natset"
+end_func
+
+func ge (natset, natset) : boolean
+    !implementedby "ge_natset"
+end_func
+
+func string2natset (string) : natset
+    !implementedby "string_2_natset"
+end_func
+
+func raw2natset (raw) : natset
+    !implementedby "raw_2_natset"
+end_func
+
+(*---------------------------------------------------------------------------*)
+(* Include the type definition and function prototypes *)
+
+include "natset.h" end_include
+
+(*---------------------------------------------------------------------------*)
+(* Link with the libraries implementing these type and functions *)
+
+flag "-L. -lnatset -L$CADP -lcaesar -lcaesar_plug" end_flag
+

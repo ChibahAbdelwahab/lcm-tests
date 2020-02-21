@@ -1,0 +1,40 @@
+To invoke the query on the graph:
+
+  svl query_not_G_or_ST.svl sample_loop_group
+
+The output should be:
+
+property FIRST_OPERATION_OTHER_THAN_G_ST (":1:2:3:4:")
+ | Querying group :1:2:3:4:
+
+TRUE
+
+After 2 operations (at date T3):
+Group: :5:10:11: after operation "SG"
+Group: :6:9: after operation "SG"
+
+property FIRST_OPERATION_OTHER_THAN_G_ST (":5:6:8:")
+ | Querying group :5:6:8:
+
+TRUE
+
+After 1 operations (at date T1):
+Group: :1:2:3:4:5:6: after operation "SG"
+
+property FIRST_OPERATION_OTHER_THAN_G_ST (":9:")
+ | Querying group :9:
+
+TRUE
+
+After 2 operations (at date T3):
+Group: :5:10:11: after operation "SG"
+Group: :6:9: after operation "S"
+
+property FIRST_OPERATION_OTHER_THAN_G_ST (":10:11:")
+ | Querying group :10:11:
+
+TRUE
+
+After 3 operations (at date T4):
+Group: :5:12: after operation "SG"
+

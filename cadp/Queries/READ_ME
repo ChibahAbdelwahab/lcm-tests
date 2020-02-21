@@ -1,0 +1,8 @@
+Commande pour executer la premiere requete :
+
+xtl -silent product_adoption.xtl sample.bcg
+
+Resultat :
+
+:10:11:12: :12:18:
+

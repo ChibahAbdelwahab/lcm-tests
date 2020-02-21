@@ -1,0 +1,6 @@
+[
+    {!"G"}.
+    {SELF ?C:string ?any ?T:string}.
+    ({?any})*.
+    {SELF !C ?any ?T1:string where T1<>T}
+]true
