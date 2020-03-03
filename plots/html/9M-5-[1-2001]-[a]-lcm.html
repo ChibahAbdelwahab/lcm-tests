@@ -42,7 +42,7 @@
                     };
                 },
                 function (links) {
-                    d3.csv('../groups/' + file_name,
+                    d3.csv('https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/groups/' + file_name,
                         function (row) {
                             row["name"] = row[""]
                             row["size"] = parseInt(row.size)
