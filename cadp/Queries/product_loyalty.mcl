@@ -1,0 +1,18 @@
+(* Product Loyalty :*)
+
+macro QUERY () =
+     {!"G"}.
+     {SELF ?C0:String ?P0:String !"T0"}.
+     {?any}*.
+     {SELF ?C1:String ?P1:String !"T1" where
+        (inter (string2natset (P1), string2natset (P0)) <> empty)
+     }
+end_macro
+
+macro FINAL_STATE () =
+    [ not { SELF ... } ] false
+end_macro
+
+<
+    (true* . QUERY . true*)+
+> FINAL_STATE

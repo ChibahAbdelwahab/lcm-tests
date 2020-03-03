@@ -1,0 +1,31 @@
+(* Interest break (existential):
+ * Starting from T0, return the path that leads to all moments
+ * where at least one product in P or one customer in C are not
+ * associated to each other. *)
+
+macro C () =
+    (* insert (7, insert (8, insert (9, empty))) *)
+    insert (10, empty)
+end_macro
+
+macro P () =
+    insert (1, insert (3, insert (15, insert (20, empty))))
+end_macro
+
+macro NO_INTEREST () =
+    { SELF ?C_crt:String ?P_crt:String ...
+	where
+	(inter (string2natset (C_crt), C) <> empty)
+	and
+	(inter (string2natset (P_crt), P) = empty)
+    }
+end_macro
+
+macro FINAL_STATE () =
+    [ not { SELF ... } ] false
+end_macro
+
+<
+    (true* . NO_INTEREST . true*)+
+> FINAL_STATE
+
