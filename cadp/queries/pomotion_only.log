@@ -1,0 +1,71 @@
+
+property promotion_only
+
+svl clean info: [temporary] svl001_formula_inline
+
+svl clean info: [temporary] svl001_formula_inline.mcl
+
+svl clean info: [temporary] svl001_formula_inline.xm
+
+"svl001_formula_inline.mcl" =
+    macro QUERY () =
+        (
+    	G .
+    	(not { SELF ... })* .
+    	{ SELF ?C0:String ?P0:String !":2018-12-01" }.
+    	not { SELF ... } .
+    	{ SELF ?C1:String ?P1:String !":2019-02-01" }.
+    	not { SELF ... } .
+    	{ SELF ?C2:String ?P2:String !"" where
+    	    (inter (string2natset (P0), string2natset (P1)) = empty)
+    	    and
+    	    (inter (string2natset (P1), string2natset (P2)) = empty)
+    	    and
+    	    (inter (string2natset (P1), string2natset (":7461024:")) <> empty)
+    	}
+        )
+    end_macro
+    
+    
+    [
+        QUERY
+    ] print (
+        C1
+        " ",
+        P1,
+        " ",
+        ":2019-02-01",
+        "\n"
+    )
+
+verify "svl001_formula_inline.mcl" in "../graph/bcg/9M-5-[1-2001]-[a]-lcm.bcg"
+
+svl clean info: [temporary] evaluator4
+
+svl clean info: [temporary] evaluator4.o
+
+% bcg_open   "../graph/bcg/9M-5-[1-2001]-[a]-lcm.bcg"  evaluator4 -source "pomotion_only.svl:7" -dfs   "svl001_formula_inline.mcl"
+
+svl clean info: [temporary] svl000_stdout
+
+#014 error during syntax analysis phase:
+     syntactic error(s) or warning(s)
+     quit
+
+bcg_open: using ``/home/abdelouahab/cadp//bin.x64/evaluator4.a''
+bcg_open: running ``evaluator4 -source pomotion_only.svl:7 -dfs svl001_formula_inline.mcl'' for ``../graph/bcg/9M-5-[1-2001]-[a]-lcm.bcg''
+
+    C1
+^
+[pomotion_only.svl:31] warning: "(" is inserted before " ".
+
+);
+^
+[pomotion_only.svl:37] warning: ")" is inserted before "End Of File".
+evaluator4: translation of ``svl001_formula_inline'' failed
+
+command exit with status 1
+
+svl: WARNING an error occurred during formula evaluation with evaluator4
+     see pomotion_only.log for a detailed diagnostic
+

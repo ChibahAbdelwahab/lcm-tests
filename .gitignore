@@ -4,3 +4,11 @@
 datasets/Total/
 
 index/
+
+lcm_results/
+
+*.a
+
+lcm_temp/
+
+datasets/ml-10m/ml-10M100K/

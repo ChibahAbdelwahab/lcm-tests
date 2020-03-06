@@ -1,0 +1,94 @@
+-- Input: periods T-1, T, T+1 and promotional products P.
+-- Output: (customers, products) sets
+
+-- Adoption queries:
+-- products in P that have been adopted and the customers who adopted them:
+-- do not appear in T-1 and appear in T. If products is empty, the query
+-- returns customers that adopted at least one promotional product during T
+-- without identifying the product. If customers is empty, the query returns
+-- products that have been adopted by at least one customer without identifying
+-- the customer
+
+-------------------------------------------------------------------------------
+-- Reading the inputs
+
+-- Name of the graph in BCG format (without the ".bcg" extension)
+% GRAPH=$1
+
+-- Promotional products (string of the form ":p1:p2:...:pn:")
+% P=$2
+
+-- Promotion time window (string of the form ":date")
+% T_m_1=$3
+% T=$4
+% T_p_1=$5
+
+-- Example of command-line:
+-- svl query_product_adoption.svl graph ":14:" ":2018-09-01" ":2018-12-01" ":2019-02-01"
+
+-------------------------------------------------------------------------------
+-- Encoding of the query using MCL
+
+property PRODUCT_ADOPTION
+	"Product adoption"
+is
+	-- Check the property
+
+	"$GRAPH.bcg" |= with evaluator4
+macro QUERY () =
+    (
+	(* Artificial action creating the initial groups *)
+	G .
+
+	(* Step to the relevant time window T-1 -- T -- T+1 *)
+	(not { SELF ... })* .
+
+	(* Customers & products in a group on period T-1 *)
+	{ SELF ?C_t_m_1:String ?P_t_m_1:String !"${T_m_1}" }.
+
+	(* Step to the next period T *)
+	not { SELF ... } .
+
+	(* Customers & products in a (successor) group on period T *)
+	{ SELF ?C_t:String ?P_t:String !"${T}" where
+	    (* P_t contains some promotional products *)
+	    (inter (string2natset (P_t), string2natset ("${P}")) <> empty)
+	    and
+	    (* The group on period T-1 did not buy promotional products *)
+	    (inter (string2natset (P_t_m_1), string2natset ("${P}")) = empty)
+	    and
+	    (* There are some customers common to C_t_m_1 and C_t *)
+	    (inter (string2natset (C_t_m_1), string2natset (C_t)) <> empty)
+	}
+    )
+end_macro
+
+(* Explore all the paths matching the query and print
+ * the sets of customers that adopted promotional products during T *)
+
+[
+    QUERY
+] print (
+    (* Customers that adopted promotional products *)
+    inter (string2natset (C_t_m_1), string2natset (C_t)),
+    " ",
+    (* The subset of promotional products they bought *)
+    inter (string2natset (P_t), string2natset ("${P}")),
+    " ",
+    (* The promotion period *)
+    "${T}",
+    "\n"
+);
+end property
+
+-------------------------------------------------------------------------------
+-- Parse the ".log" file produced by SVL to extract the relevant output
+
+% echo
+% echo "[Customers] [Promotional products] Period"
+% echo
+-- Grab the lines produced by the "print" operation
+-- (sets are printed in the form [a1, ..., an])
+-- and delete the duplicates
+% cat product_adoption.log | grep '^[[]' | sort -u
+

@@ -1,0 +1,46 @@
+% GRAPH=$1
+% T0=$2
+% T1=$3
+% T2=$4
+property promotion_only
+is
+	"$GRAPH.bcg" |= with evaluator4
+macro QUERY () =
+    (
+	G .
+	(not { SELF ... })* .
+	{ SELF ?C0:String ?P0:String !"${T0}" }.
+	not { SELF ... } .
+	{ SELF ?C1:String ?P1:String !"${T1}" }.
+	not { SELF ... } .
+	{ SELF ?C2:String ?P2:String !"${T2}" where
+	    (inter (string2natset (P0), string2natset (P1)) = empty)
+	    and
+	    (inter (string2natset (P1), string2natset (P2)) = empty)
+	}
+    )
+end_macro
+
+[
+    QUERY
+] print (
+    C1,
+    " ",
+    P1,
+    " ",
+    "${T1}",
+    "\n"
+);
+end property
+
+-------------------------------------------------------------------------------
+-- Parse the ".log" file produced by SVL to extract the relevant output
+
+% echo
+% echo "[Customers] [Promotional products] Period"
+% echo
+-- Grab the lines produced by the "print" operation
+-- (sets are printed in the form [a1, ..., an])
+-- and delete the duplicates
+% cat promotion_only.log | grep '^[[]' | sort -u
+
