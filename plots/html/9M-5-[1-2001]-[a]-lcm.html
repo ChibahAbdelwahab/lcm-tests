@@ -96429,11 +96429,11 @@
             right: "10%",
             type: 'sankey',
             name: "Sankey",
-            // nodeGap: 1,
+            nodeGap: 1,
             focusNodeAdjacency: 'allEdges',
             nodeAlign: "center",
             layout: "none",
-            layoutIterations: 0,
+            layoutIterations: 32,
             // focusNodeAdjacency: 'false',
             data: data,
             links: links,
@@ -96457,7 +96457,7 @@
                         return "<b>Group id: </b>" + x.data.name +
                             "<br><b>Size: </b>" + x.data.size +
                             "<hr><b>Users: </b>" + x.data.user_ids +
-                            "<br><b>Description name :</b>" + x.data.itemsets_name +
+                            "<br><b>Description name :</b>" + x.data.itemset_name +
                             "<br><b>Description Ids :</b>" + x.data.itemsets +
                             "<br><b>Period :</b>" + x.data.period
                     }
