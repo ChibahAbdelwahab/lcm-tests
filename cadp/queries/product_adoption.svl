@@ -15,13 +15,10 @@
 -- Name of the graph in BCG format (without the ".bcg" extension)
 % GRAPH=$1
 
--- Promotional products (string of the form ":p1:p2:...:pn:")
-% P=$2
-
 -- Promotion time window (string of the form ":date")
-% T_m_1=$3
-% T=$4
-% T_p_1=$5
+% T_m_1=$2
+% T=$3
+% T_p_1=$4
 
 -- Example of command-line:
 -- svl query_product_adoption.svl graph ":14:" ":2018-09-01" ":2018-12-01" ":2019-02-01"
@@ -47,18 +44,12 @@ macro QUERY () =
 	{ SELF ?C_t_m_1:String ?P_t_m_1:String !"${T_m_1}" }.
 
 	(* Step to the next period T *)
-	not { SELF ... } .
+	G or SG .
 
 	(* Customers & products in a (successor) group on period T *)
 	{ SELF ?C_t:String ?P_t:String !"${T}" where
 	    (* P_t contains some promotional products *)
-	    (inter (string2natset (P_t), string2natset ("${P}")) <> empty)
-	    and
-	    (* The group on period T-1 did not buy promotional products *)
-	    (inter (string2natset (P_t_m_1), string2natset ("${P}")) = empty)
-	    and
-	    (* There are some customers common to C_t_m_1 and C_t *)
-	    (inter (string2natset (C_t_m_1), string2natset (C_t)) <> empty)
+	    (inter (string2natset (P_t), string2natset (P_t_m_1)) <> empty)
 	}
     )
 end_macro
