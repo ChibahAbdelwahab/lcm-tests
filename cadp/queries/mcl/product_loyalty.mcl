@@ -1,6 +1,0 @@
-[
-    {!"G"}.
-    {SELF ?C0:String ?P0:String !"T0"}.
-    {?any}*.
-    {SELF ?C1:String ?P1:String !"T1" where (inter (string2natset (P1), string2natset (P0)) <> empty)}
-]print(C0," ",P0," ",C1," ",P1 ,"\n")
