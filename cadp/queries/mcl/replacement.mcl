@@ -1,10 +1,10 @@
 [
-    {!"G"}.
+    {?any}*.
     {SELF ?C0:String ?P0:String !"${T0}"}.
     {?any}*.
     {SELF ?C1:String ?P1:String !"${T1}"}.
     {?any}*.
     {SELF ?C2:String ?P2:String !"${T2}"  where
-        (diff (string2natset (P1), inter (string2natset (P0),string2natset (P2))) <> empty)})
+        (diff (string2natset (P1), inter (string2natset (P0),string2natset (P2))) <> empty)
     }
-]print(C0," ",P0," ",C1," ",P1," ",C2," ",P2 ,"\n")
+]print(C0," ",P0," ",C1," ",P1," ",C2," ",P2 ,"\ngit rm --cached giant_file")

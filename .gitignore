@@ -12,3 +12,5 @@ lcm_results/
 lcm_temp/
 
 datasets/ml-10m/ml-10M100K/
+
+cadp/queries/evaluator4
