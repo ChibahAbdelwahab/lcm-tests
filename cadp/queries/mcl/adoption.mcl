@@ -4,4 +4,4 @@
      {SELF ?C1:String ?P1:String !"${T1}" where
         (diff (string2natset (P1), string2natset (P0)) <> empty)
      }
-]print(C0," ",P0," ",C1," ",P1 ,"\n")
+]print(inter (string2natset (C0), string2natset (C1)),"$",diff (string2natset (P1), string2natset (P0)) ,"\n")

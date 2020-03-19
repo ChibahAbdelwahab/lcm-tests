@@ -7,4 +7,4 @@
     {SELF ?C2:String ?P2:String !"${T2}"  where
         (diff (string2natset (P1), inter (string2natset (P0),string2natset (P2))) <> empty)
     }
-]print(C0," ",P0," ",C1," ",P1," ",C2," ",P2 ,"\ngit rm --cached giant_file")
+]print(inter ( inter (string2natset (C0),string2natset (C1)), string2natset (C2)),"$",diff (string2natset (P1), inter (string2natset (P0),string2natset (P2))) ,"\n")
