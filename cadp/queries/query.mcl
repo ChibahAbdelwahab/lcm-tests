@@ -2,9 +2,5 @@
     {?any}*.
     {SELF ?C0:String ?P0:String !":2018-12-01"}.
     {?any}*.
-    {SELF ?C1:String ?P1:String !":2019-02-01"}.
-    {?any}*.
-    {SELF ?C2:String ?P2:String !":2019-02-01"  where
-        (inter (string2natset (P1), inter(string2natset (P0),string2natset (P2))) <> empty)
-    }
-]print(inter ( inter (string2natset (C0),string2natset (C1)), string2natset (C2)),"$",inter (string2natset (P1), inter(string2natset (P0),string2natset (P2))) ,"\n")
+    {SELF ?C1:String ?P1:String !":2019-02-01" where (inter (string2natset (P1), string2natset (P0)) <> empty)}
+]print(inter (string2natset (C0), string2natset (C1)),"$",inter (string2natset (P1), string2natset (P0)) ,"\n")

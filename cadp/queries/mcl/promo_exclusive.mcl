@@ -6,5 +6,7 @@
     {?any}*.
     {SELF ?C2:String ?P2:String !"${T2}"  where
         (diff (string2natset (P1), diff(string2natset (P0),string2natset (P2))) <> empty)
+         and
+        (inter( inter (string2natset (C0),string2natset (C1)), string2natset (C2) )<>empty)
     }
 ]print(inter ( inter (string2natset (C0),string2natset (C1)), string2natset (C2)),"$",diff (string2natset (P1), diff(string2natset (P0),string2natset (P2))) ,"\n")
