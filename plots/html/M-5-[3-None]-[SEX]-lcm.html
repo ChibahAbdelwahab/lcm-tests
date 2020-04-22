@@ -11,7 +11,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://gmousse.github.io/dataframe-js/dist/dataframe.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.5.4/randomColor.js"></script>
-<script type="text/javascript" src="https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/html/echarts.js"></script>
+<script src="https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/html/echarts.js"></script>
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <div id="main" style="width: 100vw;height:80vh;"></div>
 <div style="white-space:nowrap">
@@ -96340,7 +96340,9 @@
     });
     file_name = window.location.pathname.split("/").pop().replace(".html", ".out")
     var filters = {"DEPARTEMENT": [], "SEX": [], "AGE": [], "STATION_MGT_TYPE": []}
-
+hashCode = function(s){
+  return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);
+}
     d3.csv("https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/users/" + file_name,
         function (users) {
             d3.csv('https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/links/' + file_name,
@@ -96364,8 +96366,9 @@
                             row["depth"] = row.depth * 100000
                             row["itemStyle"] = {
                                 z: 1,
-                                color: 'rgb(27,120,0)',
+                                color: colors_list[hashCode(row.property_values) % 1000],
                             }
+                            console.log(parseInt(row.property_values) % 1000,row.property_values)
                             return row
                         },
                         function (data) {
@@ -96456,6 +96459,7 @@
                     if (x.dataType == "node") {
                         return "<b>Group id: </b>" + x.data.name +
                             "<br><b>Size: </b>" + x.data.size +
+                            "<br><b>Properties : </b>" + x.data.property_values +
                             "<hr><b>Users: </b>" + x.data.user_ids +
                             "<br><b>Description name :</b>" + x.data.itemset_name +
                             "<br><b>Description Ids :</b>" + x.data.itemsets +

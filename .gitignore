@@ -20,3 +20,7 @@ cadp/queries/evaluator4
 a.txt
 
 notebooks/test.csv
+
+plots/groups/copy_groups.csv
+
+plots/links/copy_links.csv
