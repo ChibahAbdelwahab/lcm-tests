@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- including ECharts file -->
+
+</head>
+<body>
+<!-- prepare a DOM container with width and height -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://gmousse.github.io/dataframe-js/dist/dataframe.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.5.4/randomColor.js"></script>
+<script src="echarts.js"></script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<div id="main" style="width: 100vw;height:100vh;"></div>
+<div style="white-space:nowrap">
+    <div id="users_demographics" style="width: 50%;height:100vh;display:inline-block;white-space:normal"></div>
+    <div id="groups_demographics" style="width: 50%;height:100vh;display:inline-block;white-space:normal"></div>
+</div>
+<script type="text/javascript">
+    colors_list = randomColor({
+        count: 10000,
+        hue: 'random'
+    });
+    file_name = decodeURI(window.location.pathname.split("/").pop().replace(".html", ".out"))
+
+    var filters = {"DEPARTEMENT": [], "SEX": [], "AGE": [], "STATION_MGT_TYPE": []}
+    const periods = new Set();
+
+    d3.csv('../links/' + file_name,
+        function (row) {
+            return {
+                source: row.source,
+                target: row.target,
+                user_id: row.user_id.replace('"', "").split(","),
+                value: row.user_id.replace('"', "").split(",").length,
+                lineStyle: {
+                    color: colors_list[row.user_id % 1000],
+                    opacity: 1
+                }
+            };
+        },
+        function (links) {
+            d3.csv('../groups/' + file_name,
+                function (row) {
+                    row["name"] = row[""]
+                    row["size"] = parseInt(row.size)
+                    row["depth"] = row.depth * 1000000
+                    row["itemStyle"] = {
+                        z: 1,
+                        color: 'rgb(27,120,0)',
+                    }
+                    periods.add(row["period"])
+                    return row
+                },
+                function (data) {
+                    data.forEach(e => {
+                        e["depth"] = Array.from(periods).indexOf(e["period"]) * 100 / periods.size
+                    })
+                    draw_chart(data, links)
+                }
+            )
+        }
+    )
+
+
+    function draw_chart(data, links, users) {
+        sankey = [{
+            top: "2%",
+            bottom: "5%",
+            left: "10%",
+            right: "10%",
+            type: 'sankey',
+            name: "Sankey",
+            // nodeGap: 1,
+            focusNodeAdjacency: 'allEdges',
+            nodeAlign: "center",
+            layout: "none",
+            layoutIterations: 100,
+            // focusNodeAdjacency: 'false',
+            data: data,
+            links: links,
+            tooltip: {
+                data: links
+            }
+        }]
+
+        // based on prepared DOM, initialize echarts instance
+        var myChart = echarts.init(document.getElementById('main'));
+        var users_demographics = echarts.init(document.getElementById('users_demographics'));
+        var groups_demographics = echarts.init(document.getElementById('groups_demographics'));
+        // specify chart configuration item and data
+        var option = {
+            tooltip: {
+                align: "bottom",
+                itemGap: 1,
+                padding: [0, 0, 0, 0],
+                formatter: function (x) {
+                    if (x.dataType == "node") {
+                        return "<b>Group id: </b>" + x.data.name +
+                            "<br><b>Size: </b>" + x.data.size +
+                            "<hr><b>Users: </b>" + x.data.user_ids +
+                            "<br><b>Itemset :</b>" + x.data.itemset_name +
+                            "<br><b>Period :</b>" + x.data.period
+                    }
+                    if (x.dataType == "edge") {
+                        return "<b>Users: </b>" + x.data.user_id +
+                            "<br><b>Count: </b>" + x.data.value +
+                            "<hr><b>" + x.data.source + "</b>" + "=><b>" + x.data.target
+                    } else
+                        return '<b>User_id :</b>' + x.data.user_id + " <br><b>Count :</b>" + x.data.value
+                }
+            },
+            series: sankey,
+            toolbox: {
+                show: true,
+                feature: {
+                    downloadTable: {
+                        show: true,
+                        // Show the title when mouse focus
+                        title: 'Save As picture',
+                        // Icon path
+                        icon: '/static/img/download-icon.png',
+                        option: {}
+                    }
+                }
+            }
+
+        };
+        // use configuration item and data specified to show chart
+        myChart.setOption(option);
+        console.log(option)
+    }
+
+
+</script>
+</body>
+</html>
