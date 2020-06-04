@@ -2,8 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
         typeof define === 'function' && define.amd ? define(['exports'], factory) :
             (factory((global.echarts = {})));
-}(this, (function (exports) {
-    'use strict';
+}(this, (function (exports) { 'use strict';
 
     /*
 * Licensed to the Apache Software Foundation (ASF) under one
@@ -83,7 +82,8 @@
             touchEventsSupported: true,
             domSupported: false
         };
-    } else if (typeof document === 'undefined' && typeof self !== 'undefined') {
+    }
+    else if (typeof document === 'undefined' && typeof self !== 'undefined') {
         // In worker
         env = {
             browser: {},
@@ -93,7 +93,8 @@
             canvasSupported: true,
             domSupported: false
         };
-    } else if (typeof navigator === 'undefined') {
+    }
+    else if (typeof navigator === 'undefined') {
         // In node
         env = {
             browser: {},
@@ -105,7 +106,8 @@
             svgSupported: true,
             domSupported: false
         };
-    } else {
+    }
+    else {
         env = detect(navigator.userAgent);
     }
 
@@ -314,19 +316,22 @@
                     result[i] = clone(source[i]);
                 }
             }
-        } else if (TYPED_ARRAY[typeStr]) {
+        }
+        else if (TYPED_ARRAY[typeStr]) {
             if (!isPrimitive(source)) {
                 var Ctor = source.constructor;
                 if (source.constructor.from) {
                     result = Ctor.from(source);
-                } else {
+                }
+                else {
                     result = new Ctor(source.length);
                     for (var i = 0, len = source.length; i < len; i++) {
                         result[i] = clone(source[i]);
                     }
                 }
             }
-        } else if (!BUILTIN_OBJECT[typeStr] && !isPrimitive(source) && !isDom(source)) {
+        }
+        else if (!BUILTIN_OBJECT[typeStr] && !isPrimitive(source) && !isDom(source)) {
             result = {};
             for (var key in source) {
                 if (source.hasOwnProperty(key)) {
@@ -369,7 +374,8 @@
                 ) {
                     // 如果需要递归覆盖，就递归调用merge
                     merge(targetProp, sourceProp, overwrite);
-                } else if (overwrite || !(key in target)) {
+                }
+                else if (overwrite || !(key in target)) {
                     // 否则只处理overwrite为true，或者在目标对象中没有此属性的情况
                     // NOTE，在 target[key] 不存在的时候也是直接覆盖
                     target[key] = clone(source[key], true);
@@ -471,10 +477,7 @@
      */
     function inherits(clazz, baseClazz) {
         var clazzPrototype = clazz.prototype;
-
-        function F() {
-        }
-
+        function F() {}
         F.prototype = baseClazz.prototype;
         clazz.prototype = new F();
 
@@ -527,11 +530,13 @@
         }
         if (obj.forEach && obj.forEach === nativeForEach) {
             obj.forEach(cb, context);
-        } else if (obj.length === +obj.length) {
+        }
+        else if (obj.length === +obj.length) {
             for (var i = 0, len = obj.length; i < len; i++) {
                 cb.call(context, obj[i], i, obj);
             }
-        } else {
+        }
+        else {
             for (var key in obj) {
                 if (obj.hasOwnProperty(key)) {
                     cb.call(context, obj[key], key, obj);
@@ -554,7 +559,8 @@
         }
         if (obj.map && obj.map === nativeMap) {
             return obj.map(cb, context);
-        } else {
+        }
+        else {
             var result = [];
             for (var i = 0, len = obj.length; i < len; i++) {
                 result.push(cb.call(context, obj[i], i, obj));
@@ -577,7 +583,8 @@
         }
         if (obj.reduce && obj.reduce === nativeReduce) {
             return obj.reduce(cb, memo, context);
-        } else {
+        }
+        else {
             for (var i = 0, len = obj.length; i < len; i++) {
                 memo = cb.call(context, memo, obj[i], i, obj);
             }
@@ -599,7 +606,8 @@
         }
         if (obj.filter && obj.filter === nativeFilter) {
             return obj.filter(cb, context);
-        } else {
+        }
+        else {
             var result = [];
             for (var i = 0, len = obj.length; i < len; i++) {
                 if (cb.call(context, obj[i], i, obj)) {
@@ -788,7 +796,8 @@
         if (len === 2) {
             // vertical | horizontal
             return [val[0], val[1], val[0], val[1]];
-        } else if (len === 3) {
+        }
+        else if (len === 3) {
             // top | horizontal | bottom
             return [val[0], val[1], val[2], val[1]];
         }
@@ -814,15 +823,16 @@
     function trim(str) {
         if (str == null) {
             return null;
-        } else if (typeof str.trim === 'function') {
+        }
+        else if (typeof str.trim === 'function') {
             return str.trim();
-        } else {
+        }
+        else {
             return str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
         }
     }
 
     var primitiveKey = '__ec_primitive__';
-
     /**
      * Set an object as primitive to be ignored traversing children in clone or merge
      */
@@ -900,8 +910,7 @@
     }
 
 
-    function noop() {
-    }
+    function noop() {}
 
 
     var zrUtil = (Object.freeze || Object)({
@@ -1053,7 +1062,6 @@
     function len(v) {
         return Math.sqrt(lenSquare(v));
     }
-
     var length = len; // jshint ignore:line
 
     /**
@@ -1064,7 +1072,6 @@
     function lenSquare(v) {
         return v[0] * v[0] + v[1] * v[1];
     }
-
     var lengthSquare = lenSquare;
 
     /**
@@ -1123,7 +1130,8 @@
         if (d === 0) {
             out[0] = 0;
             out[1] = 0;
-        } else {
+        }
+        else {
             out[0] = v[0] / d;
             out[1] = v[1] / d;
         }
@@ -1142,7 +1150,6 @@
             + (v1[1] - v2[1]) * (v1[1] - v2[1])
         );
     }
-
     var dist = distance;
 
     /**
@@ -1155,7 +1162,6 @@
         return (v1[0] - v2[0]) * (v1[0] - v2[0])
             + (v1[1] - v2[1]) * (v1[1] - v2[1]);
     }
-
     var distSquare = distanceSquare;
 
     /**
@@ -1432,7 +1438,8 @@
                 if (_h[event] && _h[event].length === 0) {
                     delete _h[event];
                 }
-            } else {
+            }
+            else {
                 delete _h[event];
             }
 
@@ -1488,7 +1495,8 @@
                     if (hItem.one) {
                         _h.splice(i, 1);
                         len--;
-                    } else {
+                    }
+                    else {
                         i++;
                     }
                 }
@@ -1550,7 +1558,8 @@
                     if (hItem.one) {
                         _h.splice(i, 1);
                         len--;
-                    } else {
+                    }
+                    else {
                         i++;
                     }
                 }
@@ -1801,7 +1810,8 @@
                 out.zrX = ex - box.left;
                 out.zrY = ey - box.top;
                 return;
-            } else {
+            }
+            else {
                 var saved = el[EVENT_SAVED_PROP] || (el[EVENT_SAVED_PROP] = {});
                 var transformer = preparePointerTransformer(prepareCoordMarkers(el, saved), saved);
                 if (transformer) {
@@ -1912,7 +1922,8 @@
         if (!isTouch) {
             clientToLocal(el, e, e, calculate);
             e.zrDelta = (e.wheelDelta) ? e.wheelDelta / 120 : -(e.detail || 0) / 3;
-        } else {
+        }
+        else {
             var touch = eventType !== 'touchend'
                 ? e.targetTouches[0]
                 : e.changedTouches[0];
@@ -1964,7 +1975,8 @@
             //     : void 0;
             // el.addEventListener(name, handler /* , opts */);
             el.addEventListener(name, handler);
-        } else {
+        }
+        else {
             el.attachEvent('on' + name, handler);
         }
     }
@@ -1972,7 +1984,8 @@
     function removeEventListener(el, name, handler) {
         if (isDomLevel2) {
             el.removeEventListener(name, handler);
-        } else {
+        }
+        else {
             el.detachEvent('on' + name, handler);
         }
     }
@@ -2153,11 +2166,8 @@
         stop(this.event);
     }
 
-    function EmptyProxy() {
-    }
-
-    EmptyProxy.prototype.dispose = function () {
-    };
+    function EmptyProxy() {}
+    EmptyProxy.prototype.dispose = function () {};
 
     var handlerNames = [
         'click', 'dblclick', 'mousewheel', 'mouseout',
@@ -2452,9 +2462,11 @@
                 this._downPoint = [event.zrX, event.zrY];
                 // In case click triggered before mouseup
                 this._upEl = hoveredTarget;
-            } else if (name === 'mouseup') {
+            }
+            else if (name === 'mouseup') {
                 this._upEl = hoveredTarget;
-            } else if (name === 'click') {
+            }
+            else if (name === 'click') {
                 if (this._downEl !== this._upEl
                     // Original click event is triggered on the whole canvas element,
                     // including the case that `mousedown` - `mousemove` - `mouseup`,
@@ -2768,7 +2780,8 @@
 
         if (needLocalTransform) {
             this.getLocalTransform(m);
-        } else {
+        }
+        else {
             mIdentity(m);
         }
 
@@ -2776,7 +2789,8 @@
         if (parentHasTransform) {
             if (needLocalTransform) {
                 mul$1(m, parent.transform, m);
-            } else {
+            }
+            else {
                 copy$1(m, parent.transform);
             }
         }
@@ -2814,7 +2828,8 @@
         var dpr = ctx.dpr || 1;
         if (m) {
             ctx.setTransform(dpr * m[0], dpr * m[1], dpr * m[2], dpr * m[3], dpr * m[4], dpr * m[5]);
-        } else {
+        }
+        else {
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         }
     };
@@ -3190,7 +3205,8 @@
             if (!a || a < 1) {
                 a = 1;
                 s = p / 4;
-            } else {
+            }
+            else {
                 s = p * Math.asin(1 / a) / (2 * Math.PI);
             }
             return -(a * Math.pow(2, 10 * (k -= 1))
@@ -3213,7 +3229,8 @@
             if (!a || a < 1) {
                 a = 1;
                 s = p / 4;
-            } else {
+            }
+            else {
                 s = p * Math.asin(1 / a) / (2 * Math.PI);
             }
             return (a * Math.pow(2, -10 * k)
@@ -3236,7 +3253,8 @@
             if (!a || a < 1) {
                 a = 1;
                 s = p / 4;
-            } else {
+            }
+            else {
                 s = p * Math.asin(1 / a) / (2 * Math.PI);
             }
             if ((k *= 2) < 1) {
@@ -3292,11 +3310,14 @@
         bounceOut: function (k) {
             if (k < (1 / 2.75)) {
                 return 7.5625 * k * k;
-            } else if (k < (2 / 2.75)) {
+            }
+            else if (k < (2 / 2.75)) {
                 return 7.5625 * (k -= (1.5 / 2.75)) * k + 0.75;
-            } else if (k < (2.5 / 2.75)) {
+            }
+            else if (k < (2.5 / 2.75)) {
                 return 7.5625 * (k -= (2.25 / 2.75)) * k + 0.9375;
-            } else {
+            }
+            else {
                 return 7.5625 * (k -= (2.625 / 2.75)) * k + 0.984375;
             }
         },
@@ -3471,7 +3492,8 @@
     linkedListProto.insertEntry = function (entry) {
         if (!this.head) {
             this.head = this.tail = entry;
-        } else {
+        }
+        else {
             this.tail.next = entry;
             entry.prev = this.tail;
             entry.next = null;
@@ -3489,13 +3511,15 @@
         var next = entry.next;
         if (prev) {
             prev.next = next;
-        } else {
+        }
+        else {
             // Is head
             this.head = next;
         }
         if (next) {
             next.prev = prev;
-        } else {
+        }
+        else {
             // Is tail
             this.tail = prev;
         }
@@ -3583,7 +3607,8 @@
 
             if (entry) {
                 entry.value = value;
-            } else {
+            }
+            else {
                 entry = new Entry(value);
             }
             entry.key = key;
@@ -3728,7 +3753,8 @@
     function cssHueToRgb(m1, m2, h) {
         if (h < 0) {
             h += 1;
-        } else if (h > 1) {
+        }
+        else if (h > 1) {
             h -= 1;
         }
 
@@ -3755,7 +3781,6 @@
         out[3] = a;
         return out;
     }
-
     function copyRgba(out, a) {
         out[0] = a[0];
         out[1] = a[1];
@@ -3820,7 +3845,8 @@
                 );
                 putToCache(colorStr, rgbaArr);
                 return rgbaArr;
-            } else if (str.length === 7) {
+            }
+            else if (str.length === 7) {
                 var iv = parseInt(str.substr(1), 16);  // TODO(deanm): Stricter parsing.
                 if (!(iv >= 0 && iv <= 0xffffff)) {
                     setRgba(rgbaArr, 0, 0, 0, 1);
@@ -3945,10 +3971,12 @@
         if (delta === 0) {
             H = 0;
             S = 0;
-        } else {
+        }
+        else {
             if (L < 0.5) {
                 S = delta / (vMax + vMin);
-            } else {
+            }
+            else {
                 S = delta / (2 - vMax - vMin);
             }
 
@@ -3958,9 +3986,11 @@
 
             if (R === vMax) {
                 H = deltaB - deltaG;
-            } else if (G === vMax) {
+            }
+            else if (G === vMax) {
                 H = (1 / 3) + deltaR - deltaB;
-            } else if (B === vMax) {
+            }
+            else if (B === vMax) {
                 H = (2 / 3) + deltaG - deltaR;
             }
 
@@ -3994,12 +4024,14 @@
             for (var i = 0; i < 3; i++) {
                 if (level < 0) {
                     colorArr[i] = colorArr[i] * (1 - level) | 0;
-                } else {
+                }
+                else {
                     colorArr[i] = ((255 - colorArr[i]) * level + colorArr[i]) | 0;
                 }
                 if (colorArr[i] > 255) {
                     colorArr[i] = 255;
-                } else if (color[i] < 0) {
+                }
+                else if (color[i] < 0) {
                     colorArr[i] = 0;
                 }
             }
@@ -4214,7 +4246,8 @@
             for (var i = 0; i < len; i++) {
                 out[i] = interpolateNumber(p0[i], p1[i], percent);
             }
-        } else {
+        }
+        else {
             var len2 = len && p0[0].length;
             for (var i = 0; i < len; i++) {
                 for (var j = 0; j < len2; j++) {
@@ -4237,7 +4270,8 @@
             if (isPreviousLarger) {
                 // Cut the previous
                 arr0.length = arr1Len;
-            } else {
+            }
+            else {
                 // Fill the previous
                 for (var i = arr0Len; i < arr1Len; i++) {
                     arr0.push(
@@ -4253,7 +4287,8 @@
                 if (isNaN(arr0[i])) {
                     arr0[i] = arr1[i];
                 }
-            } else {
+            }
+            else {
                 for (var j = 0; j < len2; j++) {
                     if (isNaN(arr0[i][j])) {
                         arr0[i][j] = arr1[i][j];
@@ -4283,7 +4318,8 @@
                     return false;
                 }
             }
-        } else {
+        }
+        else {
             var len2 = arr0[0].length;
             for (var i = 0; i < len; i++) {
                 for (var j = 0; j < len2; j++) {
@@ -4318,7 +4354,8 @@
                     p0[i], p1[i], p2[i], p3[i], t, t2, t3
                 );
             }
-        } else {
+        }
+        else {
             var len2 = p0[0].length;
             for (var i = 0; i < len; i++) {
                 for (var j = 0; j < len2; j++) {
@@ -4429,7 +4466,8 @@
                 if (colorArray) {
                     value = colorArray;
                     isValueColor = true;
-                } else {
+                }
+                else {
                     isValueString = true;
                 }
             }
@@ -4444,7 +4482,8 @@
         for (var i = 0; i < trackLen - 1; i++) {
             if (isValueArray) {
                 fillArr(kfValues[i], lastValue, arrDim);
-            } else {
+            }
+            else {
                 if (isNaN(kfValues[i]) && !isNaN(lastValue) && !isValueString && !isValueColor) {
                     kfValues[i] = lastValue;
                 }
@@ -4475,7 +4514,8 @@
             // In the easing function like elasticOut, percent may less than 0
             if (percent < 0) {
                 frame = 0;
-            } else if (percent < lastFramePercent) {
+            }
+            else if (percent < lastFramePercent) {
                 // Start from next key
                 // PENDING start from lastFrame ?
                 start = Math.min(lastFrame + 1, trackLen - 1);
@@ -4486,7 +4526,8 @@
                 }
                 // PENDING really need to do this ?
                 frame = Math.min(frame, trackLen - 2);
-            } else {
+            }
+            else {
                 for (frame = lastFrame; frame < trackLen; frame++) {
                     if (kfPercents[frame] > percent) {
                         break;
@@ -4500,7 +4541,8 @@
             var range = (kfPercents[frame + 1] - kfPercents[frame]);
             if (range === 0) {
                 return;
-            } else {
+            }
+            else {
                 w = (percent - kfPercents[frame]) / range;
             }
             if (useSpline) {
@@ -4514,7 +4556,8 @@
                         getter(target, propName),
                         arrDim
                     );
-                } else {
+                }
+                else {
                     var value;
                     if (isValueColor) {
                         value = catmullRomInterpolateArray(
@@ -4522,10 +4565,12 @@
                             rgba, 1
                         );
                         value = rgba2String(rgba);
-                    } else if (isValueString) {
+                    }
+                    else if (isValueString) {
                         // String is step(0.5)
                         return interpolateString(p1, p2, w);
-                    } else {
+                    }
+                    else {
                         value = catmullRomInterpolate(
                             p0, p1, p2, p3, w, w * w, w * w * w
                         );
@@ -4536,14 +4581,16 @@
                         value
                     );
                 }
-            } else {
+            }
+            else {
                 if (isValueArray) {
                     interpolateArray(
                         kfValues[frame], kfValues[frame + 1], w,
                         getter(target, propName),
                         arrDim
                     );
-                } else {
+                }
+                else {
                     var value;
                     if (isValueColor) {
                         interpolateArray(
@@ -4551,10 +4598,12 @@
                             rgba, 1
                         );
                         value = rgba2String(rgba);
-                    } else if (isValueString) {
+                    }
+                    else if (isValueString) {
                         // String is step(0.5)
                         return interpolateString(kfValues[frame], kfValues[frame + 1], w);
-                    } else {
+                    }
+                    else {
                         value = interpolateNumber(kfValues[frame], kfValues[frame + 1], w);
                     }
                     setter(
@@ -4877,7 +4926,8 @@
                 if (prop) {
                     target = prop;
                 }
-            } else {
+            }
+            else {
                 target = el;
             }
 
@@ -5006,7 +5056,6 @@
         // if there is nothing to animate
         var animators = animatable.animators.slice();
         var count = animators.length;
-
         function done() {
             count--;
             if (!count) {
@@ -5073,16 +5122,19 @@
                         delay,
                         reverse
                     );
-                } else {
+                }
+                else {
                     if (reverse) {
                         objShallow[name] = source[name];
                         setAttrByPath(animatable, path, name, target[name]);
-                    } else {
+                    }
+                    else {
                         objShallow[name] = target[name];
                     }
                     propertyCount++;
                 }
-            } else if (target[name] != null && !reverse) {
+            }
+            else if (target[name] != null && !reverse) {
                 setAttrByPath(animatable, path, name, target[name]);
             }
         }
@@ -5099,7 +5151,8 @@
         // FIXME, if some property not needed for element ?
         if (!path) {
             el.attr(name, value);
-        } else {
+        }
+        else {
             // Only support set shape or style
             var props = {};
             props[path] = {};
@@ -5205,13 +5258,11 @@
         /**
          * Hook before update
          */
-        beforeUpdate: function () {
-        },
+        beforeUpdate: function () {},
         /**
          * Hook after update
          */
-        afterUpdate: function () {
-        },
+        afterUpdate: function () {},
         /**
          * Update each frame
          */
@@ -5223,8 +5274,7 @@
          * @param  {Function} cb
          * @param  {}   context
          */
-        traverse: function (cb, context) {
-        },
+        traverse: function (cb, context) {},
 
         /**
          * @protected
@@ -5240,7 +5290,8 @@
                     target[0] = value[0];
                     target[1] = value[1];
                 }
-            } else {
+            }
+            else {
                 this[key] = value;
             }
         },
@@ -5268,7 +5319,8 @@
         attr: function (key, value) {
             if (typeof key === 'string') {
                 this.attrKV(key, value);
-            } else if (isObject$1(key)) {
+            }
+            else if (isObject$1(key)) {
                 for (var name in key) {
                     if (key.hasOwnProperty(name)) {
                         this.attrKV(name, key[name]);
@@ -5855,7 +5907,8 @@
                     tmpRect.applyTransform(transform);
                     rect = rect || tmpRect.clone();
                     rect.union(tmpRect);
-                } else {
+                }
+                else {
                     rect = rect || childRect.clone();
                     rect.union(childRect);
                 }
@@ -5895,7 +5948,8 @@
             }
 
             reverseRun(array, lo, runHi);
-        } else {
+        }
+        else {
             while (runHi < hi && compare(array[runHi], array[runHi - 1]) >= 0) {
                 runHi++;
             }
@@ -5931,7 +5985,8 @@
 
                 if (compare(pivot, array[mid]) < 0) {
                     right = mid;
-                } else {
+                }
+                else {
                     left = mid + 1;
                 }
             }
@@ -5982,7 +6037,8 @@
 
             lastOffset += hint;
             offset += hint;
-        } else {
+        }
+        else {
             maxOffset = hint + 1;
             while (offset < maxOffset && compare(value, array[start + hint - offset]) <= 0) {
                 lastOffset = offset;
@@ -6007,7 +6063,8 @@
 
             if (compare(value, array[start + m]) > 0) {
                 lastOffset = m + 1;
-            } else {
+            }
+            else {
                 offset = m;
             }
         }
@@ -6038,7 +6095,8 @@
             var tmp = lastOffset;
             lastOffset = hint - offset;
             offset = hint - tmp;
-        } else {
+        }
+        else {
             maxOffset = length - hint;
 
             while (offset < maxOffset && compare(value, array[start + hint + offset]) >= 0) {
@@ -6065,7 +6123,8 @@
 
             if (compare(value, array[start + m]) < 0) {
                 offset = m;
-            } else {
+            }
+            else {
                 lastOffset = m + 1;
             }
         }
@@ -6101,7 +6160,8 @@
                     if (runLength[n - 1] < runLength[n + 1]) {
                         n--;
                     }
-                } else if (runLength[n] > runLength[n + 1]) {
+                }
+                else if (runLength[n] > runLength[n + 1]) {
                     break;
                 }
                 mergeAt(n);
@@ -6151,7 +6211,8 @@
 
             if (length1 <= length2) {
                 mergeLow(start1, length1, start2, length2);
-            } else {
+            }
+            else {
                 mergeHigh(start1, length1, start2, length2);
             }
         }
@@ -6204,7 +6265,8 @@
                             exit = true;
                             break;
                         }
-                    } else {
+                    }
+                    else {
                         array[dest++] = tmp[cursor1++];
                         count1++;
                         count2 = 0;
@@ -6289,10 +6351,12 @@
                     array[dest + i] = array[cursor2 + i];
                 }
                 array[dest + length2] = tmp[cursor1];
-            } else if (length1 === 0) {
+            }
+            else if (length1 === 0) {
                 throw new Error();
                 // throw new Error('mergeLow preconditions were not respected');
-            } else {
+            }
+            else {
                 for (i = 0; i < length1; i++) {
                     array[dest + i] = tmp[cursor1 + i];
                 }
@@ -6354,7 +6418,8 @@
                             exit = true;
                             break;
                         }
-                    } else {
+                    }
+                    else {
                         array[dest--] = tmp[cursor2--];
                         count2++;
                         count1 = 0;
@@ -6453,10 +6518,12 @@
                 }
 
                 array[dest] = tmp[cursor2];
-            } else if (length2 === 0) {
+            }
+            else if (length2 === 0) {
                 throw new Error();
                 // throw new Error('mergeHigh preconditions were not respected');
-            } else {
+            }
+            else {
                 customCursor = dest - (length2 - 1);
                 for (i = 0; i < length2; i++) {
                     array[customCursor + i] = tmp[i];
@@ -6534,7 +6601,6 @@
         }
         return a.zlevel - b.zlevel;
     }
-
     /**
      * 内容仓库 (M)
      * @alias module:zrender/Storage
@@ -6620,7 +6686,8 @@
                 // FIXME 效率影响
                 if (clipPaths) {
                     clipPaths = clipPaths.slice();
-                } else {
+                }
+                else {
                     clipPaths = [];
                 }
 
@@ -6657,7 +6724,8 @@
                 // Mark group clean here
                 el.__dirty = false;
 
-            } else {
+            }
+            else {
                 el.__clipPaths = clipPaths;
 
                 this._displayList[this._displayListLen++] = el;
@@ -7228,7 +7296,8 @@
         set: function (obj, value) {
             if (typeof obj === 'string') {
                 this[obj] = value;
-            } else {
+            }
+            else {
                 this.extendFrom(obj, true);
             }
         },
@@ -7541,7 +7610,8 @@
         if (typeof newImageOrSrc === 'string') {
             var cachedImgObj = globalImageCache.get(newImageOrSrc);
             return cachedImgObj && cachedImgObj.image;
-        } else {
+        }
+        else {
             return newImageOrSrc;
         }
     }
@@ -7560,7 +7630,8 @@
     function createOrUpdateImage(newImageOrSrc, image, hostEl, cb, cbPayload) {
         if (!newImageOrSrc) {
             return image;
-        } else if (typeof newImageOrSrc === 'string') {
+        }
+        else if (typeof newImageOrSrc === 'string') {
 
             // Image should not be loaded repeatly.
             if ((image && image.__zrImageSrc === newImageOrSrc) || !hostEl) {
@@ -7576,7 +7647,8 @@
             if (cachedImgObj) {
                 image = cachedImgObj.image;
                 !isImageReady(image) && cachedImgObj.pending.push(pendingWrap);
-            } else {
+            }
+            else {
                 image = new Image();
                 image.onload = image.onerror = imageOnLoad;
 
@@ -7725,7 +7797,8 @@
         // FIXME Right to left language
         if (textAlign === 'right') {
             x -= width;
-        } else if (textAlign === 'center') {
+        }
+        else if (textAlign === 'center') {
             x -= width / 2;
         }
         return x;
@@ -7741,7 +7814,8 @@
     function adjustTextY(y, height, textVerticalAlign) {
         if (textVerticalAlign === 'middle') {
             y -= height / 2;
-        } else if (textVerticalAlign === 'bottom') {
+        }
+        else if (textVerticalAlign === 'bottom') {
             y -= height;
         }
         return y;
@@ -8040,7 +8114,8 @@
             if (truncOuterHeight != null && outerHeight > truncOuterHeight) {
                 text = '';
                 lines = [];
-            } else if (truncOuterWidth != null) {
+            }
+            else if (truncOuterWidth != null) {
                 var options = prepareTruncateOptions(
                     truncOuterWidth - (padding ? padding[1] + padding[3] : 0),
                     font,
@@ -8180,7 +8255,8 @@
                     tokenWidth = 0;
                     // Do not truncate in this case, because there is no user case
                     // and it is too complicated.
-                } else {
+                }
+                else {
                     if (tokenWidthNotSpecified) {
                         tokenWidth = token.textWidth;
 
@@ -8216,7 +8292,8 @@
                         if (!tokenWidthNotSpecified || remianTruncWidth < paddingW) {
                             token.text = '';
                             token.textWidth = tokenWidth = 0;
-                        } else {
+                        }
+                        else {
                             token.text = truncateText(
                                 token.text, remianTruncWidth - paddingW, font, truncate.ellipsis,
                                 {minChar: truncate.minChar}
@@ -8339,23 +8416,28 @@
 
         if (typeof r === 'number') {
             r1 = r2 = r3 = r4 = r;
-        } else if (r instanceof Array) {
+        }
+        else if (r instanceof Array) {
             if (r.length === 1) {
                 r1 = r2 = r3 = r4 = r[0];
-            } else if (r.length === 2) {
+            }
+            else if (r.length === 2) {
                 r1 = r3 = r[0];
                 r2 = r4 = r[1];
-            } else if (r.length === 3) {
+            }
+            else if (r.length === 3) {
                 r1 = r[0];
                 r2 = r4 = r[1];
                 r3 = r[2];
-            } else {
+            }
+            else {
                 r1 = r[0];
                 r2 = r[1];
                 r3 = r[2];
                 r4 = r[3];
             }
-        } else {
+        }
+        else {
             r1 = r2 = r3 = r4 = 0;
         }
 
@@ -8602,7 +8684,8 @@
             // Fill after stroke so the outline will not cover the main part.
             textStroke && ctx.strokeText(textLines[0], textX, textY);
             textFill && ctx.fillText(textLines[0], textX, textY);
-        } else {
+        }
+        else {
             for (var i = 0; i < textLines.length; i++) {
                 // Fill after stroke so the outline will not cover the main part.
                 textStroke && ctx.strokeText(textLines[i], textX, textY);
@@ -8711,7 +8794,8 @@
             if (origin === 'center') {
                 x = rect.width / 2 + rect.x;
                 y = rect.height / 2 + rect.y;
-            } else if (origin) {
+            }
+            else if (origin) {
                 x = origin[0] + rect.x;
                 y = origin[1] + rect.y;
             }
@@ -8733,7 +8817,8 @@
         var y = lineTop + lineHeight / 2;
         if (textVerticalAlign === 'top') {
             y = lineTop + token.height / 2;
-        } else if (textVerticalAlign === 'bottom') {
+        }
+        else if (textVerticalAlign === 'bottom') {
             y = lineTop + lineHeight - token.height / 2;
         }
 
@@ -8810,7 +8895,8 @@
             var textBorderRadius = style.textBorderRadius;
             if (!textBorderRadius) {
                 ctx.rect(x, y, width, height);
-            } else {
+            }
+            else {
                 buildPath(ctx, {
                     x: x, y: y, width: width, height: height, r: textBorderRadius
                 });
@@ -8826,10 +8912,12 @@
                 ctx.globalAlpha = style.fillOpacity * style.opacity;
                 ctx.fill();
                 ctx.globalAlpha = originalGlobalAlpha;
-            } else {
+            }
+            else {
                 ctx.fill();
             }
-        } else if (isObject$1(textBackgroundColor)) {
+        }
+        else if (isObject$1(textBackgroundColor)) {
             var image = textBackgroundColor.image;
 
             image = createOrUpdateImage(
@@ -8849,7 +8937,8 @@
                 ctx.globalAlpha = style.strokeOpacity * style.opacity;
                 ctx.stroke();
                 ctx.globalAlpha = originalGlobalAlpha;
-            } else {
+            }
+            else {
                 ctx.stroke();
             }
         }
@@ -8874,7 +8963,8 @@
                 // Percent
                 baseX = rect.x + parsePercent(textPosition[0], rect.width);
                 baseY = rect.y + parsePercent(textPosition[1], rect.height);
-            } else {
+            }
+            else {
                 var res = (hostEl && hostEl.calculateTextPosition)
                     ? hostEl.calculateTextPosition(_tmpTextPositionResult, style, rect)
                     : calculateTextPosition(_tmpTextPositionResult, style, rect);
@@ -8971,8 +9061,7 @@
 
     var tmpRect$1 = new BoundingRect();
 
-    var RectText = function () {
-    };
+    var RectText = function () {};
 
     RectText.prototype = {
 
@@ -9014,7 +9103,8 @@
                     tmpRect$1.applyTransform(transform);
                     rect = tmpRect$1;
                 }
-            } else {
+            }
+            else {
                 this.setTransform(ctx);
             }
 
@@ -9173,27 +9263,23 @@
          */
         globalScaleRatio: 1,
 
-        beforeBrush: function (ctx) {
-        },
+        beforeBrush: function (ctx) {},
 
-        afterBrush: function (ctx) {
-        },
+        afterBrush: function (ctx) {},
 
         /**
          * Graphic drawing method.
          * @param {CanvasRenderingContext2D} ctx
          */
         // Interface
-        brush: function (ctx, prevEl) {
-        },
+        brush: function (ctx, prevEl) {},
 
         /**
          * Get the minimum bounding box.
          * @return {module:zrender/core/BoundingRect}
          */
         // Interface
-        getBoundingRect: function () {
-        },
+        getBoundingRect: function () {},
 
         /**
          * If displayable element contain coord x, y
@@ -9261,7 +9347,8 @@
         attrKV: function (key, value) {
             if (key !== 'style') {
                 Element.prototype.attrKV.call(this, key, value);
-            } else {
+            }
+            else {
                 this.style.set(value);
             }
         },
@@ -9362,9 +9449,11 @@
             if (width == null && height != null) {
                 // Keep image/height ratio
                 width = height * aspect;
-            } else if (height == null && width != null) {
+            }
+            else if (height == null && width != null) {
                 height = width / aspect;
-            } else if (width == null && height == null) {
+            }
+            else if (width == null && height == null) {
                 width = image.width;
                 height = image.height;
             }
@@ -9380,7 +9469,8 @@
                     sx, sy, style.sWidth, style.sHeight,
                     x, y, width, height
                 );
-            } else if (style.sx && style.sy) {
+            }
+            else if (style.sx && style.sy) {
                 var sx = style.sx;
                 var sy = style.sy;
                 var sWidth = width - sx;
@@ -9390,7 +9480,8 @@
                     sx, sy, sWidth, sHeight,
                     x, y, width, height
                 );
-            } else {
+            }
+            else {
                 ctx.drawImage(image, x, y, width, height);
             }
 
@@ -9445,7 +9536,6 @@
 
     var tmpRect = new BoundingRect(0, 0, 0, 0);
     var viewRect = new BoundingRect(0, 0, 0, 0);
-
     function isDisplayableCulled(el, width, height) {
         tmpRect.copy(el.getBoundingRect());
         if (el.transform) {
@@ -9588,7 +9678,8 @@
                 this._width, this._height
             );
             root.appendChild(domRoot);
-        } else {
+        }
+        else {
             var width = root.width;
             var height = root.height;
 
@@ -9849,7 +9940,8 @@
                 // All elements in this layer are cleared.
                 if (layer.__startIndex === layer.__endIndex) {
                     layer.clear(false, clearColor);
-                } else if (start === layer.__startIndex) {
+                }
+                else if (start === layer.__startIndex) {
                     var firstEl = list[start];
                     if (!firstEl.incremental || !firstEl.notClear || paintAll) {
                         layer.clear(false, clearColor);
@@ -10026,13 +10118,16 @@
                             layer.dom,
                             prevDom.nextSibling
                         );
-                    } else {
+                    }
+                    else {
                         domRoot.appendChild(layer.dom);
                     }
-                } else {
+                }
+                else {
                     if (domRoot.firstChild) {
                         domRoot.insertBefore(layer.dom, domRoot.firstChild);
-                    } else {
+                    }
+                    else {
                         domRoot.appendChild(layer.dom);
                     }
                 }
@@ -10125,7 +10220,8 @@
                     layer = this.getLayer(zlevel + INCREMENTAL_INC, this._needsManuallyCompositing);
                     layer.incremental = true;
                     incrementalLayerCount = 1;
-                } else {
+                }
+                else {
                     layer = this.getLayer(
                         zlevel + (incrementalLayerCount > 0 ? EL_AFTER_INCREMENTAL_INC : 0),
                         this._needsManuallyCompositing
@@ -10144,7 +10240,8 @@
                     layer.__startIndex = i;
                     if (!layer.incremental) {
                         layer.__drawIndex = i;
-                    } else {
+                    }
+                    else {
                         // Mark layer draw index needs to update.
                         layer.__drawIndex = -1;
                     }
@@ -10206,7 +10303,8 @@
                 var layerConfig = this._layerConfig;
                 if (!layerConfig[zlevel]) {
                     layerConfig[zlevel] = config;
-                } else {
+                }
+                else {
                     merge(layerConfig[zlevel], config, true);
                 }
 
@@ -10249,7 +10347,8 @@
                 this._height = height;
 
                 this.getLayer(CANVAS_ZLEVEL).resize(width, height);
-            } else {
+            }
+            else {
                 var domRoot = this._domRoot;
                 // FIXME Why ?
                 domRoot.style.display = 'none';
@@ -10337,13 +10436,15 @@
                 this.eachLayer(function (layer) {
                     if (layer.__builtin__) {
                         ctx.drawImage(layer.dom, 0, 0, width, height);
-                    } else if (layer.renderToCanvas) {
+                    }
+                    else if (layer.renderToCanvas) {
                         imageLayer.ctx.save();
                         layer.renderToCanvas(imageLayer.ctx);
                         imageLayer.ctx.restore();
                     }
                 });
-            } else {
+            }
+            else {
                 // PENDING, echarts-gl and incremental rendering.
                 var scope = {};
                 var displayList = this.storage.getDisplayList(true);
@@ -10499,8 +10600,7 @@
 
         this.stage = options.stage || {};
 
-        this.onframe = options.onframe || function () {
-        };
+        this.onframe = options.onframe || function () {};
 
         // private properties
         this._clips = [];
@@ -10587,7 +10687,8 @@
                     clips[i] = clips[len - 1];
                     clips.pop();
                     len--;
-                } else {
+                }
+                else {
                     i++;
                 }
             }
@@ -11007,7 +11108,8 @@
             //     (this._msGesture = new MSGesture()).target = dom; // jshint ignore:line
             //     dom.addEventListener('MSGestureChange', onMSGestureChange);
             // }
-        } else {
+        }
+        else {
             if (env$1.touchEventsSupported) {
                 mountHandlers(touchHandlerNames, this);
                 // Handler of 'mouseout' event is needed in touch mode, which will be mounted below.
@@ -11091,7 +11193,8 @@
     function dispose$1(zr) {
         if (zr) {
             zr.dispose();
-        } else {
+        }
+        else {
             for (var key in instances$1) {
                 if (instances$1.hasOwnProperty(key)) {
                     instances$1[key].dispose();
@@ -11158,7 +11261,8 @@
                 throw new Error('You need to require \'zrender/vml/vml\' to support IE8');
             }
             rendererType = 'vml';
-        } else if (!rendererType || !painterCtors[rendererType]) {
+        }
+        else if (!rendererType || !painterCtors[rendererType]) {
             rendererType = 'canvas';
         }
         var painter = new painterCtors[rendererType](dom, storage, opts, id);
@@ -11488,6 +11592,7 @@
     };
 
 
+
     var zrender = (Object.freeze || Object)({
         version: version$1,
         init: init$1,
@@ -11770,9 +11875,11 @@
 
             if (existCpt) {
                 keyInfo.id = existCpt.id;
-            } else if (opt.id != null) {
+            }
+            else if (opt.id != null) {
                 keyInfo.id = opt.id + '';
-            } else {
+            }
+            else {
                 // Consider this situatoin:
                 //  optionA: [{name: 'a'}, {name: 'a'}, {..}]
                 //  optionB [{..}, {name: 'a'}, {name: 'a'}]
@@ -11834,7 +11941,8 @@
 
                     if (otherDataIndices && otherDataIndices[dataIndex]) {
                         otherDataIndices[dataIndex] = null;
-                    } else {
+                    }
+                    else {
                         (map$$1[seriesId] || (map$$1[seriesId] = {}))[dataIndex] = 1;
                     }
                 }
@@ -11847,7 +11955,8 @@
                 if (map$$1.hasOwnProperty(i) && map$$1[i] != null) {
                     if (isData) {
                         result.push(+i);
-                    } else {
+                    }
+                    else {
                         var dataIndices = mapToArray(map$$1[i], true);
                         dataIndices.length && result.push({seriesId: i, dataIndex: dataIndices});
                     }
@@ -11866,13 +11975,15 @@
     function queryDataIndex(data, payload) {
         if (payload.dataIndexInside != null) {
             return payload.dataIndexInside;
-        } else if (payload.dataIndex != null) {
+        }
+        else if (payload.dataIndex != null) {
             return isArray(payload.dataIndex)
                 ? map(payload.dataIndex, function (value) {
                     return data.indexOfRawIndex(value);
                 })
                 : data.indexOfRawIndex(payload.dataIndex);
-        } else if (payload.name != null) {
+        }
+        else if (payload.name != null) {
             return isArray(payload.name)
                 ? map(payload.name, function (value) {
                     return data.indexOfName(value);
@@ -11908,7 +12019,6 @@
             return hostObj[key] || (hostObj[key] = {});
         };
     }
-
     var innerUniqueIndex = 0;
 
     /**
@@ -12019,7 +12129,8 @@
         if (renderModeOption === 'auto') {
             // Using html when `document` exists, use richText otherwise
             return env$1.domSupported ? 'html' : 'richText';
-        } else {
+        }
+        else {
             return renderModeOption || 'html';
         }
     }
@@ -12118,7 +12229,8 @@
             var ExtendedClass = function () {
                 if (!proto.$constructor) {
                     superClass.apply(this, arguments);
-                } else {
+                }
+                else {
                     proto.$constructor.apply(this, arguments);
                 }
             };
@@ -12201,7 +12313,8 @@
                         }
                     }
                     storage[componentType.main] = Clazz;
-                } else if (componentType.sub !== IS_CONTAINER) {
+                }
+                else if (componentType.sub !== IS_CONTAINER) {
                     var container = makeContainer(componentType);
                     container[componentType.sub] = Clazz;
                 }
@@ -12237,7 +12350,8 @@
                 each$1(obj, function (o, type) {
                     type !== IS_CONTAINER && result.push(o);
                 });
-            } else {
+            }
+            else {
                 result.push(obj);
             }
 
@@ -12465,11 +12579,9 @@
     function isAroundZero(val) {
         return val > -EPSILON$1 && val < EPSILON$1;
     }
-
     function isNotAroundZero$1(val) {
         return val > EPSILON$1 || val < -EPSILON$1;
     }
-
     /**
      * 计算三次贝塞尔值
      * @memberOf module:zrender/core/curve
@@ -12531,13 +12643,15 @@
         if (isAroundZero(A) && isAroundZero(B)) {
             if (isAroundZero(b)) {
                 roots[0] = 0;
-            } else {
+            }
+            else {
                 var t1 = -c / b;  //t1, t2, t3, b is not zero
                 if (t1 >= 0 && t1 <= 1) {
                     roots[n++] = t1;
                 }
             }
-        } else {
+        }
+        else {
             var disc = B * B - 4 * A * C;
 
             if (isAroundZero(disc)) {
@@ -12550,25 +12664,29 @@
                 if (t2 >= 0 && t2 <= 1) {
                     roots[n++] = t2;
                 }
-            } else if (disc > 0) {
+            }
+            else if (disc > 0) {
                 var discSqrt = mathSqrt$2(disc);
                 var Y1 = A * b + 1.5 * a * (-B + discSqrt);
                 var Y2 = A * b + 1.5 * a * (-B - discSqrt);
                 if (Y1 < 0) {
                     Y1 = -mathPow(-Y1, ONE_THIRD);
-                } else {
+                }
+                else {
                     Y1 = mathPow(Y1, ONE_THIRD);
                 }
                 if (Y2 < 0) {
                     Y2 = -mathPow(-Y2, ONE_THIRD);
-                } else {
+                }
+                else {
                     Y2 = mathPow(Y2, ONE_THIRD);
                 }
                 var t1 = (-b - (Y1 + Y2)) / (3 * a);
                 if (t1 >= 0 && t1 <= 1) {
                     roots[n++] = t1;
                 }
-            } else {
+            }
+            else {
                 var T = (2 * A * b - 3 * a * B) / (2 * mathSqrt$2(A * A * A));
                 var theta = Math.acos(T) / 3;
                 var ASqrt = mathSqrt$2(A);
@@ -12614,11 +12732,13 @@
                     extrema[n++] = t1;
                 }
             }
-        } else {
+        }
+        else {
             var disc = b * b - 4 * a * c;
             if (isAroundZero(disc)) {
                 extrema[0] = -b / (2 * a);
-            } else if (disc > 0) {
+            }
+            else if (disc > 0) {
                 var discSqrt = mathSqrt$2(disc);
                 var t1 = (-b + discSqrt) / (2 * a);
                 var t2 = (-b - discSqrt) / (2 * a);
@@ -12725,7 +12845,8 @@
             if (prev >= 0 && d1 < d) {
                 t = prev;
                 d = d1;
-            } else {
+            }
+            else {
                 // t + interval
                 _v2[0] = cubicAt(x0, x1, x2, x3, next);
                 _v2[1] = cubicAt(y0, y1, y2, y3, next);
@@ -12734,7 +12855,8 @@
                 if (next <= 1 && d2 < d) {
                     t = next;
                     d = d2;
-                } else {
+                }
+                else {
                     interval *= 0.5;
                 }
             }
@@ -12795,14 +12917,16 @@
                     roots[n++] = t1;
                 }
             }
-        } else {
+        }
+        else {
             var disc = b * b - 4 * a * c;
             if (isAroundZero(disc)) {
                 var t1 = -b / (2 * a);
                 if (t1 >= 0 && t1 <= 1) {
                     roots[n++] = t1;
                 }
-            } else if (disc > 0) {
+            }
+            else if (disc > 0) {
                 var discSqrt = mathSqrt$2(disc);
                 var t1 = (-b + discSqrt) / (2 * a);
                 var t2 = (-b - discSqrt) / (2 * a);
@@ -12830,7 +12954,8 @@
         if (divider === 0) {
             // p1 is center of p0 and p2
             return 0.5;
-        } else {
+        }
+        else {
             return (p0 - p1) / divider;
         }
     }
@@ -12915,7 +13040,8 @@
             if (prev >= 0 && d1 < d) {
                 t = prev;
                 d = d1;
-            } else {
+            }
+            else {
                 // t + interval
                 _v2[0] = quadraticAt(x0, x1, x2, next);
                 _v2[1] = quadraticAt(y0, y1, y2, next);
@@ -12923,7 +13049,8 @@
                 if (next <= 1 && d2 < d) {
                     t = next;
                     d = d2;
-                } else {
+                }
+                else {
                     interval *= 0.5;
                 }
             }
@@ -13001,7 +13128,6 @@
 
     var xDim = [];
     var yDim = [];
-
     /**
      * 从三阶贝塞尔曲线(p0, p1, p2, p3)中计算出最小包围盒，写入`min`和`max`中
      * @memberOf module:zrender/core/bbox
@@ -13138,7 +13264,8 @@
 
         if (startAngle > endAngle && !anticlockwise) {
             endAngle += PI2;
-        } else if (startAngle < endAngle && anticlockwise) {
+        }
+        else if (startAngle < endAngle && anticlockwise) {
             startAngle += PI2;
         }
         if (anticlockwise) {
@@ -13916,7 +14043,8 @@
                             ctx.scale(1 / scaleX, 1 / scaleY);
                             ctx.rotate(-psi);
                             ctx.translate(-cx, -cy);
-                        } else {
+                        }
+                        else {
                             ctx.arc(cx, cy, r, theta, endAngle, 1 - fs);
                         }
 
@@ -13976,7 +14104,8 @@
         if (x0 !== x1) {
             _a = (y0 - y1) / (x0 - x1);
             _b = (x0 * y1 - x1 * y0) / (x0 - x1);
-        } else {
+        }
+        else {
             return Math.abs(x - x0) <= _l / 2;
         }
         var tmp = _a * x - y + _b;
@@ -14104,7 +14233,8 @@
             var tmp = startAngle;
             startAngle = normalizeRadian(endAngle);
             endAngle = normalizeRadian(tmp);
-        } else {
+        }
+        else {
             startAngle = normalizeRadian(startAngle);
             endAngle = normalizeRadian(endAngle);
         }
@@ -14172,7 +14302,8 @@
         var nRoots = cubicRootAt(y0, y1, y2, y3, y, roots);
         if (nRoots === 0) {
             return 0;
-        } else {
+        }
+        else {
             var w = 0;
             var nExtrema = -1;
             var y0_;
@@ -14201,16 +14332,20 @@
                     // 分成三段单调函数
                     if (t < extrema[0]) {
                         w += y0_ < y0 ? unit : -unit;
-                    } else if (t < extrema[1]) {
+                    }
+                    else if (t < extrema[1]) {
                         w += y1_ < y0_ ? unit : -unit;
-                    } else {
+                    }
+                    else {
                         w += y3 < y1_ ? unit : -unit;
                     }
-                } else {
+                }
+                else {
                     // 分成两段单调函数
                     if (t < extrema[0]) {
                         w += y0_ < y0 ? unit : -unit;
-                    } else {
+                    }
+                    else {
                         w += y3 < y0_ ? unit : -unit;
                     }
                 }
@@ -14230,7 +14365,8 @@
         var nRoots = quadraticRootAt(y0, y1, y2, y, roots);
         if (nRoots === 0) {
             return 0;
-        } else {
+        }
+        else {
             var t = quadraticExtremum(y0, y1, y2);
             if (t >= 0 && t <= 1) {
                 var w = 0;
@@ -14245,12 +14381,14 @@
                     }
                     if (roots[i] < t) {
                         w += y_ < y0 ? unit : -unit;
-                    } else {
+                    }
+                    else {
                         w += y2 < y_ ? unit : -unit;
                     }
                 }
                 return w;
-            } else {
+            }
+            else {
                 // Remove one endpoint.
                 var unit = (roots[0] === 0 || roots[0] === 1) ? 0.5 : 1;
 
@@ -14287,7 +14425,8 @@
             var dir = anticlockwise ? 1 : -1;
             if (x >= roots[0] + cx && x <= roots[1] + cx) {
                 return dir;
-            } else {
+            }
+            else {
                 return 0;
             }
         }
@@ -14296,7 +14435,8 @@
             var tmp = startAngle;
             startAngle = normalizeRadian(endAngle);
             endAngle = normalizeRadian(tmp);
-        } else {
+        }
+        else {
             startAngle = normalizeRadian(startAngle);
             endAngle = normalizeRadian(endAngle);
         }
@@ -14374,7 +14514,8 @@
                         if (containStroke$1(xi, yi, data[i], data[i + 1], lineWidth, x, y)) {
                             return true;
                         }
-                    } else {
+                    }
+                    else {
                         // NOTE 在第一个命令为 L, C, Q 的时候会计算出 NaN
                         w += windingLine(xi, yi, data[i], data[i + 1], x, y) || 0;
                     }
@@ -14389,7 +14530,8 @@
                         )) {
                             return true;
                         }
-                    } else {
+                    }
+                    else {
                         w += windingCubic(
                             xi, yi,
                             data[i++], data[i++], data[i++], data[i++], data[i], data[i + 1],
@@ -14407,7 +14549,8 @@
                         )) {
                             return true;
                         }
-                    } else {
+                    }
+                    else {
                         w += windingQuadratic(
                             xi, yi,
                             data[i++], data[i++], data[i], data[i + 1],
@@ -14433,7 +14576,8 @@
                     // 不是直接使用 arc 命令
                     if (i > 1) {
                         w += windingLine(xi, yi, x1, y1, x, y);
-                    } else {
+                    }
+                    else {
                         // 第一个命令起点还未定义
                         x0 = x1;
                         y0 = y1;
@@ -14447,7 +14591,8 @@
                         )) {
                             return true;
                         }
-                    } else {
+                    }
+                    else {
                         w += windingArc(
                             cx, cy, ry, theta, theta + dTheta, anticlockwise,
                             _x, y
@@ -14471,7 +14616,8 @@
                         ) {
                             return true;
                         }
-                    } else {
+                    }
+                    else {
                         // FIXME Clockwise ?
                         w += windingLine(x1, y0, x1, y1, x, y);
                         w += windingLine(x0, y1, x0, y0, x, y);
@@ -14484,7 +14630,8 @@
                         )) {
                             return true;
                         }
-                    } else {
+                    }
+                    else {
                         // Close a subpath
                         w += windingLine(xi, yi, x0, y0, x, y);
                         // 如果被任何一个 subpath 包含
@@ -14517,7 +14664,6 @@
     var abs = Math.abs;
 
     var pathProxyForDraw = new PathProxy(true);
-
     /**
      * @alias module:zrender/graphic/Path
      * @extends module:zrender/graphic/Displayable
@@ -14586,12 +14732,14 @@
             if (hasFillGradient) {
                 // PENDING If may have affect the state
                 ctx.fillStyle = this._fillGradient;
-            } else if (hasFillPattern) {
+            }
+            else if (hasFillPattern) {
                 ctx.fillStyle = getCanvasPattern.call(fill, ctx);
             }
             if (hasStrokeGradient) {
                 ctx.strokeStyle = this._strokeGradient;
-            } else if (hasStrokePattern) {
+            }
+            else if (hasStrokePattern) {
                 ctx.strokeStyle = getCanvasPattern.call(stroke, ctx);
             }
 
@@ -14626,7 +14774,8 @@
                 if (this.path) {
                     this.__dirtyPath = false;
                 }
-            } else {
+            }
+            else {
                 // Replay path building
                 ctx.beginPath();
                 this.path.rebuildPath(ctx);
@@ -14638,7 +14787,8 @@
                     ctx.globalAlpha = style.fillOpacity * style.opacity;
                     path.fill(ctx);
                     ctx.globalAlpha = originalGlobalAlpha;
-                } else {
+                }
+                else {
                     path.fill(ctx);
                 }
             }
@@ -14654,7 +14804,8 @@
                     ctx.globalAlpha = style.strokeOpacity * style.opacity;
                     path.stroke(ctx);
                     ctx.globalAlpha = originalGlobalAlpha;
-                } else {
+                }
+                else {
                     path.stroke(ctx);
                 }
             }
@@ -14675,8 +14826,7 @@
 
         // When bundling path, some shape may decide if use moveTo to begin a new subpath or closePath
         // Like in circle
-        buildPath: function (ctx, shapeCfg, inBundle) {
-        },
+        buildPath: function (ctx, shapeCfg, inBundle) {},
 
         createPathProxy: function () {
             this.path = new PathProxy();
@@ -14803,7 +14953,8 @@
                 this.setShape(value);
                 this.__dirtyPath = true;
                 this._rect = null;
-            } else {
+            }
+            else {
                 Displayable.prototype.attrKV.call(this, key, value);
             }
         },
@@ -14822,7 +14973,8 @@
                             shape[name] = key[name];
                         }
                     }
-                } else {
+                }
+                else {
                     shape[key] = value;
                 }
                 this.dirty(true);
@@ -15040,9 +15192,9 @@
             + mathSin(psi) * cxp
             + mathCos(psi) * cyp;
 
-        var theta = vAngle([1, 0], [(xp - cxp) / rx, (yp - cyp) / ry]);
-        var u = [(xp - cxp) / rx, (yp - cyp) / ry];
-        var v = [(-1 * xp - cxp) / rx, (-1 * yp - cyp) / ry];
+        var theta = vAngle([ 1, 0 ], [ (xp - cxp) / rx, (yp - cyp) / ry ]);
+        var u = [ (xp - cxp) / rx, (yp - cyp) / ry ];
+        var v = [ (-1 * xp - cxp) / rx, (-1 * yp - cyp) / ry ];
         var dTheta = vAngle(u, v);
 
         if (vRatio(u, v) <= -1) {
@@ -15070,7 +15222,6 @@
 // '2e-4', 'l.5.9' (ignore 0), 'M-10-10', 'l-2.43e-1,34.9983',
 // 'l-.5E1,54', '121-23-44-11' (no delimiter)
     var numberReg = /-?([0-9]*\.)?[0-9]+([eE]-?[0-9]+)?/g;
-
 // var valueSplitReg = /[\s,]+/;
 
     function createPathProxyFromString(data) {
@@ -15353,7 +15504,8 @@
                 if (ctx) {
                     path.rebuildPath(ctx);
                 }
-            } else {
+            }
+            else {
                 var ctx = path;
                 pathProxy.rebuildPath(ctx);
             }
@@ -15745,7 +15897,8 @@
                 p0 = points[idx === 0 ? idx : idx - 1];
                 p2 = points[idx > len$$1 - 2 ? len$$1 - 1 : idx + 1];
                 p3 = points[idx > len$$1 - 3 ? len$$1 - 1 : idx + 2];
-            } else {
+            }
+            else {
                 p0 = points[(idx - 1 + len$$1) % len$$1];
                 p2 = points[(idx + 1) % len$$1];
                 p3 = points[(idx + 2) % len$$1];
@@ -15810,11 +15963,13 @@
             if (isLoop) {
                 prevPoint = points[i ? i - 1 : len$$1 - 1];
                 nextPoint = points[(i + 1) % len$$1];
-            } else {
+            }
+            else {
                 if (i === 0 || i === len$$1 - 1) {
                     cps.push(clone$1(points[i]));
                     continue;
-                } else {
+                }
+                else {
                     prevPoint = points[i - 1];
                     nextPoint = points[i + 1];
                 }
@@ -15873,7 +16028,8 @@
                         cp1[0], cp1[1], cp2[0], cp2[1], p[0], p[1]
                     );
                 }
-            } else {
+            }
+            else {
                 if (smooth === 'spline') {
                     points = smoothSpline(points, closePath);
                 }
@@ -15973,13 +16129,15 @@
 
         if (round(x1 * 2) === round(x2 * 2)) {
             outputShape.x1 = outputShape.x2 = subPixelOptimize$1(x1, lineWidth, true);
-        } else {
+        }
+        else {
             outputShape.x1 = x1;
             outputShape.x2 = x2;
         }
         if (round(y1 * 2) === round(y2 * 2)) {
             outputShape.y1 = outputShape.y2 = subPixelOptimize$1(y1, lineWidth, true);
-        } else {
+        }
+        else {
             outputShape.y1 = y1;
             outputShape.y2 = y2;
         }
@@ -16081,7 +16239,8 @@
                 height = subPixelOptimizeOutputShape.height;
                 subPixelOptimizeOutputShape.r = shape.r;
                 shape = subPixelOptimizeOutputShape;
-            } else {
+            }
+            else {
                 x = shape.x;
                 y = shape.y;
                 width = shape.width;
@@ -16090,7 +16249,8 @@
 
             if (!shape.r) {
                 ctx.rect(x, y, width, height);
-            } else {
+            }
+            else {
                 buildPath(ctx, shape);
             }
             ctx.closePath();
@@ -16138,7 +16298,8 @@
                 y1 = subPixelOptimizeOutputShape$1.y1;
                 x2 = subPixelOptimizeOutputShape$1.x2;
                 y2 = subPixelOptimizeOutputShape$1.y2;
-            } else {
+            }
+            else {
                 x1 = shape.x1;
                 y1 = shape.y1;
                 x2 = shape.x2;
@@ -16189,7 +16350,8 @@
                 (isTangent ? cubicDerivativeAt : cubicAt)(shape.x1, shape.cpx1, shape.cpx2, shape.x2, t),
                 (isTangent ? cubicDerivativeAt : cubicAt)(shape.y1, shape.cpy1, shape.cpy2, shape.y2, t)
             ];
-        } else {
+        }
+        else {
             return [
                 (isTangent ? quadraticDerivativeAt : quadraticAt)(shape.x1, shape.cpx1, shape.x2, t),
                 (isTangent ? quadraticDerivativeAt : quadraticAt)(shape.y1, shape.cpy1, shape.y2, t)
@@ -16254,7 +16416,8 @@
                     cpx1, cpy1,
                     x2, y2
                 );
-            } else {
+            }
+            else {
                 if (percent < 1) {
                     cubicSubdivide(
                         x1, cpx1, cpx2, x2, percent, out
@@ -16532,7 +16695,8 @@
     IncrementalDisplayble.prototype.addDisplayable = function (displayable, notPersistent) {
         if (notPersistent) {
             this._temporaryDisplayables.push(displayable);
-        } else {
+        }
+        else {
             this._displayables.push(displayable);
         }
         this.dirty();
@@ -16794,7 +16958,8 @@
         var height;
         if (width <= rect.width) {
             height = rect.height;
-        } else {
+        }
+        else {
             width = rect.width;
             height = width / aspect;
         }
@@ -17013,7 +17178,8 @@
 
         if (highlighted === 'layer') {
             el.__zr && el.__zr.removeHover(el);
-        } else {
+        }
+        else {
             var style = el.style;
 
             var normalStl = el.__cachedNormalStl;
@@ -17373,7 +17539,8 @@
 
         if (defaultColor === false) {
             isEmphasis = true;
-        } else {
+        }
+        else {
             // Support setting color as 'auto' to get visual color.
             opt.autoColor = defaultColor;
         }
@@ -17421,7 +17588,8 @@
             var textPosition;
             if (opt.getTextPosition) {
                 textPosition = opt.getTextPosition(textStyleModel, isEmphasis);
-            } else {
+            }
+            else {
                 textPosition = textStyleModel.getShallow('position')
                     || (isEmphasis ? null : 'inside');
                 // 'outside' is not a valid zr textPostion value, but used
@@ -17711,7 +17879,8 @@
             duration > 0
                 ? el.animateTo(props, duration, animationDelay || 0, animationEasing, cb, !!cb)
                 : (el.stopAnimation(), el.attr(props), cb && cb());
-        } else {
+        }
+        else {
             el.stopAnimation();
             el.attr(props);
             cb && cb();
@@ -17844,7 +18013,6 @@
             });
             return elMap;
         }
-
         function getAnimatableProps(el) {
             var obj = {
                 position: clone$1(el.position),
@@ -17855,7 +18023,6 @@
             }
             return obj;
         }
-
         var elMap1 = getElMap(g1);
 
         g2.traverse(function (el) {
@@ -18039,6 +18206,8 @@
     registerShape('line', Line);
     registerShape('bezierCurve', BezierCurve);
     registerShape('arc', Arc);
+
+
 
 
     var graphic = (Object.freeze || Object)({
@@ -18345,8 +18514,7 @@
             return this.option == null;
         },
 
-        restoreData: function () {
-        },
+        restoreData: function () {},
 
         // Pending
         clone: function () {
@@ -18379,7 +18547,8 @@
             if (!env$1.node) {
                 if (this.option.animation != null) {
                     return !!this.option.animation;
-                } else if (this.parentModel) {
+                }
+                else if (this.parentModel) {
                     return this.parentModel.isAnimationEnabled();
                 }
             }
@@ -18664,17 +18833,21 @@
             if (subDomain > 0) {
                 if (val <= domain[0]) {
                     return range[0];
-                } else if (val >= domain[1]) {
-                    return range[1];
                 }
-            } else {
-                if (val >= domain[0]) {
-                    return range[0];
-                } else if (val <= domain[1]) {
+                else if (val >= domain[1]) {
                     return range[1];
                 }
             }
-        } else {
+            else {
+                if (val >= domain[0]) {
+                    return range[0];
+                }
+                else if (val <= domain[1]) {
+                    return range[1];
+                }
+            }
+        }
+        else {
             if (val === domain[0]) {
                 return range[0];
             }
@@ -18787,7 +18960,8 @@
         if (eIndex > 0) {
             var precision = +str.slice(eIndex + 1);
             return precision < 0 ? -precision : 0;
-        } else {
+        }
+        else {
             var dotIndex = str.indexOf('.');
             return dotIndex < 0 ? 0 : str.length - 1 - dotIndex;
         }
@@ -18915,7 +19089,8 @@
     function parseDate(value) {
         if (value instanceof Date) {
             return value;
-        } else if (typeof value === 'string') {
+        }
+        else if (typeof value === 'string') {
             // Different browsers parse date in different way, so we parse it manually.
             // Some other issues:
             // new Date('1970-01-01') is UTC,
@@ -18964,7 +19139,8 @@
                     +match[7] || 0
                 ));
             }
-        } else if (value == null) {
+        }
+        else if (value == null) {
             return new Date(NaN);
         }
 
@@ -19024,25 +19200,34 @@
         if (round) {
             if (f < 1.5) {
                 nf = 1;
-            } else if (f < 2.5) {
+            }
+            else if (f < 2.5) {
                 nf = 2;
-            } else if (f < 4) {
+            }
+            else if (f < 4) {
                 nf = 3;
-            } else if (f < 7) {
+            }
+            else if (f < 7) {
                 nf = 5;
-            } else {
+            }
+            else {
                 nf = 10;
             }
-        } else {
+        }
+        else {
             if (f < 1) {
                 nf = 1;
-            } else if (f < 2) {
+            }
+            else if (f < 2) {
                 nf = 2;
-            } else if (f < 3) {
+            }
+            else if (f < 3) {
                 nf = 3;
-            } else if (f < 5) {
+            }
+            else if (f < 5) {
                 nf = 5;
-            } else {
+            }
+            else {
                 nf = 10;
             }
         }
@@ -19111,7 +19296,8 @@
 
             if (interval[0] === interval[1] && close[0] * close[1] !== 1) {
                 list.splice(i, 1);
-            } else {
+            }
+            else {
                 i++;
             }
         }
@@ -19323,7 +19509,8 @@
                 : '<span style="display:inline-block;margin-right:5px;'
                 + 'border-radius:10px;width:10px;height:10px;background-color:'
                 + encodeHTML(color) + ';' + (extraCssText || '') + '"></span>';
-        } else {
+        }
+        else {
             // Space for rich element marker
             return {
                 renderMode: renderMode,
@@ -19522,11 +19709,13 @@
                     nextX = moveX;
                     y += currentLineMaxSize + gap;
                     currentLineMaxSize = rect.height;
-                } else {
+                }
+                else {
                     // FIXME: consider rect.y is not `0`?
                     currentLineMaxSize = Math.max(currentLineMaxSize, rect.height);
                 }
-            } else {
+            }
+            else {
                 var moveY = rect.height + (nextChildRect ? (-nextChildRect.y + rect.y) : 0);
                 nextY = y + moveY;
                 // Wrap when width exceeds maxHeight or meet a `newline` group
@@ -19535,7 +19724,8 @@
                     y = 0;
                     nextY = moveY;
                     currentLineMaxSize = rect.width;
-                } else {
+                }
+                else {
                     currentLineMaxSize = Math.max(currentLineMaxSize, rect.width);
                 }
             }
@@ -19672,7 +19862,8 @@
             if (isNaN(width) && isNaN(height)) {
                 if (aspect > containerWidth / containerHeight) {
                     width = containerWidth * 0.8;
-                } else {
+                }
+                else {
                     height = containerHeight * 0.8;
                 }
             }
@@ -19782,7 +19973,8 @@
             rect = el.type === 'group'
                 ? new BoundingRect(0, 0, +positionInfo.width || 0, +positionInfo.height || 0)
                 : el.getBoundingRect();
-        } else {
+        }
+        else {
             rect = el.getBoundingRect();
             if (el.needLocalTransform()) {
                 var transform = el.getLocalTransform();
@@ -19881,7 +20073,8 @@
                 // Only one of left/right is premitted to exist.
                 if (hasValue(newOption, names[1])) {
                     merged[names[2]] = null;
-                } else if (hasValue(newOption, names[2])) {
+                }
+                else if (hasValue(newOption, names[2])) {
                     merged[names[1]] = null;
                 }
                 return merged;
@@ -19899,7 +20092,8 @@
             // all origin params in targetOption.
             else if (newValueCount >= enoughParamNumber) {
                 return newParams;
-            } else {
+            }
+            else {
                 // Chose another param from targetOption by priority.
                 for (var i = 0; i < names.length; i++) {
                     var name = names[i];
@@ -20122,8 +20316,7 @@
         },
 
         // Hooker after init or mergeOption
-        optionUpdated: function (newCptOption, isInit) {
-        },
+        optionUpdated: function (newCptOption, isInit) {},
 
         getDefaultOption: function () {
             var fields = inner$1(this);
@@ -20733,7 +20926,8 @@
 
         if (isTypedArray(data)) {
             sourceFormat = SOURCE_FORMAT_TYPED_ARRAY;
-        } else if (isArray(data)) {
+        }
+        else if (isArray(data)) {
             // FIXME Whether tolerate null in top level array?
             if (data.length === 0) {
                 sourceFormat = SOURCE_FORMAT_ARRAY_ROWS;
@@ -20744,22 +20938,26 @@
 
                 if (item == null) {
                     continue;
-                } else if (isArray(item)) {
+                }
+                else if (isArray(item)) {
                     sourceFormat = SOURCE_FORMAT_ARRAY_ROWS;
                     break;
-                } else if (isObject$1(item)) {
+                }
+                else if (isObject$1(item)) {
                     sourceFormat = SOURCE_FORMAT_OBJECT_ROWS;
                     break;
                 }
             }
-        } else if (isObject$1(data)) {
+        }
+        else if (isObject$1(data)) {
             for (var key in data) {
                 if (data.hasOwnProperty(key) && isArrayLike(data[key])) {
                     sourceFormat = SOURCE_FORMAT_KEYED_COLUMNS;
                     break;
                 }
             }
-        } else if (data != null) {
+        }
+        else if (data != null) {
             throw new Error('Invalid data');
         }
 
@@ -20889,13 +21087,15 @@
                     if (val != null && val !== '-') {
                         if (isString(val)) {
                             startIndex == null && (startIndex = 1);
-                        } else {
+                        }
+                        else {
                             startIndex = 0;
                         }
                     }
                     // 10 is an experience number, avoid long loop.
                 }, seriesLayoutBy, data, 10);
-            } else {
+            }
+            else {
                 startIndex = sourceHeader ? 1 : 0;
             }
 
@@ -20913,12 +21113,14 @@
                     : data[0]
                         ? data[0].length
                         : null;
-        } else if (sourceFormat === SOURCE_FORMAT_OBJECT_ROWS) {
+        }
+        else if (sourceFormat === SOURCE_FORMAT_OBJECT_ROWS) {
             if (!dimensionsDefine) {
                 dimensionsDefine = objectRowsCollectDimensions(data);
                 findPotentialName = true;
             }
-        } else if (sourceFormat === SOURCE_FORMAT_KEYED_COLUMNS) {
+        }
+        else if (sourceFormat === SOURCE_FORMAT_KEYED_COLUMNS) {
             if (!dimensionsDefine) {
                 dimensionsDefine = [];
                 findPotentialName = true;
@@ -20926,10 +21128,12 @@
                     dimensionsDefine.push(key);
                 });
             }
-        } else if (sourceFormat === SOURCE_FORMAT_ORIGINAL) {
+        }
+        else if (sourceFormat === SOURCE_FORMAT_ORIGINAL) {
             var value0 = getDataItemValue(data[0]);
             dimensionsDetectCount = isArray(value0) && value0.length || 1;
-        } else if (sourceFormat === SOURCE_FORMAT_TYPED_ARRAY) {
+        }
+        else if (sourceFormat === SOURCE_FORMAT_TYPED_ARRAY) {
             if (__DEV__) {
                 assert$1(!!dimensionsDefine, 'dimensions must be given if data is TypedArray.');
             }
@@ -20986,7 +21190,8 @@
             var exist = nameMap.get(item.name);
             if (!exist) {
                 nameMap.set(item.name, {count: 1});
-            } else {
+            }
+            else {
                 item.name += '-' + exist.count++;
             }
 
@@ -21000,7 +21205,8 @@
             for (var i = 0; i < data.length && i < maxLoop; i++) {
                 cb(data[i] ? data[i][0] : null, i);
             }
-        } else {
+        }
+        else {
             var value0 = data[0] || [];
             for (var i = 0; i < value0.length && i < maxLoop; i++) {
                 cb(value0[i], i);
@@ -21011,8 +21217,7 @@
     function objectRowsCollectDimensions(data) {
         var firstIndex = 0;
         var obj;
-        while (firstIndex < data.length && !(obj = data[firstIndex++])) {
-        } // jshint ignore: line
+        while (firstIndex < data.length && !(obj = data[firstIndex++])) {} // jshint ignore: line
         if (obj) {
             var dimensions = [];
             each$1(obj, function (value, key) {
@@ -21187,7 +21392,8 @@
                         return result;
                     }
                 }
-            } else {
+            }
+            else {
                 for (var i = 0; i < data.length && i < maxLoop; i++) {
                     var row = data[startIndex + i];
                     if (row && (result = detectValue(row[dimIndex])) != null) {
@@ -21195,7 +21401,8 @@
                     }
                 }
             }
-        } else if (sourceFormat === SOURCE_FORMAT_OBJECT_ROWS) {
+        }
+        else if (sourceFormat === SOURCE_FORMAT_OBJECT_ROWS) {
             if (!dimName) {
                 return;
             }
@@ -21205,7 +21412,8 @@
                     return result;
                 }
             }
-        } else if (sourceFormat === SOURCE_FORMAT_KEYED_COLUMNS) {
+        }
+        else if (sourceFormat === SOURCE_FORMAT_KEYED_COLUMNS) {
             if (!dimName) {
                 return;
             }
@@ -21218,7 +21426,8 @@
                     return result;
                 }
             }
-        } else if (sourceFormat === SOURCE_FORMAT_ORIGINAL) {
+        }
+        else if (sourceFormat === SOURCE_FORMAT_ORIGINAL) {
             for (var i = 0; i < data.length && i < maxLoop; i++) {
                 var item = data[i];
                 var val = getDataItemValue(item);
@@ -21236,7 +21445,8 @@
             // `isFinit('')` get `true`.
             if (val != null && isFinite(val) && val !== '') {
                 return false;
-            } else if (isString(val) && val !== '-') {
+            }
+            else if (isString(val) && val !== '-') {
                 return true;
             }
         }
@@ -21338,7 +21548,8 @@
 
                 if (!this.option || type === 'recreate') {
                     initBase.call(this, baseOption);
-                } else {
+                }
+                else {
                     this.restoreData();
                     this.mergeOption(baseOption);
                 }
@@ -21388,7 +21599,8 @@
                     option[mainType] = option[mainType] == null
                         ? clone(componentOption)
                         : merge(option[mainType], componentOption, true);
-                } else if (mainType) {
+                }
+                else if (mainType) {
                     newCptTypes.push(mainType);
                 }
             });
@@ -21438,7 +21650,8 @@
                     if (!newCptOption) {
                         componentModel.mergeOption({}, this);
                         componentModel.optionUpdated({}, false);
-                    } else {
+                    }
+                    else {
                         var ComponentModelClass = ComponentModel.getClass(
                             mainType, resultItem.keyInfo.subType, true
                         );
@@ -21448,7 +21661,8 @@
                             // componentModel.settingTask && componentModel.settingTask.dirty();
                             componentModel.mergeOption(newCptOption, this);
                             componentModel.optionUpdated(newCptOption, false);
-                        } else {
+                        }
+                        else {
                             // PENDING Global as parent ?
                             var extraOpt = extend(
                                 {
@@ -21568,19 +21782,22 @@
                 }), function (val) {
                     return !!val;
                 });
-            } else if (id != null) {
+            }
+            else if (id != null) {
                 var isIdArray = isArray(id);
                 result = filter(cpts, function (cpt) {
                     return (isIdArray && indexOf(id, cpt.id) >= 0)
                         || (!isIdArray && cpt.id === id);
                 });
-            } else if (name != null) {
+            }
+            else if (name != null) {
                 var isNameArray = isArray(name);
                 result = filter(cpts, function (cpt) {
                     return (isNameArray && indexOf(name, cpt.name) >= 0)
                         || (!isNameArray && cpt.name === name);
                 });
-            } else {
+            }
+            else {
                 // Return all components with mainType
                 result = cpts.slice();
             }
@@ -21687,9 +21904,11 @@
                         cb.call(context, componentType, component, index);
                     });
                 });
-            } else if (isString(mainType)) {
+            }
+            else if (isString(mainType)) {
                 each$1(componentsMap.get(mainType), cb, context);
-            } else if (isObject$1(mainType)) {
+            }
+            else if (isObject$1(mainType)) {
                 var queryResult = this.findComponents(mainType);
                 each$1(queryResult, cb, context);
             }
@@ -21876,7 +22095,8 @@
                     option[name] = !option[name]
                         ? clone(themeItem)
                         : merge(option[name], themeItem, false);
-                } else {
+                }
+                else {
                     if (option[name] == null) {
                         option[name] = themeItem;
                     }
@@ -22015,7 +22235,6 @@
         'on', 'off', 'getDataURL', 'getConnectedDataURL', 'getModel', 'getOption',
         'getViewOfComponentModel', 'getViewOfSeriesModel'
     ];
-
 // And `getCoordinateSystems` and `getComponentByElement` will be injected in echarts.js
 
     function ExtensionAPI(chartInstance) {
@@ -22277,7 +22496,8 @@
                 if (newParsedOption.mediaDefault) {
                     oldOptionBackup.mediaDefault = newParsedOption.mediaDefault;
                 }
-            } else {
+            }
+            else {
                 this._optionBackup = newParsedOption;
             }
         },
@@ -22402,7 +22622,8 @@
                 if (singleMedia && singleMedia.option) {
                     if (singleMedia.query) {
                         mediaList.push(singleMedia);
-                    } else if (!mediaDefault) {
+                    }
+                    else if (!mediaDefault) {
                         // Use the first media default.
                         mediaDefault = singleMedia;
                     }
@@ -22476,9 +22697,11 @@
     function compare(real, expect, operator) {
         if (operator === 'min') {
             return real >= expect;
-        } else if (operator === 'max') {
+        }
+        else if (operator === 'max') {
             return real <= expect;
-        } else { // Equals
+        }
+        else { // Equals
             return real === expect;
         }
     }
@@ -22521,7 +22744,8 @@
 
             if (!ComponentModel.hasClass(mainType)) {
                 oldOption[mainType] = merge$1(oldCptOpt, newCptOpt, true);
-            } else {
+            }
+            else {
                 newCptOpt = normalizeToArray(newCptOpt);
                 oldCptOpt = normalizeToArray(oldCptOpt);
 
@@ -22576,7 +22800,8 @@
                 opt[styleName] = opt[styleName] || {};
                 if (!opt[styleName].normal) {
                     opt[styleName].normal = normalItemStyleOpt[styleName];
-                } else {
+                }
+                else {
                     merge(opt[styleName].normal, normalItemStyleOpt[styleName]);
                 }
                 normalItemStyleOpt[styleName] = null;
@@ -22585,7 +22810,8 @@
                 opt[styleName] = opt[styleName] || {};
                 if (!opt[styleName].emphasis) {
                     opt[styleName].emphasis = emphasisItemStyleOpt[styleName];
-                } else {
+                }
+                else {
                     merge(opt[styleName].emphasis, emphasisItemStyleOpt[styleName]);
                 }
                 emphasisItemStyleOpt[styleName] = null;
@@ -22603,7 +22829,8 @@
                 if (useExtend) {
                     opt[optType].normal = opt[optType].emphasis = null;
                     defaults(opt[optType], normalOpt);
-                } else {
+                }
+                else {
                     opt[optType] = normalOpt;
                 }
             }
@@ -22726,7 +22953,8 @@
                 if (isArray(mlData[i])) {
                     compatEC3CommonStyles(mlData[i][0]);
                     compatEC3CommonStyles(mlData[i][1]);
-                } else {
+                }
+                else {
                     compatEC3CommonStyles(mlData[i]);
                 }
             }
@@ -22737,12 +22965,14 @@
             compatTextStyle(seriesOpt, 'axisLabel');
             compatTextStyle(seriesOpt, 'title');
             compatTextStyle(seriesOpt, 'detail');
-        } else if (seriesOpt.type === 'treemap') {
+        }
+        else if (seriesOpt.type === 'treemap') {
             convertNormalEmphasis(seriesOpt.breadcrumb, 'itemStyle');
             each$1(seriesOpt.levels, function (opt) {
                 removeEC3NormalStatus(opt);
             });
-        } else if (seriesOpt.type === 'tree') {
+        }
+        else if (seriesOpt.type === 'tree') {
             removeEC3NormalStatus(seriesOpt.leaves);
         }
         // sunburst starts from ec4, so it does not need to compat levels.
@@ -22911,11 +23141,13 @@
                 if (seriesOpt.clipOverflow != null) {
                     seriesOpt.clip = seriesOpt.clipOverflow;
                 }
-            } else if (seriesType === 'pie' || seriesType === 'gauge') {
+            }
+            else if (seriesType === 'pie' || seriesType === 'gauge') {
                 if (seriesOpt.clockWise != null) {
                     seriesOpt.clockwise = seriesOpt.clockWise;
                 }
-            } else if (seriesType === 'gauge') {
+            }
+            else if (seriesType === 'gauge') {
                 var pointerColor = get(seriesOpt, 'pointer.color');
                 pointerColor != null
                 && set$1(seriesOpt, 'itemStyle.color', pointerColor);
@@ -23028,7 +23260,8 @@
 
                 if (isStackedByIndex) {
                     stackedDataRawIndex = targetData.getRawIndex(dataIndex);
-                } else {
+                }
+                else {
                     byValue = targetData.get(targetStackInfo.stackedByDimension, dataIndex);
                 }
 
@@ -23253,16 +23486,15 @@
     function countSimply() {
         return this._data.length;
     }
-
     function getItemSimply(idx) {
         return this._data[idx];
     }
-
     function appendDataSimply(newData) {
         for (var i = 0; i < newData.length; i++) {
             this._data.push(newData[i]);
         }
     }
+
 
 
     var rawValueGetters = {
@@ -23542,7 +23774,8 @@
                 params.status = status;
                 params.dimensionIndex = dimIndex;
                 return formatter(params);
-            } else if (typeof formatter === 'string') {
+            }
+            else if (typeof formatter === 'string') {
                 var str = formatTpl(formatter, params);
 
                 // Support 'aaa{@[3]}bbb{@product}ccc'.
@@ -23715,7 +23948,8 @@
                     for (var i = 0; i < progress.length; i++) {
                         doProgress(this, progress[i], start, end, modBy, modDataCount);
                     }
-                } else {
+                }
+                else {
                     doProgress(this, progress, start, end, modBy, modDataCount);
                 }
             }
@@ -23732,7 +23966,8 @@
             }
 
             this._outputDueEnd = outputDueEnd;
-        } else {
+        }
+        else {
             // (1) Some overall task has no progress.
             // (2) Stubs, that its host overall task do not let it has progress, has no progress.
             // This should always be performed so it can be passed to downstream.
@@ -24110,8 +24345,7 @@
          * Init a data structure from data related option in series
          * Must be overwritten
          */
-        getInitialData: function () {
-        },
+        getInitialData: function () {},
 
         /**
          * Append data to list
@@ -24139,7 +24373,8 @@
             if (task) {
                 var data = task.context.data;
                 return dataType == null ? data : data.getLinkedData(dataType);
-            } else {
+            }
+            else {
                 // When series is not alive (that may happen when click toolbox
                 // restore or setOption with not merge mode), series data may
                 // be still need to judge animation or something when graphic
@@ -24560,14 +24795,11 @@
 
         constructor: Component$1,
 
-        init: function (ecModel, api) {
-        },
+        init: function (ecModel, api) {},
 
-        render: function (componentModel, ecModel, api, payload) {
-        },
+        render: function (componentModel, ecModel, api, payload) {},
 
-        dispose: function () {
-        },
+        dispose: function () {},
 
         /**
          * @param {string} eventType
@@ -24684,8 +24916,7 @@
          * @param  {module:echarts/model/Global} ecModel
          * @param  {module:echarts/ExtensionAPI} api
          */
-        init: function (ecModel, api) {
-        },
+        init: function (ecModel, api) {},
 
         /**
          * Render the chart.
@@ -24694,8 +24925,7 @@
          * @param  {module:echarts/ExtensionAPI} api
          * @param  {Object} payload
          */
-        render: function (seriesModel, ecModel, api, payload) {
-        },
+        render: function (seriesModel, ecModel, api, payload) {},
 
         /**
          * Highlight series or specified data item.
@@ -24733,8 +24963,7 @@
          * @param  {module:echarts/model/Global} ecModel
          * @param  {module:echarts/ExtensionAPI} api
          */
-        dispose: function () {
-        },
+        dispose: function () {},
 
         /**
          * Rendering preparation in progressive mode.
@@ -24828,7 +25057,8 @@
             each$1(normalizeToArray(dataIndex), function (dataIdx) {
                 elSetState(data.getItemGraphicEl(dataIdx), state, highlightDigit);
             });
-        } else {
+        }
+        else {
             data.eachItemGraphicEl(function (el) {
                 elSetState(el, state, highlightDigit);
             });
@@ -24969,10 +25199,12 @@
             // state being "rolled-back".
             if (thisDebounce) {
                 timer = setTimeout(exec, thisDelay);
-            } else {
+            }
+            else {
                 if (diff >= 0) {
                     exec();
-                } else {
+                }
+                else {
                     timer = setTimeout(exec, -diff);
                 }
             }
@@ -25130,7 +25362,7 @@
                     }
                 };
 
-                return {dataEach: data.hasItemOption ? dataEach : null};
+                return { dataEach: data.hasItemOption ? dataEach : null };
             }
         }
     };
@@ -25285,7 +25517,8 @@
         var ariaModel = ecModel.getModel('aria');
         if (!ariaModel.get('show')) {
             return;
-        } else if (ariaModel.get('description')) {
+        }
+        else if (ariaModel.get('description')) {
             dom.setAttribute('aria-label', ariaModel.get('description'));
             return;
         }
@@ -25303,13 +25536,15 @@
         if (seriesCnt < 1) {
             // No series, no aria label
             return;
-        } else {
+        }
+        else {
             var title = getTitle();
             if (title) {
                 ariaLabel = replace(getConfig('general.withTitle'), {
                     title: title
                 });
-            } else {
+            }
+            else {
                 ariaLabel = getConfig('general.withoutTitle');
             }
 
@@ -25317,7 +25552,7 @@
             var prefix = seriesCnt > 1
                 ? 'series.multiple.prefix'
                 : 'series.single.prefix';
-            ariaLabel += replace(getConfig(prefix), {seriesCount: seriesCnt});
+            ariaLabel += replace(getConfig(prefix), { seriesCount: seriesCnt });
 
             ecModel.eachSeries(function (seriesModel, idx) {
                 if (idx < displaySeriesCnt) {
@@ -25343,7 +25578,8 @@
                         seriesLabel += replace(getConfig('data.partialData'), {
                             displayCnt: maxDataCnt
                         });
-                    } else {
+                    }
+                    else {
                         seriesLabel += getConfig('data.allData');
                     }
 
@@ -25404,7 +25640,8 @@
                     result = result[pathArr[i]];
                 }
                 return result;
-            } else {
+            }
+            else {
                 return userConfig;
             }
         }
@@ -25784,7 +26021,8 @@
                     stub.perform(performArgs);
                 });
                 unfinished |= overallTask.perform(performArgs);
-            } else if (seriesTaskMap) {
+            }
+            else if (seriesTaskMap) {
                 seriesTaskMap.each(function (task, pipelineId) {
                     if (needSetDirty(opt, task)) {
                         task.dirty();
@@ -25846,9 +26084,11 @@
         // it works but it may cause other irrelevant charts blocked.
         if (stageHandler.createOnAllSeries) {
             ecModel.eachRawSeries(create);
-        } else if (seriesType) {
+        }
+        else if (seriesType) {
             ecModel.eachRawSeriesByType(seriesType, create);
-        } else if (getTargetSeries) {
+        }
+        else if (getTargetSeries) {
             getTargetSeries(ecModel, api).each(create);
         }
 
@@ -25911,7 +26151,8 @@
         // we set the pipeline block.
         if (seriesType) {
             ecModel.eachRawSeriesByType(seriesType, createStub);
-        } else if (getTargetSeries) {
+        }
+        else if (getTargetSeries) {
             getTargetSeries(ecModel, api).each(createStub);
         }
             // Otherwise, (usually it is legancy case), the overall task will only be
@@ -26008,7 +26249,8 @@
                 for (var i = params.start; i < params.end; i++) {
                     resetDefine.dataEach(data, i);
                 }
-            } else if (resetDefine && resetDefine.progress) {
+            }
+            else if (resetDefine && resetDefine.progress) {
                 resetDefine.progress(params, data);
             }
         };
@@ -26043,6 +26285,7 @@
     };
 
 
+
     /**
      * Only some legacy stage handlers (usually in echarts extensions) are pure function.
      * To ensure that they can work normally, they should work in block mode, that is,
@@ -26055,7 +26298,8 @@
         try {
             // Assume there is no async when calling `eachSeriesByType`.
             legacyFunc(ecModelMock, apiMock);
-        } catch (e) {
+        }
+        catch (e) {
         }
         return seriesType;
     }
@@ -26496,7 +26740,8 @@
         if (nodeName === 'defs') {
             // define flag
             this._isDefine = true;
-        } else if (nodeName === 'text') {
+        }
+        else if (nodeName === 'text') {
             this._isText = true;
         }
 
@@ -26510,7 +26755,8 @@
                     this._defs[id] = def;
                 }
             }
-        } else {
+        }
+        else {
             var parser = nodeParsers[nodeName];
             if (parser) {
                 el = parser.call(this, xmlNode, parentGroup);
@@ -26533,7 +26779,8 @@
         // Quit define
         if (nodeName === 'defs') {
             this._isDefine = false;
-        } else if (nodeName === 'text') {
+        }
+        else if (nodeName === 'text') {
             this._isText = false;
         }
     };
@@ -26773,9 +27020,11 @@
                 var offset = stop.getAttribute('offset');
                 if (offset.indexOf('%') > 0) {  // percentage
                     offset = parseInt(offset, 10) / 100;
-                } else if (offset) {    // number from 0 to 1
+                }
+                else if (offset) {    // number from 0 to 1
                     offset = parseFloat(offset);
-                } else {
+                }
+                else {
                     offset = 0;
                 }
 
@@ -26900,7 +27149,6 @@
 
 
     var urlRegex = /url\(\s*#(.*?)\)/;
-
     function getPaint(str, defs) {
         // if (str === 'none') {
         //     return;
@@ -26963,7 +27211,6 @@
 
 // Value may contain space.
     var styleRegex = /([^\s:;]+)\s*:\s*([^:;]+)/g;
-
     function parseStyleAttribute(xmlNode) {
         var style = xmlNode.getAttribute('style');
         var result = {};
@@ -27066,13 +27313,15 @@
 
             if (isArray(rawGeoJson)) {
                 records = rawGeoJson;
-            } else if (rawGeoJson.svg) {
+            }
+            else if (rawGeoJson.svg) {
                 records = [{
                     type: 'svg',
                     source: rawGeoJson.svg,
                     specialAreas: rawGeoJson.specialAreas
                 }];
-            } else {
+            }
+            else {
                 // Backward compatibility.
                 if (rawGeoJson.geoJson && !rawGeoJson.features) {
                     rawSpecialAreas = rawGeoJson.specialAreas;
@@ -27223,7 +27472,6 @@
     function MessageCenter() {
         Eventful.call(this);
     }
-
     MessageCenter.prototype.on = createRegisterEventWithLowercaseName('on', true);
     MessageCenter.prototype.off = createRegisterEventWithLowercaseName('off', true);
     MessageCenter.prototype.one = createRegisterEventWithLowercaseName('one', true);
@@ -27330,7 +27578,6 @@
         function prioritySortFunc(a, b) {
             return a.__prio - b.__prio;
         }
-
         sort(visualFuncs, prioritySortFunc);
         sort(dataProcessorFuncs, prioritySortFunc);
 
@@ -27490,7 +27737,8 @@
         if (lazyUpdate) {
             this[OPTION_UPDATED] = {silent: silent};
             this[IN_MAIN_PROCESS] = false;
-        } else {
+        }
+        else {
             prepare(this);
 
             updateMethods.update.call(this);
@@ -27723,7 +27971,8 @@
             zr.refreshImmediately();
 
             return targetCanvas.toDataURL('image/' + (opts && opts.type || 'png'));
-        } else {
+        }
+        else {
             return this.getDataURL(opts);
         }
     };
@@ -27829,11 +28078,13 @@
                 var coordSys = model.coordinateSystem;
                 if (coordSys && coordSys.containPoint) {
                     result |= !!coordSys.containPoint(value);
-                } else if (key === 'seriesModels') {
+                }
+                else if (key === 'seriesModels') {
                     var view = this._chartsMap[model.__viewId];
                     if (view && view.containPoint) {
                         result |= view.containPoint(value, model);
-                    } else {
+                    }
+                    else {
                         if (__DEV__) {
                             console.warn(key + ': ' + (view
                                     ? 'The found component do not support containPoint.'
@@ -27841,7 +28092,8 @@
                             ));
                         }
                     }
-                } else {
+                }
+                else {
                     if (__DEV__) {
                         console.warn(key + ': containPoint is not supported');
                     }
@@ -27976,7 +28228,8 @@
                 if (colorArr[3] === 0) {
                     backgroundColor = 'transparent';
                 }
-            } else {
+            }
+            else {
                 zr.setBackgroundColor(backgroundColor);
             }
 
@@ -28008,7 +28261,8 @@
                     if (componentView.updateTransform) {
                         var result = componentView.updateTransform(componentModel, ecModel, api, payload);
                         result && result.update && componentDirtyList.push(componentView);
-                    } else {
+                    }
+                    else {
                         componentDirtyList.push(componentView);
                     }
                 }
@@ -28020,7 +28274,8 @@
                 if (chartView.updateTransform) {
                     var result = chartView.updateTransform(seriesModel, ecModel, api, payload);
                     result && result.update && seriesDirtyMap.set(seriesModel.uid, 1);
-                } else {
+                }
+                else {
                     seriesDirtyMap.set(seriesModel.uid, 1);
                 }
             });
@@ -28320,7 +28575,8 @@
 
         if (opt.flush) {
             this._zr.flush(true);
-        } else if (opt.flush !== false && env$1.browser.weChat) {
+        }
+        else if (opt.flush !== false && env$1.browser.weChat) {
             // In WeChat embeded browser, `requestAnimationFrame` and `setInterval`
             // hang when sliding page (on touch event), which cause that zr does not
             // refresh util user interaction finished, which is not expected.
@@ -28375,7 +28631,8 @@
             if (isHighDown) {
                 // method, payload, mainType, subType
                 updateDirectly(this, updateMethod, batchItem, 'series');
-            } else if (cptType) {
+            }
+            else if (cptType) {
                 updateDirectly(this, updateMethod, batchItem, cptType.main, cptType.sub);
             }
         }, this);
@@ -28387,7 +28644,8 @@
                 prepare(this);
                 updateMethods.update.call(this, payload);
                 this[OPTION_UPDATED] = false;
-            } else {
+            }
+            else {
                 updateMethods[updateMethod].call(this, payload);
             }
         }
@@ -28399,7 +28657,8 @@
                 escapeConnect: escapeConnect,
                 batch: eventObjBatch
             };
-        } else {
+        }
+        else {
             eventObj = eventObjBatch[0];
         }
 
@@ -28557,7 +28816,8 @@
                 viewList.splice(i, 1);
                 delete viewMap[view.__id];
                 view.__id = view.group.__ecComponentInfo = null;
-            } else {
+            }
+            else {
                 i++;
             }
         }
@@ -28682,7 +28942,8 @@
                 // no e.target when 'globalout'.
                 if (isGlobalOut) {
                     params = {};
-                } else if (el && el.dataIndex != null) {
+                }
+                else if (el && el.dataIndex != null) {
                     var dataModel = el.dataModel || ecModel.getSeriesByIndex(el.seriesIndex);
                     params = dataModel && dataModel.getDataParams(el.dataIndex, el.dataType, el) || {};
                 }
@@ -28773,7 +29034,7 @@
             disposedWarning(this.id);
             return;
         }
-        this.setOption({series: []}, true);
+        this.setOption({ series: [] }, true);
     };
 
     /**
@@ -28923,7 +29184,6 @@
         // These info required: targetEl, packedEvent, model, view
         this.eventInfo;
     }
-
     EventProcessor.prototype = {
         constructor: EventProcessor,
 
@@ -29222,7 +29482,8 @@
     function dispose(chart) {
         if (typeof chart === 'string') {
             chart = instances[chart];
-        } else if (!(chart instanceof ECharts)) {
+        }
+        else if (!(chart instanceof ECharts)) {
             // Try to treat as dom
             chart = getInstanceByDom(chart);
         }
@@ -29633,11 +29894,13 @@
                     if (len) {
                         len === 1 && (newDataIndexMap[key] = null);
                         idx = idx.shift();
-                    } else {
+                    }
+                    else {
                         newDataIndexMap[key] = null;
                     }
                     this._update && this._update(idx, i);
-                } else {
+                }
+                else {
                     this._remove && this._remove(i);
                 }
             }
@@ -29652,7 +29915,8 @@
                     // idx can never be empty array here. see 'set null' logic above.
                     if (!idx.length) {
                         this._add && this._add(idx);
-                    } else {
+                    }
+                    else {
                         for (var j = 0, len = idx.length; j < len; j++) {
                             this._add && this._add(idx[j]);
                         }
@@ -29670,7 +29934,8 @@
             if (existence == null) {
                 keyArr.push(key);
                 map[key] = i;
-            } else {
+            }
+            else {
                 if (!existence.length) {
                     map[key] = existence = [existence];
                 }
@@ -29784,7 +30049,8 @@
         var encodeTooltip = encode.tooltip;
         if (encodeTooltip && encodeTooltip.length) {
             defaultedTooltip = encodeTooltip.slice();
-        } else if (!defaultedTooltip.length) {
+        }
+        else if (!defaultedTooltip.length) {
             defaultedTooltip = defaultedLabel.slice();
         }
 
@@ -29915,6 +30181,9 @@
 
         target._calculationInfo = extend(source._calculationInfo);
     }
+
+
+
 
 
     /**
@@ -30455,7 +30724,8 @@
                         // There is no other place to persistent dataItem.name,
                         // so save it to nameList.
                         nameList[idx] = name = dataItem.name;
-                    } else if (nameDimIdx != null) {
+                    }
+                    else if (nameDimIdx != null) {
                         var nameDim = dimensions[nameDimIdx];
                         var nameDimChunk = storage[nameDim][chunkIndex];
                         if (nameDimChunk) {
@@ -30582,10 +30852,12 @@
                 for (var i = 0; i < thisCount; i++) {
                     newIndices[i] = indices[i];
                 }
-            } else {
+            }
+            else {
                 newIndices = new Ctor(indices.buffer, 0, thisCount);
             }
-        } else {
+        }
+        else {
             var Ctor = getIndicesCtor(this);
             var newIndices = new Ctor(this.count());
             for (var i = 0; i < newIndices.length; i++) {
@@ -30944,9 +31216,11 @@
             var mid = (left + right) / 2 | 0;
             if (indices[mid] < rawIndex) {
                 left = mid + 1;
-            } else if (indices[mid] > rawIndex) {
+            }
+            else if (indices[mid] > rawIndex) {
                 right = mid - 1;
-            } else {
+            }
+            else {
                 return mid;
             }
         }
@@ -31024,7 +31298,8 @@
                 val.push(this.get(dim, idx));
             }
             return val;
-        } else {
+        }
+        else {
             return this._rawData.getItem(this.getRawIndex(idx));
         }
     };
@@ -31187,10 +31462,12 @@
             // Simple optimization
             if (dimSize === 0) {
                 keep = cb.call(context, i);
-            } else if (dimSize === 1) {
+            }
+            else if (dimSize === 1) {
                 var val = this._getFast(dim0, rawIdx);
                 keep = cb.call(context, val, i);
-            } else {
+            }
+            else {
                 for (var k = 0; k < dimSize; k++) {
                     value[k] = this._getFast(dim0, rawIdx);
                 }
@@ -31277,7 +31554,8 @@
                     }
                 }
                 quickFinished = true;
-            } else if (dimSize === 2) {
+            }
+            else if (dimSize === 2) {
                 var dimStorage = this._storage[dim0];
                 var dimStorage2 = this._storage[dimensions[1]];
                 var min2 = range[dimensions[1]][0];
@@ -31317,7 +31595,8 @@
                         newIndices[offset++] = rawIndex;
                     }
                 }
-            } else {
+            }
+            else {
                 for (var i = 0; i < originalCount; i++) {
                     var keep = true;
                     var rawIndex = this.getRawIndex(i);
@@ -31399,7 +31678,8 @@
                     storage[dim] = cloneDimStore(originalStorage[dim]);
                     list._rawExtent[dim] = getInitialExtent();
                     list._extent[dim] = null;
-                } else {
+                }
+                else {
                     // Direct reference for other dimensions
                     storage[dim] = originalStorage[dim];
                 }
@@ -31797,7 +32077,8 @@
         if (this._indices) {
             var Ctor = this._indices.constructor;
             list._indices = new Ctor(this._indices);
-        } else {
+        }
+        else {
             list._indices = null;
         }
         list.getRawIndex = list._indices ? getRawIndexWithIndices : getRawIndexWithoutIndices;
@@ -31968,7 +32249,8 @@
             if (isString(sysDimItem)) {
                 coordDim = sysDimItem;
                 sysDimItem = {};
-            } else {
+            }
+            else {
                 coordDim = sysDimItem.name;
                 var ordinalMeta = sysDimItem.ordinalMeta;
                 sysDimItem.ordinalMeta = null;
@@ -32018,7 +32300,8 @@
         function applyDim(resultItem, coordDim, coordDimIndex) {
             if (OTHER_DIMENSIONS.get(coordDim) != null) {
                 resultItem.otherDims[coordDim] = coordDimIndex;
-            } else {
+            }
+            else {
                 resultItem.coordDim = coordDim;
                 resultItem.coordDimIndex = coordDimIndex;
                 coordDimNameMap.set(coordDim, true);
@@ -32711,7 +32994,8 @@
                 index = this.categories.length;
                 this.categories[index] = category;
                 map$$1.set(category, index);
-            } else {
+            }
+            else {
                 index = NaN;
             }
         }
@@ -32729,7 +33013,8 @@
     function getName(obj) {
         if (isObject$1(obj) && obj.value != null) {
             return obj.value;
-        } else {
+        }
+        else {
             return obj + '';
         }
     }
@@ -33085,7 +33370,8 @@
 
             if (precision == null) {
                 precision = getPrecisionSafe(data) || 0;
-            } else if (precision === 'auto') {
+            }
+            else if (precision === 'auto') {
                 // Should be more precise then tick.
                 precision = this._intervalPrecision;
             }
@@ -33151,10 +33437,12 @@
                     if (!opt.fixMax) {
                         extent[1] += expandSize / 2;
                         extent[0] -= expandSize / 2;
-                    } else {
+                    }
+                    else {
                         extent[0] -= expandSize / 2;
                     }
-                } else {
+                }
+                else {
                     extent[1] = 1;
                 }
             }
@@ -33304,7 +33592,8 @@
                 if (!axisValues[key]) {
                     // No previous data for the axis
                     axisValues[key] = [value];
-                } else {
+                }
+                else {
                     // No value in previous series
                     axisValues[key].push(value);
                 }
@@ -33350,7 +33639,8 @@
             var bandWidth;
             if (baseAxis.type === 'category') {
                 bandWidth = baseAxis.getBandWidth();
-            } else if (baseAxis.type === 'value' || baseAxis.type === 'time') {
+            }
+            else if (baseAxis.type === 'value' || baseAxis.type === 'time') {
                 var key = baseAxis.dim + '_' + baseAxis.index;
                 var minGap = axisMinGaps[key];
                 var extentSpan = Math.abs(axisExtent[1] - axisExtent[0]);
@@ -33359,7 +33649,8 @@
                 bandWidth = minGap
                     ? extentSpan / scaleSpan * minGap
                     : extentSpan; // When there is only one data value
-            } else {
+            }
+            else {
                 var data = seriesModel.getData();
                 bandWidth = Math.abs(axisExtent[1] - axisExtent[0]) / data.count();
             }
@@ -33484,7 +33775,8 @@
                         remainedWidth -= finalWidth;
                         autoWidthCount--;
                     }
-                } else {
+                }
+                else {
                     // `barMinWidth/barMaxWidth` has higher priority than `barWidth`, as
                     // CSS does. Becuase barWidth can be a percent value, where
                     // `barMaxWidth` can be used to restrict the final width.
@@ -33631,7 +33923,8 @@
                         width = (width < 0 ? -1 : 1) * barMinHeight;
                     }
                     stacked && (lastStackCoords[stackId][baseValue][sign] += width);
-                } else {
+                }
+                else {
                     var coord = cartesian.dataToPoint([baseValue, value]);
                     x = coord[0] + columnOffset;
                     y = baseCoord;
@@ -33785,7 +34078,8 @@
             var mid = lo + hi >>> 1;
             if (a[mid][1] < x) {
                 lo = mid + 1;
-            } else {
+            }
+            else {
                 hi = mid;
             }
         }
@@ -34190,7 +34484,8 @@
         var span;
         if (scaleType === 'ordinal') {
             axisDataLen = model.getCategories().length;
-        } else {
+        }
+        else {
             boundaryGap = model.get('boundaryGap');
             if (!isArray(boundaryGap)) {
                 boundaryGap = [boundaryGap || 0, boundaryGap || 0];
@@ -34238,7 +34533,8 @@
 
         if (min === 'dataMin') {
             min = originalExtent[0];
-        } else if (typeof min === 'function') {
+        }
+        else if (typeof min === 'function') {
             min = min({
                 min: originalExtent[0],
                 max: originalExtent[1]
@@ -34247,7 +34543,8 @@
 
         if (max === 'dataMax') {
             max = originalExtent[1];
-        } else if (typeof max === 'function') {
+        }
+        else if (typeof max === 'function') {
             max = max({
                 min: originalExtent[0],
                 max: originalExtent[1]
@@ -34434,7 +34731,8 @@
             })(labelFormatter);
             // Consider empty array
             return labelFormatter;
-        } else if (typeof labelFormatter === 'function') {
+        }
+        else if (typeof labelFormatter === 'function') {
             return function (tickValue, idx) {
                 // The original intention of `idx` is "the index of the tick in all ticks".
                 // But the previous implementation of category axis do not consider the
@@ -34447,7 +34745,8 @@
                 }
                 return labelFormatter(getAxisRawValue(axis, tickValue), idx);
             };
-        } else {
+        }
+        else {
             return function (tick) {
                 return axis.scale.getLabel(tick);
             };
@@ -34482,7 +34781,8 @@
         // Optimize for large category data, avoid call `getTicks()`.
         if (isCategory) {
             tickCount = scale.count();
-        } else {
+        }
+        else {
             realNumberScaleTicks = scale.getTicks();
             tickCount = realNumberScaleTicks.length;
         }
@@ -34936,10 +35236,12 @@
             var symbolShape = this.shape;
             if (symbolShape && symbolShape.symbolType === 'line') {
                 symbolStyle.stroke = color;
-            } else if (this.__isEmptyBrush) {
+            }
+            else if (this.__isEmptyBrush) {
                 symbolStyle.stroke = color;
                 symbolStyle.fill = innerColor || '#fff';
-            } else {
+            }
+            else {
                 // FIXME 判断图形默认是填充还是描边，使用 onlyStroke ?
                 symbolStyle.fill && (symbolStyle.fill = color);
                 symbolStyle.stroke && (symbolStyle.stroke = color);
@@ -34974,14 +35276,16 @@
                 new BoundingRect(x, y, w, h),
                 keepAspect ? 'center' : 'cover'
             );
-        } else if (symbolType.indexOf('path://') === 0) {
+        }
+        else if (symbolType.indexOf('path://') === 0) {
             symbolPath = makePath(
                 symbolType.slice(7),
                 {},
                 new BoundingRect(x, y, w, h),
                 keepAspect ? 'center' : 'cover'
             );
-        } else {
+        }
+        else {
             symbolPath = new SymbolClz({
                 shape: {
                     symbolType: symbolType,
@@ -35160,7 +35464,8 @@
                 rect.x + rect.width / 2,
                 rect.y + rect.height / 2
             ];
-        } else {
+        }
+        else {
             cp = [cp[0], cp[1]];
         }
         /**
@@ -35246,7 +35551,8 @@
             var aspect = rect.width / rect.height;
             if (!width) {
                 width = aspect * height;
-            } else if (!height) {
+            }
+            else if (!height) {
                 height = width / aspect;
             }
             var target = new BoundingRect(x, y, width, height);
@@ -35336,7 +35642,8 @@
                         encodeOffsets[c],
                         encodeScale
                     );
-                } else if (geometry.type === 'MultiPolygon') {
+                }
+                else if (geometry.type === 'MultiPolygon') {
                     for (var c2 = 0; c2 < coordinate.length; c2++) {
                         var polygon = coordinate[c2];
                         coordinate[c2] = decodePolygon(
@@ -35506,7 +35813,8 @@
 
         if (isFunction$1(optionLabelInterval)) {
             labels = makeLabelsByCustomizedCategoryInterval(axis, optionLabelInterval);
-        } else {
+        }
+        else {
             numericLabelInterval = optionLabelInterval === 'auto'
                 ? makeAutoCategoryInterval(axis) : optionLabelInterval;
             labels = makeLabelsByNumericCategoryInterval(axis, numericLabelInterval);
@@ -35548,7 +35856,8 @@
             ticks = map(labelsResult.labels, function (labelItem) {
                 return labelItem.tickValue;
             });
-        } else {
+        }
+        else {
             tickCategoryInterval = optionTickInterval;
             ticks = makeLabelsByNumericCategoryInterval(axis, tickCategoryInterval, true);
         }
@@ -36093,7 +36402,8 @@
         if (ticksLen === 1) {
             ticksCoords[0].coord = axisExtent[0];
             last = ticksCoords[1] = {coord: axisExtent[0]};
-        } else {
+        }
+        else {
             var crossLen = ticksCoords[ticksLen - 1].tickValue - ticksCoords[0].tickValue;
             var shift = (ticksCoords[ticksLen - 1].coord - ticksCoords[0].coord) / crossLen;
 
@@ -36333,7 +36643,8 @@
         // Simple optimization (in lots of cases, label dims length is 1)
         if (len === 1) {
             return retrieveRawValue(data, dataIndex, labelDims[0]);
-        } else if (len) {
+        }
+        else if (len) {
             var vals = [];
             for (var i = 0; i < labelDims.length; i++) {
                 var val = retrieveRawValue(data, dataIndex, labelDims[i]);
@@ -36524,7 +36835,8 @@
         if (isInit) {
             var keepAspect = data.getItemVisual(idx, 'symbolKeepAspect');
             this._createSymbol(symbolType, data, idx, symbolSize, keepAspect);
-        } else {
+        }
+        else {
             var symbolPath = this.childAt(0);
             symbolPath.silent = false;
             updateProps(symbolPath, {
@@ -36572,7 +36884,8 @@
             symbolPath.useStyle({
                 strokeNoScale: true
             });
-        } else {
+        }
+        else {
             symbolPath.setStyle({
                 opacity: null,
                 shadowBlur: null,
@@ -36607,7 +36920,8 @@
             hoverLabelModel = itemModel.getModel(emphasisLabelAccessPath);
             hoverAnimation = itemModel.getShallow('hoverAnimation');
             cursorStyle = itemModel.getShallow('cursor');
-        } else {
+        }
+        else {
             hoverItemStyle = extend({}, hoverItemStyle);
         }
 
@@ -36641,7 +36955,8 @@
                 symbolPath.__z2Origin = symbolPath.z2;
                 symbolPath.z2 += liftZ;
             }
-        } else if (z2Origin != null) {
+        }
+        else if (z2Origin != null) {
             symbolPath.z2 = z2Origin;
             symbolPath.__z2Origin = null;
         }
@@ -36694,7 +37009,8 @@
             // toState === fromState
             //     ? (this.stopAnimation(), this.attr(emphasisOpt))
             this.animateTo(emphasisOpt, 400, 'elasticOut');
-        } else if (toState === 'normal') {
+        }
+        else if (toState === 'normal') {
             this.animateTo({
                 scale: this.__symbolOriginalScale
             }, 400, 'elasticOut');
@@ -36816,7 +37132,8 @@
                 if (!symbolEl) {
                     symbolEl = new SymbolCtor(data, newIdx);
                     symbolEl.attr('position', point);
-                } else {
+                }
+                else {
                     symbolEl.updateData(data, newIdx, seriesScope);
                     updateProps(symbolEl, {
                         position: point
@@ -36875,7 +37192,6 @@
                 el.incremental = el.useHoverLayer = true;
             }
         }
-
         for (var idx = taskParams.start; idx < taskParams.end; idx++) {
             var point = data.getItemLayout(idx);
             if (symbolNeedsDraw(data, point, idx, opt)) {
@@ -36905,7 +37221,8 @@
                     group.remove(el);
                 });
             });
-        } else {
+        }
+        else {
             group.removeAll();
         }
     };
@@ -36991,7 +37308,8 @@
 
         if (valueOrigin === 'start') {
             valueStart = extent[0];
-        } else if (valueOrigin === 'end') {
+        }
+        else if (valueOrigin === 'end') {
             valueStart = extent[1];
         }
         // auto
@@ -37178,7 +37496,8 @@
                         );
 
                         rawIndices.push(rawIndex);
-                    } else {
+                    }
+                    else {
                         pointAdded = false;
                     }
             }
@@ -37286,7 +37605,8 @@
         // }
         if (smoothMonotone === 'none' || !smoothMonotone) {
             return drawNonMono.apply(this, arguments);
-        } else {
+        }
+        else {
             return drawMono.apply(this, arguments);
         }
     }
@@ -37352,7 +37672,8 @@
 
             if (idx === start) {
                 ctx[dir > 0 ? 'moveTo' : 'lineTo'](p[0], p[1]);
-            } else {
+            }
+            else {
                 if (smooth > 0) {
                     var prevP = points[prevIdx];
                     var dim = smoothMonotone === 'y' ? 1 : 0;
@@ -37371,7 +37692,8 @@
                         cp1[0], cp1[1],
                         p[0], p[1]
                     );
-                } else {
+                }
+                else {
                     ctx.lineTo(p[0], p[1]);
                 }
             }
@@ -37410,7 +37732,8 @@
             if (idx === start) {
                 ctx[dir > 0 ? 'moveTo' : 'lineTo'](p[0], p[1]);
                 v2Copy(cp0, p);
-            } else {
+            }
+            else {
                 if (smooth > 0) {
                     var nextIdx = idx + dir;
                     var nextP = points[nextIdx];
@@ -37428,7 +37751,8 @@
                     // Last point
                     if (!nextP || isPointNull(nextP)) {
                         v2Copy(cp1, p);
-                    } else {
+                    }
+                    else {
                         // If next data is null in not connect case
                         if (isPointNull(nextP) && !connectNulls) {
                             nextP = p;
@@ -37442,7 +37766,8 @@
                             var dim = smoothMonotone === 'x' ? 0 : 1;
                             lenPrevSeg = Math.abs(p[dim] - prevP[dim]);
                             lenNextSeg = Math.abs(p[dim] - nextP[dim]);
-                        } else {
+                        }
+                        else {
                             lenPrevSeg = dist(p, prevP);
                             lenNextSeg = dist(p, nextP);
                         }
@@ -37465,7 +37790,8 @@
                     );
                     // cp0 of next segment
                     scaleAndAdd$1(cp0, p, v, smooth * ratioNextSeg);
-                } else {
+                }
+                else {
                     ctx.lineTo(p[0], p[1]);
                 }
             }
@@ -37708,9 +38034,11 @@
     function createClipPath(coordSys, hasAnimation, seriesModel) {
         if (!coordSys) {
             return null;
-        } else if (coordSys.type === 'polar') {
+        }
+        else if (coordSys.type === 'polar') {
             return createPolarClipPath(coordSys, hasAnimation, seriesModel);
-        } else if (coordSys.type === 'cartesian2d') {
+        }
+        else if (coordSys.type === 'cartesian2d') {
             return createGridClipPath(coordSys, hasAnimation, seriesModel);
         }
         return null;
@@ -37981,13 +38309,15 @@
                 if (isHorizontal) {
                     rectShape.y -= expandSize;
                     rectShape.height += expandSize * 2;
-                } else {
+                }
+                else {
                     rectShape.x -= expandSize;
                     rectShape.width += expandSize * 2;
                 }
             }
             return clipPath;
-        } else {
+        }
+        else {
             return createPolarClipPath(coordSys, hasAnimation, seriesModel);
         }
 
@@ -38067,7 +38397,8 @@
                     clipShapeForSymbol.y -= 0.1;
                     clipShapeForSymbol.width += 0.2;
                     clipShapeForSymbol.height += 0.2;
-                } else if (clipShapeForSymbol.r0) {
+                }
+                else if (clipShapeForSymbol.r0) {
                     clipShapeForSymbol.r0 -= 0.5;
                     clipShapeForSymbol.r1 += 0.5;
                 }
@@ -38095,14 +38426,16 @@
                     );
                 }
                 lineGroup.setClipPath(createLineClipPath(coordSys, true, seriesModel));
-            } else {
+            }
+            else {
                 if (isAreaChart && !polygon) {
                     // If areaStyle is added
                     polygon = this._newPolygon(
                         points, stackedOnPoints,
                         coordSys, hasAnimation
                     );
-                } else if (polygon && !isAreaChart) {
+                }
+                else if (polygon && !isAreaChart) {
                     // If areaStyle is removed
                     lineGroup.remove(polygon);
                     polygon = this._polygon = null;
@@ -38133,7 +38466,8 @@
                         this._updateAnimation(
                             data, stackedOnPoints, coordSys, api, step, valueOrigin
                         );
-                    } else {
+                    }
+                    else {
                         // Not do it in update with animation
                         if (step) {
                             // TODO If stacked series is not step
@@ -38206,8 +38540,7 @@
             this._valueOrigin = valueOrigin;
         },
 
-        dispose: function () {
-        },
+        dispose: function () {},
 
         highlight: function (seriesModel, ecModel, api, payload) {
             var data = seriesModel.getData();
@@ -38238,7 +38571,8 @@
                     this.group.add(symbol);
                 }
                 symbol.highlight();
-            } else {
+            }
+            else {
                 // Highlight whole series
                 Chart.prototype.highlight.call(
                     this, seriesModel, ecModel, api, payload
@@ -38255,11 +38589,13 @@
                     if (symbol.__temp) {
                         data.setItemGraphicEl(dataIndex, null);
                         this.group.remove(symbol);
-                    } else {
+                    }
+                    else {
                         symbol.downplay();
                     }
                 }
-            } else {
+            }
+            else {
                 // FIXME
                 // can not downplay completely.
                 // Downplay whole series
@@ -38507,7 +38843,7 @@
                     }
                 }
 
-                return {dataEach: (data.hasItemOption || hasCallback) ? dataEach : null};
+                return { dataEach: (data.hasItemOption || hasCallback) ? dataEach : null };
             }
         };
     };
@@ -38572,7 +38908,8 @@
                         if (dimLen === 1) {
                             var x = data.get(dims[0], i);
                             point = !isNaN(x) && coordSys.dataToPoint(x, null, tmpOut);
-                        } else {
+                        }
+                        else {
                             var x = tmpIn[0] = data.get(dims[0], i);
                             var y = tmpIn[1] = data.get(dims[1], i);
                             // Also {Array.<number>}, not undefined to avoid if...else... statement
@@ -38582,7 +38919,8 @@
                         if (isLargeRender) {
                             points[offset++] = point ? point[0] : NaN;
                             points[offset++] = point ? point[1] : NaN;
-                        } else {
+                        }
+                        else {
                             data.setItemLayout(i, (point && point.slice()) || [NaN, NaN]);
                         }
                     }
@@ -38686,7 +39024,8 @@
                         var sampler;
                         if (typeof sampling === 'string') {
                             sampler = samplers[sampling];
-                        } else if (typeof sampling === 'function') {
+                        }
+                        else if (typeof sampling === 'function') {
                             sampler = sampling;
                         }
                         if (sampler) {
@@ -39663,7 +40002,8 @@
             if (canOnZeroToAxis(otherAxes[onZeroAxisIndex])) {
                 otherAxisOnZeroOf = otherAxes[onZeroAxisIndex];
             }
-        } else {
+        }
+        else {
             // Find the first available other axis.
             for (var idx in otherAxes) {
                 if (otherAxes.hasOwnProperty(idx)
@@ -39721,7 +40061,8 @@
                         gridRect[dim] -= labelUnionRect[dim] + margin;
                         if (axis.position === 'top') {
                             gridRect.y += labelUnionRect.height + margin;
-                        } else if (axis.position === 'left') {
+                        }
+                        else if (axis.position === 'left') {
                             gridRect.x += labelUnionRect.width + margin;
                         }
                     }
@@ -39847,11 +40188,14 @@
         if (seriesModel) {
             cartesian = seriesModel.coordinateSystem;
             indexOf(coordsList, cartesian) < 0 && (cartesian = null);
-        } else if (xAxisModel && yAxisModel) {
+        }
+        else if (xAxisModel && yAxisModel) {
             cartesian = this.getCartesian(xAxisModel.componentIndex, yAxisModel.componentIndex);
-        } else if (xAxisModel) {
+        }
+        else if (xAxisModel) {
             axis = this.getAxis('x', xAxisModel.componentIndex);
-        } else if (yAxisModel) {
+        }
+        else if (yAxisModel) {
             axis = this.getAxis('y', yAxisModel.componentIndex);
         }
         // Lowest priority.
@@ -39940,7 +40284,8 @@
                         // Default bottom of X
                         axisPosition = axisPositionUsed.bottom ? 'top' : 'bottom';
                     }
-                } else {
+                }
+                else {
                     // Fix position
                     if (axisPosition !== 'left' && axisPosition !== 'right') {
                         // Default left of Y
@@ -40072,7 +40417,6 @@
     }
 
     var axesTypes = ['xAxis', 'yAxis'];
-
     /**
      * @inner
      */
@@ -40443,7 +40787,8 @@
                     nameRotation != null ? nameRotation : opt.rotation, // Adapt to axis.
                     nameDirection
                 );
-            } else {
+            }
+            else {
                 labelLayout = endTextLayout(
                     opt, nameLocation, nameRotation || 0, extent
                 );
@@ -40563,15 +40908,18 @@
         if (isRadianAroundZero(rotationDiff)) { // Label is parallel with axis line.
             textVerticalAlign = direction > 0 ? 'top' : 'bottom';
             textAlign = 'center';
-        } else if (isRadianAroundZero(rotationDiff - PI$2)) { // Label is inverse parallel with axis line.
+        }
+        else if (isRadianAroundZero(rotationDiff - PI$2)) { // Label is inverse parallel with axis line.
             textVerticalAlign = direction > 0 ? 'bottom' : 'top';
             textAlign = 'center';
-        } else {
+        }
+        else {
             textVerticalAlign = 'middle';
 
             if (rotationDiff > 0 && rotationDiff < PI$2) {
                 textAlign = direction > 0 ? 'right' : 'left';
-            } else {
+            }
+            else {
                 textAlign = direction > 0 ? 'left' : 'right';
             }
         }
@@ -40594,14 +40942,17 @@
         if (isRadianAroundZero(rotationDiff - PI$2 / 2)) {
             textVerticalAlign = onLeft ? 'bottom' : 'top';
             textAlign = 'center';
-        } else if (isRadianAroundZero(rotationDiff - PI$2 * 1.5)) {
+        }
+        else if (isRadianAroundZero(rotationDiff - PI$2 * 1.5)) {
             textVerticalAlign = onLeft ? 'top' : 'bottom';
             textAlign = 'center';
-        } else {
+        }
+        else {
             textVerticalAlign = 'middle';
             if (rotationDiff < PI$2 * 1.5 && rotationDiff > PI$2 / 2) {
                 textAlign = onLeft ? 'left' : 'right';
-            } else {
+            }
+            else {
                 textAlign = onLeft ? 'right' : 'left';
             }
         }
@@ -40652,11 +41003,13 @@
         if (showMinLabel === false) {
             ignoreEl(firstLabel);
             ignoreEl(firstTick);
-        } else if (isTwoLabelOverlapped(firstLabel, nextLabel)) {
+        }
+        else if (isTwoLabelOverlapped(firstLabel, nextLabel)) {
             if (showMinLabel) {
                 ignoreEl(nextLabel);
                 ignoreEl(nextTick);
-            } else {
+            }
+            else {
                 ignoreEl(firstLabel);
                 ignoreEl(firstTick);
             }
@@ -40665,11 +41018,13 @@
         if (showMaxLabel === false) {
             ignoreEl(lastLabel);
             ignoreEl(lastTick);
-        } else if (isTwoLabelOverlapped(prevLabel, lastLabel)) {
+        }
+        else if (isTwoLabelOverlapped(prevLabel, lastLabel)) {
             if (showMaxLabel) {
                 ignoreEl(prevLabel);
                 ignoreEl(prevTick);
-            } else {
+            }
+            else {
                 ignoreEl(lastLabel);
                 ignoreEl(lastTick);
             }
@@ -41530,7 +41885,8 @@
                     p1[1] = gridRect.y;
                     p2[0] = tickCoord;
                     p2[1] = gridRect.y + gridRect.height;
-                } else {
+                }
+                else {
                     p1[0] = gridRect.x;
                     p1[1] = tickCoord;
                     p2[0] = gridRect.x + gridRect.width;
@@ -41617,7 +41973,8 @@
                     width = tickCoord - x;
                     height = gridRect.height;
                     prev = x + width;
-                } else {
+                }
+                else {
                     x = gridRect.x;
                     y = prev;
                     width = gridRect.width;
@@ -42117,7 +42474,8 @@
                 if (baseAxis.isHorizontal()) {
                     coordSysClipArea.x -= expandWidth;
                     coordSysClipArea.width += expandWidth * 2;
-                } else {
+                }
+                else {
                     coordSysClipArea.y -= expandWidth;
                     coordSysClipArea.height += expandWidth * 2;
                 }
@@ -42142,7 +42500,8 @@
                 this._isLargeDraw
                     ? this._renderLarge(seriesModel, ecModel, api)
                     : this._renderNormal(seriesModel, ecModel, api);
-            } else if (__DEV__) {
+            }
+            else if (__DEV__) {
                 console.warn('Only cartesian2d and polar supported for bar.');
             }
 
@@ -42178,7 +42537,8 @@
 
             if (coord.type === 'cartesian2d') {
                 isHorizontalOrRadial = baseAxis.isHorizontal();
-            } else if (coord.type === 'polar') {
+            }
+            else if (coord.type === 'polar') {
                 isHorizontalOrRadial = baseAxis.dim === 'angle';
             }
 
@@ -42244,7 +42604,8 @@
 
                     if (el) {
                         updateProps(el, {shape: layout}, animationModel, newIndex);
-                    } else {
+                    }
+                    else {
                         el = elementCreator[coord.type](
                             newIndex, layout, isHorizontalOrRadial, animationModel, true, roundCap
                         );
@@ -42263,7 +42624,8 @@
                     var el = oldData.getItemGraphicEl(dataIndex);
                     if (coord.type === 'cartesian2d') {
                         el && removeRect(dataIndex, animationModel, el);
-                    } else {
+                    }
+                    else {
                         el && removeSector(dataIndex, animationModel, el);
                     }
                 })
@@ -42282,7 +42644,8 @@
                 : null;
             if (clipPath) {
                 this.group.setClipPath(clipPath);
-            } else {
+            }
+            else {
                 this.group.removeClipPath();
             }
         },
@@ -42304,11 +42667,13 @@
                 data.eachItemGraphicEl(function (el) {
                     if (el.type === 'sector') {
                         removeSector(el.dataIndex, ecModel, el);
-                    } else {
+                    }
+                    else {
                         removeRect(el.dataIndex, ecModel, el);
                     }
                 });
-            } else {
+            }
+            else {
                 group.removeAll();
             }
             this._data = null;
@@ -43115,11 +43480,13 @@
                 }, seriesModel, idx);
             }
 
-        } else {
+        }
+        else {
             if (animationTypeUpdate === 'expansion') {
                 // Sectors are set to be target shape and an overlaying clipPath is used for animation
                 sector.setShape(sectorShape);
-            } else {
+            }
+            else {
                 // Transition animation from the old shape
                 updateProps(sector, {
                     shape: sectorShape
@@ -43171,7 +43538,8 @@
                             r: layout.r + seriesModel.get('hoverOffset')
                         }
                     }, 300, 'elasticOut');
-                } else {
+                }
+                else {
                     labelLine.ignore = labelLine.normalIgnore;
                     labelText.ignore = labelText.normalIgnore;
 
@@ -43222,7 +43590,8 @@
             updateProps(labelText, {
                 style: targetTextStyle
             }, seriesModel, idx);
-        } else {
+        }
+        else {
             labelLine.attr({
                 shape: targetLineShape
             });
@@ -43368,7 +43737,8 @@
                 group.setClipPath(this._createClipPath(
                     shape.cx, shape.cy, r, shape.startAngle, shape.clockwise, removeClipPath, seriesModel, isFirstRender
                 ));
-            } else {
+            }
+            else {
                 // clipPath is used in first-time animation, so remove it when otherwise. See: #8994
                 group.removeClipPath();
             }
@@ -43376,8 +43746,7 @@
             this._data = data;
         },
 
-        dispose: function () {
-        },
+        dispose: function () {},
 
         _createClipPath: function (
             cx, cy, r, startAngle, clockwise, cb, seriesModel, isFirstRender
@@ -43551,7 +43920,8 @@
                         if (filteredIdx != null) {
                             data.setItemVisual(filteredIdx, 'color', color);
                         }
-                    } else {
+                    }
+                    else {
                         // Set data all color for legend
                         dataAll.setItemVisual(rawIdx, 'color', singleDataColor);
                     }
@@ -43565,7 +43935,8 @@
                         if (filteredIdx != null) {
                             data.setItemVisual(filteredIdx, 'borderColor', borderColor);
                         }
-                    } else {
+                    }
+                    else {
                         // Set data all borderColor for legend
                         dataAll.setItemVisual(rawIdx, 'borderColor', singleDataBorderColor);
                     }
@@ -43679,7 +44050,8 @@
         for (var i = 0; i < len; i++) {
             if (list[i].y >= cy) {
                 downList.push(list[i]);
-            } else {
+            }
+            else {
                 upList.push(list[i]);
             }
         }
@@ -43696,7 +44068,8 @@
             }
             if (labelLayoutList[i].x < cx) {
                 leftList.push(labelLayoutList[i]);
-            } else {
+            }
+            else {
                 rightList.push(labelLayoutList[i]);
             }
         }
@@ -43713,7 +44086,8 @@
                 var dist = linePoints[1][0] - linePoints[2][0];
                 if (labelLayoutList[i].x < cx) {
                     linePoints[2][0] = labelLayoutList[i].x + 3;
-                } else {
+                }
+                else {
                     linePoints[2][0] = labelLayoutList[i].x - 3;
                 }
                 linePoints[1][1] = linePoints[2][1] = labelLayoutList[i].y;
@@ -43768,7 +44142,8 @@
                 textX = layout.cx;
                 textY = layout.cy;
                 textAlign = 'center';
-            } else {
+            }
+            else {
                 var x1 = (isLabelInside ? (layout.r + layout.r0) / 2 * dx : layout.r * dx) + cx;
                 var y1 = (isLabelInside ? (layout.r + layout.r0) / 2 * dy : layout.r * dy) + cy;
 
@@ -43795,7 +44170,8 @@
             var rotate = labelModel.get('rotate');
             if (typeof rotate === 'number') {
                 labelRotate = rotate * (Math.PI / 180);
-            } else {
+            }
+            else {
                 labelRotate = rotate
                     ? (dx < 0 ? -midAngle + Math.PI : -midAngle)
                     : 0;
@@ -43927,14 +44303,16 @@
                 if (roseType !== 'area') {
                     angle = (sum === 0 && stillShowZeroSum)
                         ? unitRadian : (value * unitRadian);
-                } else {
+                }
+                else {
                     angle = PI2$4 / validDataCount;
                 }
 
                 if (angle < minAngle) {
                     angle = minAngle;
                     restAngle -= minAngle;
-                } else {
+                }
+                else {
                     valueSumLargerThanMinAngle += value;
                 }
 
@@ -43970,7 +44348,8 @@
                             layout.endAngle = startAngle + dir * (idx + 1) * angle;
                         }
                     });
-                } else {
+                }
+                else {
                     unitRadian = restAngle / valueSumLargerThanMinAngle;
                     currentAngle = startAngle;
                     data.each(valueDim, function (value, idx) {
@@ -44357,7 +44736,8 @@
                 });
             }
             this.group.add(this._incremental);
-        } else {
+        }
+        else {
             this._incremental = null;
         }
     };
@@ -44367,7 +44747,8 @@
         if (this._incremental) {
             symbolEl = new LargeSymbolPath();
             this._incremental.addDisplayable(symbolEl, true);
-        } else {
+        }
+        else {
             symbolEl = new LargeSymbolPath({
                 rectHover: true,
                 cursor: 'default',
@@ -44516,10 +44897,11 @@
                 return {
                     update: true
                 };
-            } else {
+            }
+            else {
                 var res = pointsLayout().reset(seriesModel);
                 if (res.progress) {
-                    res.progress({start: 0, end: data.count()}, data);
+                    res.progress({ start: 0, end: data.count() }, data);
                 }
 
                 this._symbolDraw.updateLayout(data);
@@ -44556,8 +44938,7 @@
             this._symbolDraw = null;
         },
 
-        dispose: function () {
-        }
+        dispose: function () {}
     });
 
     /*
@@ -44822,12 +45203,12 @@
             var f = interval / exp10;
             if (f === 2) {
                 f = 5;
-            } else { // f is 2 or 5
+            }
+            else { // f is 2 or 5
                 f *= 2;
             }
             return f * exp10;
         }
-
         // Force all the axis fixing the maxSplitNumber.
         each$1(indicatorAxes, function (indicatorAxis, idx) {
             var rawExtent = getScaleExtent(indicatorAxis.scale, indicatorAxis.model);
@@ -44845,7 +45226,8 @@
                 scale.setInterval(
                     (fixedMax - fixedMin) / splitNumber
                 );
-            } else if (fixedMin != null) {
+            }
+            else if (fixedMin != null) {
                 var max;
                 // User set min, expand extent on the other side
                 do {
@@ -44857,7 +45239,8 @@
 
                     interval = increaseInterval(interval);
                 } while (max < rawExtent[1] && isFinite(max) && isFinite(rawExtent[1]));
-            } else if (fixedMax != null) {
+            }
+            else if (fixedMax != null) {
                 var min;
                 // User set min, expand extent on the other side
                 do {
@@ -44866,7 +45249,8 @@
                     scale.setInterval(interval);
                     interval = increaseInterval(interval);
                 } while (min > rawExtent[0] && isFinite(min) && isFinite(rawExtent[0]));
-            } else {
+            }
+            else {
                 var nicedSplitNumber = scale.getTicks().length - 1;
                 if (nicedSplitNumber > splitNumber) {
                     interval = increaseInterval(interval);
@@ -44956,7 +45340,8 @@
                 // PENDING
                 if (indicatorOpt.max != null && indicatorOpt.max > 0 && !indicatorOpt.min) {
                     indicatorOpt.min = 0;
-                } else if (indicatorOpt.min != null && indicatorOpt.min < 0 && !indicatorOpt.max) {
+                }
+                else if (indicatorOpt.min != null && indicatorOpt.min < 0 && !indicatorOpt.max) {
                     indicatorOpt.max = 0;
                 }
                 var iNameTextStyle = nameTextStyle;
@@ -44986,7 +45371,8 @@
                 if (typeof nameFormatter === 'string') {
                     var indName = indicatorOpt.name;
                     indicatorOpt.name = nameFormatter.replace('{value}', indName != null ? indName : '');
-                } else if (typeof nameFormatter === 'function') {
+                }
+                else if (typeof nameFormatter === 'function') {
                     indicatorOpt.name = nameFormatter(
                         indicatorOpt.name, indicatorOpt
                     );
@@ -45190,7 +45576,8 @@
                     // Close
                     if (points[0]) {
                         points.push(points[0].slice());
-                    } else {
+                    }
+                    else {
                         if (__DEV__) {
                             console.error('Can\'t draw value axis ' + i);
                         }
@@ -45416,7 +45803,8 @@
                                     position: newPoints[i]
                                 }, seriesModel, idx
                             );
-                        } else {
+                        }
+                        else {
                             symbolPath.attr('position', newPoints[i]);
                         }
                         symbolGroup.add(symbolPath);
@@ -45429,7 +45817,6 @@
                     return [polar.cx, polar.cy];
                 });
             }
-
             data.diff(oldData)
                 .add(function (idx) {
                     var points = data.getItemLayout(idx);
@@ -45565,8 +45952,7 @@
             this._data = null;
         },
 
-        dispose: function () {
-        }
+        dispose: function () {}
     });
 
     /*
@@ -45671,7 +46057,8 @@
                         option.radar = [option.radar];
                     }
                     option.radar.push(polarOpt);
-                } else {
+                }
+                else {
                     polarNotRadar.push(polarOpt);
                 }
             });
@@ -45940,7 +46327,8 @@
             // https://jsperf.com/try-catch-performance-overhead
             try {
                 regions = geoJSON ? parseGeoJson$1(geoJSON) : [];
-            } catch (e) {
+            }
+            catch (e) {
                 throw new Error('Invalid geoJson format\n' + e.message);
             }
 
@@ -46044,7 +46432,8 @@
             if (!field.originRootHostKey) {
                 field.originRootHostKey = hostKey;
                 root = originRoot;
-            } else {
+            }
+            else {
                 root = buildGraphic(mapRecord, boundingRect).root;
             }
 
@@ -46073,7 +46462,8 @@
             }) || {};
             root = result.root;
             assert$1(root != null);
-        } catch (e) {
+        }
+        catch (e) {
             throw new Error('Invalid svg format\n' + e.message);
         }
 
@@ -46539,8 +46929,7 @@
      */
     registerAction(
         {type: 'takeGlobalCursor', event: 'globalCursorTaken', update: 'update'},
-        function () {
-        }
+        function () {}
     );
 
     /*
@@ -47242,7 +47631,8 @@
                 // are added to the rigionGroup
                 if (data) {
                     data.setItemGraphicEl(dataIdx, regionGroup);
-                } else {
+                }
+                else {
                     var regionModel = mapOrGeoModel.getRegionModel(region.name);
                     // Package custom mouse event for geo component
                     compoundPath.eventData = {
@@ -47405,12 +47795,14 @@
                     mapDraw.draw(mapModel, ecModel, api, this, payload);
 
                     this._mapDraw = mapDraw;
-                } else {
+                }
+                else {
                     // Remove drawed map
                     this._mapDraw && this._mapDraw.remove();
                     this._mapDraw = null;
                 }
-            } else {
+            }
+            else {
                 var mapDraw = this._mapDraw;
                 mapDraw && group.add(mapDraw.group);
             }
@@ -47564,7 +47956,8 @@
             // Make label upper than others if overlaps.
             circle.__mapOriginalZ2 = circle.z2;
             circle.z2 += Z2_EMPHASIS_LIFT;
-        } else {
+        }
+        else {
             setTextStyle(circle.style, labelModel, {
                 text: labelModel.get('show') ? normalText : null,
                 textPosition: labelModel.getShallow('position') || 'bottom'
@@ -47688,7 +48081,7 @@
         var componentType = payload.componentType || 'series';
 
         ecModel.eachComponent(
-            {mainType: componentType, query: payload},
+            { mainType: componentType, query: payload },
             function (componentModel) {
                 var geo = componentModel.coordinateSystem;
                 if (geo.type !== 'geo') {
@@ -47747,7 +48140,6 @@
     function TransformDummy() {
         Transformable.call(this);
     }
-
     mixin(TransformDummy, Transformable);
 
     function View(name) {
@@ -48265,7 +48657,8 @@
                 if (__DEV__) {
                     console.error('Invalid boundingCoords');
                 }
-            } else {
+            }
+            else {
                 this.setBoundingRect(leftTop[0], leftTop[1], rightBottom[0] - leftTop[0], rightBottom[1] - leftTop[1]);
             }
         }
@@ -48293,7 +48686,8 @@
 
             if (!isNaN(center[0]) && !isNaN(center[1]) && !isNaN(size)) {
                 useCenterAndSize = true;
-            } else {
+            }
+            else {
                 if (__DEV__) {
                     console.warn('Given layoutCenter or layoutSize data are invalid. Use left/top/width/height instead.');
                 }
@@ -48307,13 +48701,15 @@
                 // Width is same with size
                 viewRect.width = size;
                 viewRect.height = size / aspect;
-            } else {
+            }
+            else {
                 viewRect.height = size;
                 viewRect.width = size * aspect;
             }
             viewRect.y = center[1] - viewRect.height / 2;
             viewRect.x = center[0] - viewRect.width / 2;
-        } else {
+        }
+        else {
             // Use left/top/width/height
             boxLayoutOption = geoModel.getBoxLayoutParams();
 
@@ -48361,7 +48757,8 @@
                 if (mapRecords && mapRecords[0] && mapRecords[0].type === 'svg') {
                     aspectScale == null && (aspectScale = 1);
                     invertLongitute = false;
-                } else {
+                }
+                else {
                     aspectScale == null && (aspectScale = 0.75);
                 }
 
@@ -48618,11 +49015,14 @@
             var result;
             if (statisticType === 'min') {
                 result = min;
-            } else if (statisticType === 'max') {
+            }
+            else if (statisticType === 'max') {
                 result = max;
-            } else if (statisticType === 'average') {
+            }
+            else if (statisticType === 'average') {
                 result = sum / len;
-            } else {
+            }
+            else {
                 result = sum;
             }
             return len === 0 ? NaN : result;
@@ -48815,7 +49215,8 @@
             var datas = extend({}, this[DATAS]);
             datas[this.dataType] = res;
             linkAll(res, datas, opt);
-        } else {
+        }
+        else {
             // Modify the reference in main data to point newData.
             linkSingle(res, this.dataType, this[MAIN_DATA], opt);
         }
@@ -48907,13 +49308,13 @@
      * @param {string} name
      * @param {module:echarts/data/Tree} hostTree
      */
-    var TreeNode = function (name, hostTree, size) {
+    var TreeNode = function (name, hostTree , size) {
         /**
          * @type {string}
          */
         this.name = name || '';
 
-        this.size = size || 0;
+        this.size = size || 0 ;
 
         /**
          * Depth of node
@@ -49361,7 +49762,7 @@
 
             listData.push(dataNode);
 
-            var node = new TreeNode(dataNode.name, tree, dataNode.size);
+            var node = new TreeNode(dataNode.name, tree ,dataNode.size);
             parentNode
                 ? addChild(node, parentNode)
                 : (tree.root = node);
@@ -49491,7 +49892,8 @@
             var orient = this.get('orient');
             if (orient === 'horizontal') {
                 orient = 'LR';
-            } else if (orient === 'vertical') {
+            }
+            else if (orient === 'vertical') {
                 orient = 'TB';
             }
             return orient;
@@ -49694,10 +50096,12 @@
             if (subtreeW) {
                 node.hierNode.prelim = subtreeW.hierNode.prelim + separation(node, subtreeW);
                 node.hierNode.modifier = node.hierNode.prelim - midPoint;
-            } else {
+            }
+            else {
                 node.hierNode.prelim = midPoint;
             }
-        } else if (subtreeW) {
+        }
+        else if (subtreeW) {
             node.hierNode.prelim = subtreeW.hierNode.prelim + separation(node, subtreeW);
         }
         node.parentNode.hierNode.defaultAncestor = apportion(
@@ -49986,7 +50390,8 @@
 
             if (layout === 'radial') {
                 group.attr('position', [layoutInfo.x + layoutInfo.width / 2, layoutInfo.y + layoutInfo.height / 2]);
-            } else {
+            }
+            else {
                 group.attr('position', [layoutInfo.x, layoutInfo.y]);
             }
 
@@ -50199,7 +50604,8 @@
 
         if (node.isExpand === false && node.children.length !== 0) {
             seriesScope.symbolInnerColor = seriesScope.itemStyle.fill;
-        } else {
+        }
+        else {
             seriesScope.symbolInnerColor = '#fff';
         }
 
@@ -50229,7 +50635,8 @@
         if (isInit) {
             symbolEl = new SymbolClz$1(data, dataIndex, seriesScope);
             symbolEl.attr('position', [sourceOldLayout.x, sourceOldLayout.y]);
-        } else {
+        }
+        else {
             symbolEl.updateData(data, dataIndex, seriesScope);
         }
 
@@ -50265,7 +50672,8 @@
                 if (isLeft) {
                     rad = rad - Math.PI;
                 }
-            } else {
+            }
+            else {
                 rad = Math.atan2(targetLayout.y - rootLayout.y, targetLayout.x - rootLayout.x);
                 if (rad < 0) {
                     rad = Math.PI * 2 + rad;
@@ -50275,7 +50683,8 @@
                     if (isLeft) {
                         rad = rad - Math.PI;
                     }
-                } else {
+                }
+                else {
                     isLeft = targetLayout.x > rootLayout.x;
                     if (!isLeft) {
                         rad = rad - Math.PI;
@@ -50379,7 +50788,8 @@
                 cpx2: radialCoor3.x,
                 cpy2: radialCoor3.y
             };
-        } else {
+        }
+        else {
             x1 = sourceLayout.x;
             y1 = sourceLayout.y;
             x2 = targetLayout.x;
@@ -50572,7 +50982,8 @@
             separation$$1 = separation(function (node1, node2) {
                 return (node1.parentNode === node2.parentNode ? 1 : 2) / node1.depth;
             });
-        } else {
+        }
+        else {
             width = layoutInfo.width;
             height = layoutInfo.height;
             separation$$1 = separation();
@@ -50619,7 +51030,8 @@
                     var finalCoor = radialCoordinate(coorX, coorY);
                     node.setLayout({x: finalCoor.x, y: finalCoor.y, rawX: coorX, rawY: coorY}, true);
                 });
-            } else {
+            }
+            else {
                 var orient = seriesModel.getOrient();
                 if (orient === 'RL' || orient === 'LR') {
                     ky = height / (right.getLayout().x + delta + tx);
@@ -50631,7 +51043,8 @@
                             : width - (node.depth - 1) * kx;
                         node.setLayout({x: coorX, y: coorY}, true);
                     });
-                } else if (orient === 'TB' || orient === 'BT') {
+                }
+                else if (orient === 'TB' || orient === 'BT') {
                     kx = width / (right.getLayout().x + delta + tx);
                     ky = height / ((bottom.depth - 1) || 1);
                     eachBefore(realRoot, function (node) {
@@ -51719,7 +52132,8 @@
                             }
                             // Others.
                             : {style: {opacity: 0}};
-                    } else {
+                    }
+                    else {
                         var targetX = 0;
                         var targetY = 0;
 
@@ -51758,7 +52172,8 @@
                             target.position = el.position.slice();
                             el.attr('position', last.old);
                         }
-                    } else {
+                    }
+                    else {
                         if (last.old) {
                             target.shape = extend({}, el.shape);
                             el.setShape(last.old);
@@ -51926,10 +52341,12 @@
                 var node = targetInfo.node;
                 if (node.getLayout().isLeafRoot) {
                     this._rootToNode(targetInfo);
-                } else {
+                }
+                else {
                     if (nodeClick === 'zoomToNode') {
                         this._zoomToNode(targetInfo);
-                    } else if (nodeClick === 'link') {
+                    }
+                    else if (nodeClick === 'link') {
                         var itemModel = node.hostTree.data.getItemModel(node.dataIndex);
                         var link = itemModel.get('link', true);
                         var linkTarget = itemModel.get('target', true) || 'blank';
@@ -52035,7 +52452,8 @@
                         && point[1] <= shape.y + shape.height
                     ) {
                         targetInfo = {node: node, offsetX: point[0], offsetY: point[1]};
-                    } else {
+                    }
+                    else {
                         return false; // Suppress visit subtree.
                     }
                 }
@@ -52205,7 +52623,8 @@
                 if (!element.__tmWillVisible) {
                     element.invisible = false;
                 }
-            } else {
+            }
+            else {
                 // Delay invisible setting utill animation finished,
                 // avoid element vanish suddenly before animation.
                 !element.invisible && willInvisibleEls.push(element);
@@ -52346,8 +52765,7 @@
      * @file Treemap action
      */
 
-    var noop$1 = function () {
-    };
+    var noop$1 = function () {};
 
     var actionTypes = [
         'treemapZoomToNode',
@@ -52487,13 +52905,15 @@
         if (mappingMethod === 'piecewise') {
             normalizeVisualRange(thisOption);
             preprocessForPiecewise(thisOption);
-        } else if (mappingMethod === 'category') {
+        }
+        else if (mappingMethod === 'category') {
             thisOption.categories
                 ? preprocessForSpecifiedCategory(thisOption)
                 // categories is ordinal when thisOption.categories not specified,
                 // which need no more preprocess except normalize visual.
                 : normalizeVisualRange(thisOption, true);
-        } else { // mappingMethod === 'linear' or 'fixed'
+        }
+        else { // mappingMethod === 'linear' or 'fixed'
             assert$1(mappingMethod !== 'linear' || thisOption.dataExtent);
             normalizeVisualRange(thisOption);
         }
@@ -52602,7 +53022,8 @@
                 var symbolCfg = this.mapValueToVisual(value);
                 if (isString(symbolCfg)) {
                     setter('symbol', symbolCfg);
-                } else if (isObject$5(symbolCfg)) {
+                }
+                else if (isObject$5(symbolCfg)) {
                     for (var name in symbolCfg) {
                         if (symbolCfg.hasOwnProperty(name)) {
                             setter(name, symbolCfg[name]);
@@ -52664,7 +53085,8 @@
                     var index = categoryMap[cate];
                     visualArr[index != null ? index : CATEGORY_DEFAULT_VISUAL_INDEX] = v;
                 });
-            } else { // Is primary type, represents default visual.
+            }
+            else { // Is primary type, represents default visual.
                 visualArr[CATEGORY_DEFAULT_VISUAL_INDEX] = visual;
             }
 
@@ -52689,7 +53111,8 @@
             each$9(visual, function (v) {
                 visualArr.push(v);
             });
-        } else if (visual != null) {
+        }
+        else if (visual != null) {
             visualArr.push(visual);
         }
 
@@ -52811,6 +53234,7 @@
     };
 
 
+
     /**
      * List available visual types.
      *
@@ -52848,7 +53272,8 @@
     VisualMapping.eachVisual = function (visual, callback, context) {
         if (isObject$1(visual)) {
             each$1(visual, callback, context);
-        } else {
+        }
+        else {
             callback.call(context, visual);
         }
     };
@@ -52903,9 +53328,11 @@
                 types.push(type);
             });
             visualTypes = types;
-        } else if (isArray(visualTypes)) {
+        }
+        else if (isArray(visualTypes)) {
             visualTypes = visualTypes.slice();
-        } else {
+        }
+        else {
             return [];
         }
 
@@ -52973,11 +53400,13 @@
                     if (littleThan(close[1], value, interval[1])) {
                         return i;
                     }
-                } else if (interval[1] === Infinity) {
+                }
+                else if (interval[1] === Infinity) {
                     if (littleThan(close[0], interval[0], value)) {
                         return i;
                     }
-                } else if (
+                }
+                else if (
                     littleThan(close[0], interval[0], value)
                     && littleThan(close[1], value, interval[1])
                 ) {
@@ -53093,7 +53522,8 @@
             thisNodeColor = calculateColor(visuals, node);
             // Apply visual to this node.
             node.setVisual('color', thisNodeColor);
-        } else {
+        }
+        else {
             var mapping = buildVisualMapping(
                 node, nodeModel, nodeLayout, nodeItemStyleModel, visuals, viewChildren
             );
@@ -53203,7 +53633,8 @@
             opt.mappingMethod = 'category';
             opt.loop = true;
             // categories is ordinal, so do not set opt.categories.
-        } else {
+        }
+        else {
             opt.mappingMethod = 'linear';
         }
 
@@ -53617,7 +54048,8 @@
         // The same as area dimension.
         if (!children || !children.length) {
             dataExtent = [NaN, NaN];
-        } else if (dimension === 'value' && orderBy) {
+        }
+        else if (dimension === 'value' && orderBy) {
             dataExtent = [
                 children[children.length - 1].getValue(),
                 children[0].getValue()
@@ -53882,7 +54314,6 @@
     function generateNodeKey(id) {
         return '_EC_' + id;
     }
-
     /**
      * @alias module:echarts/data/Graph
      * @constructor
@@ -53951,7 +54382,7 @@
      * @param {string} id
      * @param {number} [dataIndex]
      */
-    graphProto.addNode = function (id, dataIndex, size) {
+    graphProto.addNode = function (id, dataIndex , size) {
         id = id == null ? ('' + dataIndex) : ('' + id);
 
         var nodesMap = this._nodesMap;
@@ -53963,7 +54394,7 @@
             return;
         }
 
-        var node = new Node(id, dataIndex, size);
+        var node = new Node(id, dataIndex , size);
         node.hostGraph = this;
 
         this.nodes.push(node);
@@ -54070,7 +54501,8 @@
 
         if (this._directed) {
             return edgesMap[n1 + '-' + n2];
-        } else {
+        }
+        else {
             return edgesMap[n1 + '-' + n2]
                 || edgesMap[n2 + '-' + n1];
         }
@@ -54214,7 +54646,7 @@
     /**
      * @alias module:echarts/data/Graph.Node
      */
-    function Node(id, dataIndex, size) {
+    function Node(id, dataIndex , size) {
         /**
          * @type {string}
          */
@@ -54419,7 +54851,7 @@
             graph.addNode(retrieve(
                 // Id, name, dataIndex
                 nodes[i].id, nodes[i].name, i
-            ), i, nodes[i].size);
+            ), i , nodes[i].size);
         }
 
         var linkNameList = [];
@@ -54441,7 +54873,8 @@
         var nodeData;
         if (coordSys === 'cartesian2d' || coordSys === 'polar') {
             nodeData = createListFromArray(nodes, seriesModel);
-        } else {
+        }
+        else {
             var coordSysCtor = CoordinateSystemManager.get(coordSys);
             var coordDimensions = (coordSysCtor && coordSysCtor.type !== 'view')
                 ? (coordSysCtor.dimensions || []) : [];
@@ -54620,7 +55053,8 @@
                     html += ' : ' + encodeHTML(params.value);
                 }
                 return html;
-            } else { // dataType === 'node' or empty
+            }
+            else { // dataType === 'node' or empty
                 return GraphSeries.superApply(this, 'formatTooltip', arguments);
             }
         },
@@ -54854,7 +55288,6 @@
     function makeSymbolTypeKey(symbolCategory) {
         return '_' + symbolCategory + 'Type';
     }
-
     /**
      * @inner
      */
@@ -54900,7 +55333,8 @@
         if (cp1) {
             targetShape.cpx1 = cp1[0];
             targetShape.cpy1 = cp1[1];
-        } else {
+        }
+        else {
             targetShape.cpx1 = NaN;
             targetShape.cpy1 = NaN;
         }
@@ -55192,7 +55626,8 @@
                 fontSize: hoverLabelModel.getShallow('fontSize'),
                 fontFamily: hoverLabelModel.getShallow('fontFamily')
             };
-        } else {
+        }
+        else {
             label.hoverStyle = {
                 text: null
             };
@@ -55317,7 +55752,8 @@
 
         if (!itemEl) {
             itemEl = new lineDraw._ctor(newLineData, newIdx, seriesScope);
-        } else {
+        }
+        else {
             itemEl.updateData(newLineData, newIdx, seriesScope);
         }
 
@@ -55465,7 +55901,6 @@
     var quadraticAt$1 = quadraticAt;
     var v2DistSquare = distSquare;
     var mathAbs$1 = Math.abs;
-
     function intersectCurveCircle(curvePoints, center, radius) {
         var p0 = curvePoints[0];
         var p1 = curvePoints[1];
@@ -55510,13 +55945,16 @@
             if (diff < 0) {
                 if (nextDiff >= 0) {
                     t = t + interval;
-                } else {
+                }
+                else {
                     t = t - interval;
                 }
-            } else {
+            }
+            else {
                 if (nextDiff >= 0) {
                     t = t - interval;
-                } else {
+                }
+                else {
                     t = t + interval;
                 }
             }
@@ -55670,21 +56108,6 @@
         el.highlight && el.highlight();
     }
 
-    //Custom edits
-    function hit_change(){
-        console.log("CHNAGEDDD")
-        var customers_filter = $("#customers_filter").val().split(",")
-        api.dispatchAction({
-            type: 'focusNodeAdjacency',
-            // seriesId: seriesModel.id,
-            // edgeDataIndex: edge.dataIndex
-        });
-        // sankey[0].data = filtred_groups
-        // sankey[0].links = filtred_links
-        // option.series = sankey
-        // myChart.setOption(option);
-
-    }
     extendChartView({
 
         type: 'graph',
@@ -55723,7 +56146,8 @@
                 };
                 if (this._firstRender) {
                     group.attr(groupNewProp);
-                } else {
+                }
+                else {
                     updateProps(group, groupNewProp, seriesModel);
                 }
             }
@@ -55844,7 +56268,8 @@
                             textPosition: textPosition
                         }
                     );
-                } else {
+                }
+                else {
                     modifyLabelStyle(
                         symbolPath,
                         {
@@ -55861,7 +56286,7 @@
             this._controller && this._controller.dispose();
             this._controllerHost = {};
         },
-        //CUSTOMIZED FUNCTION
+
         focusNodeAdjacency: function (seriesModel, ecModel, api, payload) {
             var data = this._model.getData();
             var graph = data.graph;
@@ -55875,12 +56300,12 @@
                 return;
             }
 
-            // graph.eachNode(function (node) {
-            //     fadeOutItem(node, nodeOpacityPath, 0.1);
-            // });
-            // graph.eachEdge(function (edge) {
-            //     fadeOutItem(edge, lineOpacityPath, 0.1);
-            // });
+            graph.eachNode(function (node) {
+                fadeOutItem(node, nodeOpacityPath, 0.1);
+            });
+            graph.eachEdge(function (edge) {
+                fadeOutItem(edge, lineOpacityPath, 0.1);
+            });
 
             if (node) {
                 fadeInItem(node, nodeOpacityPath);
@@ -55902,14 +56327,14 @@
         },
 
         unfocusNodeAdjacency: function (seriesModel, ecModel, api, payload) {
-            // var graph = this._model.getData().graph;
-            //
-            // graph.eachNode(function (node) {
-            //     fadeOutItem(node, nodeOpacityPath);
-            // });
-            // graph.eachEdge(function (edge) {
-            //     fadeOutItem(edge, lineOpacityPath);
-            // });
+            var graph = this._model.getData().graph;
+
+            graph.eachNode(function (node) {
+                fadeOutItem(node, nodeOpacityPath);
+            });
+            graph.eachEdge(function (edge) {
+                fadeOutItem(edge, lineOpacityPath);
+            });
         },
 
         _startForceLayoutIteration: function (forceLayout, layoutAnimation) {
@@ -56028,8 +56453,7 @@
         type: 'focusNodeAdjacency',
         event: 'focusNodeAdjacency',
         update: 'series:focusNodeAdjacency'
-    }, function () {
-    });
+    }, function () {});
 
     /**
      * @payload
@@ -56041,8 +56465,7 @@
         type: 'unfocusNodeAdjacency',
         event: 'unfocusNodeAdjacency',
         update: 'series:unfocusNodeAdjacency'
-    }, function () {
-    });
+    }, function () {});
 
     /*
 * Licensed to the Apache Software Foundation (ASF) under one
@@ -56384,14 +56807,16 @@
                     }
                     if (hasValue) {
                         data.setItemLayout(dataIndex, coordSys.dataToPoint(value));
-                    } else {
+                    }
+                    else {
                         // Also {Array.<number>}, not undefined to avoid if...else... statement
                         data.setItemLayout(dataIndex, [NaN, NaN]);
                     }
                 }
 
                 simpleLayoutEdge(data.graph);
-            } else if (!layout || layout === 'none') {
+            }
+            else if (!layout || layout === 'none') {
                 simpleLayout$1(seriesModel);
             }
         });
@@ -56772,9 +57197,11 @@
                         var id = nodeData.getId(idx);
                         nodeData.setItemLayout(idx, preservedPoints[id] || [NaN, NaN]);
                     });
-                } else if (!initLayout || initLayout === 'none') {
+                }
+                else if (!initLayout || initLayout === 'none') {
                     simpleLayout$1(graphSeries);
-                } else if (initLayout === 'circular') {
+                }
+                else if (initLayout === 'circular') {
                     circularLayout$1(graphSeries, 'value');
                 }
 
@@ -56872,7 +57299,8 @@
 
                 // Step to get the layout
                 forceInstance.step();
-            } else {
+            }
+            else {
                 // Remove prev injected forceLayout instance
                 graphSeries.forceLayout = null;
             }
@@ -57227,7 +57655,8 @@
         if (labelFormatter) {
             if (typeof labelFormatter === 'string') {
                 label = labelFormatter.replace('{value}', label != null ? label : '');
-            } else if (typeof labelFormatter === 'function') {
+            }
+            else if (typeof labelFormatter === 'function') {
                 label = labelFormatter(label);
             }
         }
@@ -57253,8 +57682,7 @@
             );
         },
 
-        dispose: function () {
-        },
+        dispose: function () {},
 
         _renderMain: function (seriesModel, ecModel, api, colorList, posInfo) {
             var group = this.group;
@@ -57448,7 +57876,8 @@
                         angle += subStep;
                     }
                     angle -= subStep;
-                } else {
+                }
+                else {
                     angle += step;
                 }
             }
@@ -57778,7 +58207,8 @@
             if (toState === 'emphasis') {
                 labelLine.ignore = labelLine.hoverIgnore;
                 text.ignore = text.hoverIgnore;
-            } else {
+            }
+            else {
                 labelLine.ignore = labelLine.normalIgnore;
                 text.ignore = text.normalIgnore;
             }
@@ -57813,7 +58243,8 @@
                     opacity: opacity
                 }
             }, seriesModel, idx);
-        } else {
+        }
+        else {
             updateProps(polygon, {
                 style: {
                     opacity: opacity
@@ -57952,8 +58383,7 @@
             this._data = null;
         },
 
-        dispose: function () {
-        }
+        dispose: function () {}
     });
 
     /*
@@ -57998,7 +58428,8 @@
         // Add custom sortable function & none sortable opetion by "options.sort"
         if (typeof sort === 'function') {
             indices.sort(sort);
-        } else if (sort !== 'none') {
+        }
+        else if (sort !== 'none') {
             indices.sort(function (a, b) {
                 return isAscending ? valueArr[a] - valueArr[b] : valueArr[b] - valueArr[a];
             });
@@ -58031,11 +58462,13 @@
                     textX = (points[0][0] + points[3][0]) / 2 + 5;
                     textY = (points[0][1] + points[3][1]) / 2;
                     textAlign = 'left';
-                } else if (labelPosition === 'insideRight') {
+                }
+                else if (labelPosition === 'insideRight') {
                     textX = (points[1][0] + points[2][0]) / 2 - 5;
                     textY = (points[1][1] + points[2][1]) / 2;
                     textAlign = 'right';
-                } else {
+                }
+                else {
                     textX = (points[0][0] + points[1][0] + points[2][0] + points[3][0]) / 4;
                     textY = (points[0][1] + points[1][1] + points[2][1] + points[3][1]) / 4;
                     textAlign = 'center';
@@ -58043,7 +58476,8 @@
                 linePoints = [
                     [textX, textY], [textX, textY]
                 ];
-            } else {
+            }
+            else {
                 var x1;
                 var y1;
                 var x2;
@@ -58055,42 +58489,48 @@
                     x2 = x1 - labelLineLen;
                     textX = x2 - 5;
                     textAlign = 'right';
-                } else if (labelPosition === 'right') {
+                }
+                else if (labelPosition === 'right') {
                     // Right side
                     x1 = (points[1][0] + points[2][0]) / 2;
                     y1 = (points[1][1] + points[2][1]) / 2;
                     x2 = x1 + labelLineLen;
                     textX = x2 + 5;
                     textAlign = 'left';
-                } else if (labelPosition === 'rightTop') {
+                }
+                else if (labelPosition === 'rightTop') {
                     // RightTop side
                     x1 = points[1][0];
                     y1 = points[1][1];
                     x2 = x1 + labelLineLen;
                     textX = x2 + 5;
                     textAlign = 'top';
-                } else if (labelPosition === 'rightBottom') {
+                }
+                else if (labelPosition === 'rightBottom') {
                     // RightBottom side
                     x1 = points[2][0];
                     y1 = points[2][1];
                     x2 = x1 + labelLineLen;
                     textX = x2 + 5;
                     textAlign = 'bottom';
-                } else if (labelPosition === 'leftTop') {
+                }
+                else if (labelPosition === 'leftTop') {
                     // LeftTop side
                     x1 = points[0][0];
                     y1 = points[1][1];
                     x2 = x1 - labelLineLen;
                     textX = x2 - 5;
                     textAlign = 'right';
-                } else if (labelPosition === 'leftBottom') {
+                }
+                else if (labelPosition === 'leftBottom') {
                     // LeftBottom side
                     x1 = points[3][0];
                     y1 = points[2][1];
                     x2 = x1 - labelLineLen;
                     textX = x2 - 5;
                     textAlign = 'right';
-                } else {
+                }
+                else {
                     // Right side
                     x1 = (points[1][0] + points[2][0]) / 2;
                     y1 = (points[1][1] + points[2][1]) / 2;
@@ -58181,7 +58621,8 @@
                 var height = itemModel.get('itemStyle.height');
                 if (height == null) {
                     height = itemHeight;
-                } else {
+                }
+                else {
                     height = parsePercent$1(height, viewRect.height);
                     if (sort === 'ascending') {
                         height = -height;
@@ -58683,7 +59124,8 @@
                 var axisExpandCenter = parallelModel.get('axisExpandCenter') || mathFloor$2(axisCount / 2);
                 axisExpandWindow = [axisExpandWidth * axisExpandCenter - winSize / 2];
                 axisExpandWindow[1] = axisExpandWindow[0] + winSize;
-            } else {
+            }
+            else {
                 winSize = restrict(axisExpandWindow[1] - axisExpandWindow[0], layoutExtent);
                 axisExpandWindow[1] = axisExpandWindow[0] + winSize;
             }
@@ -58834,7 +59276,8 @@
 
                 if (!hasActiveSet) {
                     activeState = 'normal';
-                } else {
+                }
+                else {
                     activeState = 'active';
                     var values = data.getValues(dataDimensions, dataIndex);
                     for (var j = 0, lenj = dimensions.length; j < lenj; j++) {
@@ -58920,10 +59363,12 @@
                 if (useJump && axisCollapseWidth && pointCoord < winSize * triggerArea[0]) {
                     behavior = 'jump';
                     delta = pointCoord - winSize * triggerArea[2];
-                } else if (useJump && axisCollapseWidth && pointCoord > winSize * (1 - triggerArea[0])) {
+                }
+                else if (useJump && axisCollapseWidth && pointCoord > winSize * (1 - triggerArea[0])) {
                     behavior = 'jump';
                     delta = pointCoord - winSize * (1 - triggerArea[2]);
-                } else {
+                }
+                else {
                     (delta = pointCoord - winSize * triggerArea[1]) >= 0
                     && (delta = pointCoord - winSize * (1 - triggerArea[1])) <= 0
                     && (delta = 0);
@@ -58978,12 +59423,14 @@
         if (axisIndex < winInnerIndices[0]) {
             position = axisIndex * axisCollapseWidth;
             nameTruncateMaxWidth = axisCollapseWidth;
-        } else if (axisIndex <= winInnerIndices[1]) {
+        }
+        else if (axisIndex <= winInnerIndices[1]) {
             position = layoutInfo.axisExpandWindow0Pos
                 + axisIndex * axisExpandWidth - layoutInfo.axisExpandWindow[0];
             axisNameAvailableWidth = axisExpandWidth;
             axisLabelShow = true;
-        } else {
+        }
+        else {
             position = layoutLength - (axisCount - 1 - axisIndex) * axisCollapseWidth;
             nameTruncateMaxWidth = axisCollapseWidth;
         }
@@ -59146,7 +59593,8 @@
                 if (interval[0] <= value && value <= interval[1]) {
                     return 'active';
                 }
-            } else {
+            }
+            else {
                 for (var i = 0, len = activeIntervals.length; i < len; i++) {
                     if (activeIntervals[i][0] <= value && value <= activeIntervals[i][1]) {
                         return 'active';
@@ -59615,7 +60063,8 @@
                 each$1(panelOpts, function (panelOpts) {
                     panels[panelOpts.panelId] = clone(panelOpts);
                 });
-            } else {
+            }
+            else {
                 this._panels = null;
             }
             return this;
@@ -59702,7 +60151,8 @@
                 // where updating cover when creating should be forbiden.
                 if (oldIndex != null && oldCovers[oldIndex] === creatingCover) {
                     newCovers[newIndex] = oldCovers[oldIndex];
-                } else {
+                }
+                else {
                     var cover = newCovers[newIndex] = oldIndex != null
                         ? (
                             oldCovers[oldIndex].__brushOption = newBrushOption,
@@ -60016,7 +60466,8 @@
             ];
             (globalDir[0] === 'e' || globalDir[0] === 'w') && globalDir.reverse();
             return globalDir.join('');
-        } else {
+        }
+        else {
             var map$$1 = {w: 'left', e: 'right', n: 'top', s: 'bottom'};
             var inverseMap = {left: 'w', right: 'e', top: 'n', bottom: 's'};
             var globalDir = transformDirection(
@@ -60161,7 +60612,8 @@
 
                 eventParams = {isEnd: isEnd};
             }
-        } else if (
+        }
+        else if (
             isEnd
             && thisBrushOption.brushMode === 'single'
             && thisBrushOption.removeOnClick
@@ -60199,7 +60651,8 @@
                 // In case some browser do not support globalOut,
                 // and release mose out side the browser.
                 handleDragEnd(this, e);
-            } else if (!e.target || !e.target.draggable) {
+            }
+            else if (!e.target || !e.target.draggable) {
 
                 preventDefault(e);
 
@@ -60387,7 +60840,8 @@
                     otherExtent = panel.getLinearBrushOtherExtent(
                         xyIndex, controller._transform
                     );
-                } else {
+                }
+                else {
                     var zr = controller._zr;
                     otherExtent = [0, [zr.getWidth(), zr.getHeight()][1 - xyIndex]];
                 }
@@ -61028,8 +61482,7 @@
             }
         },
 
-        dispose: function () {
-        },
+        dispose: function () {},
 
         // _renderForProgressive: function (seriesModel) {
         //     var dataGroup = this._dataGroup;
@@ -61302,7 +61755,8 @@
             for (var i = 0; i < levels.length; i++) {
                 if (levels[i].depth != null && levels[i].depth >= 0) {
                     levelModels[levels[i].depth] = new Model(levels[i], this, ecModel);
-                } else {
+                }
+                else {
                     if (__DEV__) {
                         throw new Error('levels[i].depth is mandatory and should be natural number');
                     }
@@ -61312,7 +61766,6 @@
                 var graph = createGraphFromNodeEdge(nodes, links, this, true, beforeLink);
                 return graph.data;
             }
-
             function beforeLink(nodeData, edgeData) {
                 nodeData.wrapMethod('getItemModel', function (model, idx) {
                     model.customizeGetParent(function (path) {
@@ -61374,7 +61827,8 @@
                     html += ' : ' + params.value;
                 }
                 return encodeHTML(html);
-            } else if (dataType === 'node') {
+            }
+            else if (dataType === 'node') {
                 var node = this.getGraph().getNodeByIndex(dataIndex);
                 var value = node.getLayout().value;
                 var name = this.getDataParams(dataIndex, dataType).data.name;
@@ -61544,7 +61998,8 @@
                     shape.cpx1 + extent, shape.cpy1,
                     shape.x1 + extent, shape.y1
                 );
-            } else {
+            }
+            else {
                 ctx.lineTo(shape.x2, shape.y2 + extent);
                 ctx.bezierCurveTo(
                     shape.cpx2, shape.cpy2 + extent,
@@ -61629,7 +62084,8 @@
                     cpy1 = y1 * (1 - curvature) + y2 * curvature;
                     cpx2 = x2;
                     cpy2 = y1 * curvature + y2 * (1 - curvature);
-                } else {
+                }
+                else {
                     x1 = (dragX1 != null ? dragX1 * width : n1Layout.x) + n1Layout.dx;
                     y1 = (dragY1 != null ? dragY1 * height : n1Layout.y) + edgeLayout.sy;
                     x2 = dragX2 != null ? dragX2 * width : n2Layout.x;
@@ -61787,8 +62243,7 @@
             this._data = seriesModel.getData();
         },
 
-        dispose: function () {
-        },
+        dispose: function () {},
 
         focusNodeAdjacency: function (seriesModel, ecModel, api, payload) {
             var data = this._model.getData();
@@ -61811,11 +62266,8 @@
             });
 
             if (node) {
-                var node_users = $("#customers_filter").val().split(",")
-                // var node_users = node.getModel().option["user_ids"].slice(1, -1).split(",")
-                // console.log(node_users)
-
-                // fadeInItem$1(node, nodeOpacityPath$1);
+                var node_users = node.getModel().option["user_ids"].slice(1,-1).split(" ")
+                fadeInItem$1(node, nodeOpacityPath$1);
                 var focusNodeAdj = itemModel.get('focusNodeAdjacency');
                 if (focusNodeAdj === 'outEdges') {
                     each$1(node.outEdges, function (edge) {
@@ -61825,7 +62277,8 @@
                         fadeInItem$1(edge, lineOpacityPath$1);
                         fadeInItem$1(edge.node2, nodeOpacityPath$1);
                     });
-                } else if (focusNodeAdj === 'inEdges') {
+                }
+                else if (focusNodeAdj === 'inEdges') {
                     each$1(node.inEdges, function (edge) {
                         if (edge.dataIndex < 0) {
                             return;
@@ -61833,55 +62286,53 @@
                         fadeInItem$1(edge, lineOpacityPath$1);
                         fadeInItem$1(edge.node1, nodeOpacityPath$1);
                     });
-                } else if (focusNodeAdj === 'allEdges') {
-                    // each$1(node.edges, function (edge) {
-                    //     fadeInItem$1(edge, lineOpacityPath$1);
-                    //     fadeInItem$1(edge.node1, nodeOpacityPath$1);
-                    //     fadeInItem$1(edge.node2, nodeOpacityPath$1);
-                    // });
+                }
+                else if (focusNodeAdj === 'allEdges') {
+                    each$1(node.edges, function (edge) {
+                        fadeInItem$1(edge, lineOpacityPath$1);
+                        fadeInItem$1(edge.node1, nodeOpacityPath$1);
+                        fadeInItem$1(edge.node2, nodeOpacityPath$1);
+                    });
                     graph.eachEdge(function (edge) {
                         var user_ids = edge.getModel().option["user_id"]
-                        // console.log(node_users.filter(x => user_ids.includes(x)))
-                        if (node_users.filter(x => user_ids.includes(x)).length == 0) {
+                        if (node_users.filter(x=> user_ids.includes(x)).length==0) {
                             return;
                         }
-                        console.log("Before fade in ")
                         fadeInItem$1(edge, lineOpacityPath$1);
                         fadeInItem$1(edge.node1, nodeOpacityPath$1);
                         fadeInItem$1(edge.node2, nodeOpacityPath$1);
                     });
                 }
             }
-            // if (edge) {
-            //     var edge_users = edge.getModel().option["user_id"]
-            //     fadeInItem$1(edge, lineOpacityPath$1);
-            //     fadeInItem$1(edge.node1, nodeOpacityPath$1);
-            //     fadeInItem$1(edge.node2, nodeOpacityPath$1);
-            //     graph.eachEdge(function (edge) {
-            //         if (intersection(edge_users, edge.getModel().option["user_id"]) > 0) {
-            //             fadeInItem$1(edge, lineOpacityPath$1);
-            //             fadeInItem$1(edge.node1, nodeOpacityPath$1);
-            //             fadeInItem$1(edge.node2, nodeOpacityPath$1);
-            //         }
-            //     });
-            // }
+            if (edge) {
+                var edge_users = edge.getModel().option["user_id"]
+                fadeInItem$1(edge, lineOpacityPath$1);
+                fadeInItem$1(edge.node1, nodeOpacityPath$1);
+                fadeInItem$1(edge.node2, nodeOpacityPath$1);
+                graph.eachEdge(function (edge) {
+                    if (intersection(edge_users,edge.getModel().option["user_id"])>0){
+                        fadeInItem$1(edge, lineOpacityPath$1);
+                        fadeInItem$1(edge.node1, nodeOpacityPath$1);
+                        fadeInItem$1(edge.node2, nodeOpacityPath$1);
+                        }
+                });
+            }
         },
 
         unfocusNodeAdjacency: function (seriesModel, ecModel, api, payload) {
-            // var graph = this._model.getGraph();
-            //
-            // graph.eachNode(function (node) {
-            //     fadeOutItem$1(node, nodeOpacityPath$1);
-            // });
-            // graph.eachEdge(function (edge) {
-            //     fadeOutItem$1(edge, lineOpacityPath$1);
-            // });
+            var graph = this._model.getGraph();
+
+            graph.eachNode(function (node) {
+                fadeOutItem$1(node, nodeOpacityPath$1);
+            });
+            graph.eachEdge(function (edge) {
+                fadeOutItem$1(edge, lineOpacityPath$1);
+            });
         }
     });
-    const intersection = (list1, list2) => {
+    const intersection = (list1 , list2)=> {
         return list1.filter(elem => list2.includes(elem)).length
     }
-
 // Add animation to the view
     function createGridClipShape$1(rect, seriesModel, cb) {
         var rectEl = new Rect({
@@ -61951,8 +62402,8 @@
  * under the License.
  */
 
-    var sankeyLayout = function (ecModel, api, payload) {
-        ecModel.eachSeriesByType("sankey", function (seriesModel) {
+    var sankeyLayout = function(ecModel, api, payload) {
+        ecModel.eachSeriesByType("sankey", function(seriesModel) {
             var nodeWidth = seriesModel.get("nodeWidth");
             var nodeGap = seriesModel.get("nodeGap");
 
@@ -61970,7 +62421,7 @@
 
             computeNodeValues(nodes);
 
-            var filteredNodes = filter(nodes, function (node) {
+            var filteredNodes = filter(nodes, function(node) {
                 return node.getLayout().value === 0;
             });
 
@@ -62039,11 +62490,12 @@
      * @param {module:echarts/data/Graph~Node} nodes  node of sankey view
      */
     function computeNodeValues(nodes) {
-        each$1(nodes, function (node) {
+        each$1(nodes, function(node)
+        {
             var value1 = sum(node.outEdges, getEdgeValue);
             var value2 = sum(node.inEdges, getEdgeValue);
             var value = parseInt(node.size);
-            node.setLayout({value: value}, true);
+            node.setLayout({ value: value }, true);
         });
     }
 
@@ -62098,10 +62550,10 @@
                 if (isItemDepth && item.depth > maxNodeDepth) {
                     maxNodeDepth = item.depth;
                 }
-                node.setLayout({depth: isItemDepth ? item.depth : x}, true);
+                node.setLayout({ depth: isItemDepth ? item.depth : x }, true);
                 orient === "vertical"
-                    ? node.setLayout({dy: nodeWidth}, true)
-                    : node.setLayout({dx: nodeWidth}, true);
+                    ? node.setLayout({ dy: nodeWidth }, true)
+                    : node.setLayout({ dx: nodeWidth }, true);
 
                 for (var edgeIdx = 0; edgeIdx < node.outEdges.length; edgeIdx++) {
                     var edge = node.outEdges[edgeIdx];
@@ -62153,7 +62605,7 @@
             while (remainNodes.length) {
                 for (var i = 0; i < remainNodes.length; i++) {
                     var node = remainNodes[i];
-                    node.setLayout({skNodeHeight: nodeHeight}, true);
+                    node.setLayout({ skNodeHeight: nodeHeight }, true);
                     for (var j = 0; j < node.inEdges.length; j++) {
                         var edge = node.inEdges[j];
                         if (nextSourceNode.indexOf(edge.node1) < 0) {
@@ -62166,10 +62618,10 @@
                 ++nodeHeight;
             }
 
-            each$1(nodes, function (node) {
+            each$1(nodes, function(node) {
                 if (!isNodeDepth(node)) {
                     node.setLayout(
-                        {depth: Math.max(0, maxDepth - node.getLayout().skNodeHeight)},
+                        { depth: Math.max(0, maxDepth - node.getLayout().skNodeHeight) },
                         true
                     );
                 }
@@ -62187,9 +62639,9 @@
      * @param {number} maxDepth.  use to assign to node without outEdges as x-position.
      */
     function moveSinksRight(nodes, maxDepth) {
-        each$1(nodes, function (node) {
+        each$1(nodes, function(node) {
             if (!isNodeDepth(node) && !node.outEdges.length) {
-                node.setLayout({depth: maxDepth}, true);
+                node.setLayout({ depth: maxDepth }, true);
             }
         });
     }
@@ -62201,11 +62653,11 @@
      * @param {number} kx   multiple used to scale nodes
      */
     function scaleNodeBreadths(nodes, kx, orient) {
-        each$1(nodes, function (node) {
+        each$1(nodes, function(node) {
             var nodeDepth = node.getLayout().depth * kx;
             orient === "vertical"
-                ? node.setLayout({y: nodeDepth}, true)
-                : node.setLayout({x: nodeDepth}, true);
+                ? node.setLayout({ y: nodeDepth }, true)
+                : node.setLayout({ x: nodeDepth }, true);
         });
     }
 
@@ -62248,13 +62700,13 @@
         var nodesByBreadth = [];
         var keyAttr = orient === "vertical" ? "y" : "x";
 
-        var groupResult = groupData(nodes, function (node) {
+        var groupResult = groupData(nodes, function(node) {
             return node.getLayout()[keyAttr];
         });
-        groupResult.keys.sort(function (a, b) {
+        groupResult.keys.sort(function(a, b) {
             return a - b;
         });
-        each$1(groupResult.keys, function (key) {
+        each$1(groupResult.keys, function(key) {
             nodesByBreadth.push(groupResult.buckets.get(key));
         });
 
@@ -62280,10 +62732,10 @@
         orient
     ) {
         var minKy = Infinity;
-        each$1(nodesByBreadth, function (nodes) {
+        each$1(nodesByBreadth, function(nodes) {
             var n = nodes.length;
             var sum = 0;
-            each$1(nodes, function (node) {
+            each$1(nodes, function(node) {
                 sum += node.getLayout().value;
             });
             var ky =
@@ -62296,22 +62748,22 @@
             }
         });
 
-        each$1(nodesByBreadth, function (nodes) {
-            each$1(nodes, function (node, i) {
+        each$1(nodesByBreadth, function(nodes) {
+            each$1(nodes, function(node, i) {
                 var nodeDy = node.getLayout().value * minKy;
                 if (orient === "vertical") {
-                    node.setLayout({x: i}, true);
-                    node.setLayout({dx: nodeDy}, true);
+                    node.setLayout({ x: i }, true);
+                    node.setLayout({ dx: nodeDy }, true);
                 } else {
-                    node.setLayout({y: i}, true);
-                    node.setLayout({dy: nodeDy}, true);
+                    node.setLayout({ y: i }, true);
+                    node.setLayout({ dy: nodeDy }, true);
                 }
             });
         });
 
-        each$1(edges, function (edge) {
+        each$1(edges, function(edge) {
             var edgeDy = +edge.getValue() * minKy;
-            edge.setLayout({dy: edgeDy}, true);
+            edge.setLayout({ dy: edgeDy }, true);
         });
     }
 
@@ -62325,8 +62777,8 @@
      */
     function resolveCollisions(nodesByBreadth, nodeGap, height, width, orient) {
         var keyAttr = orient === "vertical" ? "x" : "y";
-        each$1(nodesByBreadth, function (nodes) {
-            nodes.sort(function (a, b) {
+        each$1(nodesByBreadth, function(nodes) {
+            nodes.sort(function(a, b) {
                 return a.getLayout()[keyAttr] - b.getLayout()[keyAttr];
             });
             var nodeX;
@@ -62341,8 +62793,8 @@
                 if (dy > 0) {
                     nodeX = node.getLayout()[keyAttr] + dy;
                     orient === "vertical"
-                        ? node.setLayout({x: nodeX}, true)
-                        : node.setLayout({y: nodeX}, true);
+                        ? node.setLayout({ x: nodeX }, true)
+                        : node.setLayout({ y: nodeX }, true);
                 }
                 y0 = node.getLayout()[keyAttr] + node.getLayout()[nodeDyAttr] + nodeGap;
             }
@@ -62352,8 +62804,8 @@
             if (dy > 0) {
                 nodeX = node.getLayout()[keyAttr] - dy;
                 orient === "vertical"
-                    ? node.setLayout({x: nodeX}, true)
-                    : node.setLayout({y: nodeX}, true);
+                    ? node.setLayout({ x: nodeX }, true)
+                    : node.setLayout({ y: nodeX }, true);
 
                 y0 = nodeX;
                 for (i = n - 2; i >= 0; --i) {
@@ -62366,8 +62818,8 @@
                     if (dy > 0) {
                         nodeX = node.getLayout()[keyAttr] - dy;
                         orient === "vertical"
-                            ? node.setLayout({x: nodeX}, true)
-                            : node.setLayout({y: nodeX}, true);
+                            ? node.setLayout({ x: nodeX }, true)
+                            : node.setLayout({ y: nodeX }, true);
                     }
                     y0 = node.getLayout()[keyAttr];
                 }
@@ -62383,18 +62835,18 @@
      * @param {number} alpha  parameter used to adjust the nodes y-position
      */
     function relaxRightToLeft(nodesByBreadth, alpha, orient) {
-        each$1(nodesByBreadth.slice().reverse(), function (nodes) {
-            each$1(nodes, function (node) {
+        each$1(nodesByBreadth.slice().reverse(), function(nodes) {
+            each$1(nodes, function(node) {
                 if (node.outEdges.length) {
                     var y =
                         sum(node.outEdges, weightedTarget, orient) /
                         sum(node.outEdges, getEdgeValue, orient);
                     if (orient === "vertical") {
                         var nodeX = node.getLayout().x + (y - center$1(node, orient)) * alpha;
-                        node.setLayout({x: nodeX}, true);
+                        node.setLayout({ x: nodeX }, true);
                     } else {
                         var nodeY = node.getLayout().y + (y - center$1(node, orient)) * alpha;
-                        node.setLayout({y: nodeY}, true);
+                        node.setLayout({ y: nodeY }, true);
                     }
                 }
             });
@@ -62440,18 +62892,18 @@
      * @param {number} alpha  parameter used to adjust the nodes y-position
      */
     function relaxLeftToRight(nodesByBreadth, alpha, orient) {
-        each$1(nodesByBreadth, function (nodes) {
-            each$1(nodes, function (node) {
+        each$1(nodesByBreadth, function(nodes) {
+            each$1(nodes, function(node) {
                 if (node.inEdges.length) {
                     var y =
                         sum(node.inEdges, weightedSource, orient) /
                         sum(node.inEdges, getEdgeValue, orient);
                     if (orient === "vertical") {
                         var nodeX = node.getLayout().x + (y - center$1(node, orient)) * alpha;
-                        node.setLayout({x: nodeX}, true);
+                        node.setLayout({ x: nodeX }, true);
                     } else {
                         var nodeY = node.getLayout().y + (y - center$1(node, orient)) * alpha;
-                        node.setLayout({y: nodeY}, true);
+                        node.setLayout({ y: nodeY }, true);
                     }
                 }
             });
@@ -62465,23 +62917,23 @@
      */
     function computeEdgeDepths(nodes, orient) {
         var keyAttr = orient === "vertical" ? "x" : "y";
-        each$1(nodes, function (node) {
-            node.outEdges.sort(function (a, b) {
+        each$1(nodes, function(node) {
+            node.outEdges.sort(function(a, b) {
                 return a.node2.getLayout()[keyAttr] - b.node2.getLayout()[keyAttr];
             });
-            node.inEdges.sort(function (a, b) {
+            node.inEdges.sort(function(a, b) {
                 return a.node1.getLayout()[keyAttr] - b.node1.getLayout()[keyAttr];
             });
         });
-        each$1(nodes, function (node) {
+        each$1(nodes, function(node) {
             var sy = 0;
             var ty = 0;
-            each$1(node.outEdges, function (edge) {
-                edge.setLayout({sy: sy}, true);
+            each$1(node.outEdges, function(edge) {
+                edge.setLayout({ sy: sy }, true);
                 sy += edge.getLayout().dy;
             });
-            each$1(node.inEdges, function (edge) {
-                edge.setLayout({ty: ty}, true);
+            each$1(node.inEdges, function(edge) {
+                edge.setLayout({ ty: ty }, true);
                 ty += edge.getLayout().dy;
             });
         });
@@ -62614,11 +63066,13 @@
                 option.layout = 'horizontal';
                 ordinalMeta = xAxisModel.getOrdinalMeta();
                 addOrdinal = true;
-            } else if (yAxisType === 'category') {
+            }
+            else if (yAxisType === 'category') {
                 option.layout = 'vertical';
                 ordinalMeta = yAxisModel.getOrdinalMeta();
                 addOrdinal = true;
-            } else {
+            }
+            else {
                 option.layout = option.layout || 'horizontal';
             }
 
@@ -62640,10 +63094,12 @@
                     if (item.value && isArray(item.value)) {
                         newItem = item.value.slice();
                         item.value.unshift(index);
-                    } else if (isArray(item)) {
+                    }
+                    else if (isArray(item)) {
                         newItem = item.slice();
                         item.unshift(index);
-                    } else {
+                    }
+                    else {
                         newItem = item;
                     }
                     newOptionData.push(newItem);
@@ -62834,7 +63290,8 @@
                     var itemLayout = data.getItemLayout(newIdx);
                     if (!symbolEl) {
                         symbolEl = createNormalBox(itemLayout, data, newIdx, constDim);
-                    } else {
+                    }
+                    else {
                         updateNormalBoxData(itemLayout, symbolEl, data, newIdx);
                     }
 
@@ -63077,7 +63534,8 @@
         var bandWidth;
         if (baseAxis.type === 'category') {
             bandWidth = baseAxis.getBandWidth();
-        } else {
+        }
+        else {
             var maxDataCount = 0;
             each$13(seriesModels, function (seriesModel) {
                 maxDataCount = Math.max(maxDataCount, seriesModel.getData().count());
@@ -63161,7 +63619,8 @@
             var point;
             if (isNaN(axisDimVal) || isNaN(val)) {
                 point = [NaN, NaN];
-            } else {
+            }
+            else {
                 point = coordSys.dataToPoint(p);
                 point[cDimIdx] += offset;
             }
@@ -63428,7 +63887,8 @@
 
                     if (!el) {
                         el = createNormalBox$1(itemLayout, newIdx);
-                    } else {
+                    }
+                    else {
                         updateProps(el, {shape: {points: itemLayout.ends}}, seriesModel, newIdx);
                     }
 
@@ -63456,7 +63916,8 @@
                 : null;
             if (clipPath) {
                 this.group.setClipPath(clipPath);
-            } else {
+            }
+            else {
                 this.group.removeClipPath();
             }
 
@@ -63509,7 +63970,8 @@
             if (this.__simpleBox) {
                 ctx.moveTo(ends[4][0], ends[4][1]);
                 ctx.lineTo(ends[6][0], ends[6][1]);
-            } else {
+            }
+            else {
                 ctx.moveTo(ends[0][0], ends[0][1]);
                 ctx.lineTo(ends[1][0], ends[1][1]);
                 ctx.lineTo(ends[2][0], ends[2][1]);
@@ -63579,6 +64041,7 @@
     }
 
 
+
     var LargeBoxPath = Path.extend({
 
         type: 'largeCandlestickBox',
@@ -63594,7 +64057,8 @@
                     var x = points[i++];
                     ctx.moveTo(x, points[i++]);
                     ctx.lineTo(x, points[i++]);
-                } else {
+                }
+                else {
                     i += 3;
                 }
             }
@@ -63946,9 +64410,11 @@
         var sign;
         if (openVal > closeVal) {
             sign = -1;
-        } else if (openVal < closeVal) {
+        }
+        else if (openVal < closeVal) {
             sign = 1;
-        } else {
+        }
+        else {
             sign = dataIndex > 0
                 // If close === open, compare with close of last record
                 ? (data.get(closeDim, dataIndex - 1) <= closeVal ? 1 : -1)
@@ -64133,7 +64599,6 @@
             });
         });
     }
-
     /**
      * @constructor
      * @param {module:echarts/data/List} data
@@ -64290,7 +64755,8 @@
                 : this.startEffectAnimation(effectCfg);
 
             this._effectCfg = effectCfg;
-        } else {
+        }
+        else {
             // Not keep old effect config
             this._effectCfg = null;
 
@@ -64365,7 +64831,7 @@
 
             var res = pointsLayout().reset(seriesModel);
             if (res.progress) {
-                res.progress({start: 0, end: data.count()}, data);
+                res.progress({ start: 0, end: data.count() }, data);
             }
 
             this._symbolDraw.updateLayout(data);
@@ -64383,8 +64849,7 @@
             this._symbolDraw && this._symbolDraw.remove(api);
         },
 
-        dispose: function () {
-        }
+        dispose: function () {}
     });
 
     /*
@@ -64508,7 +64973,8 @@
                 if (!this._flatCoords) {
                     this._flatCoords = result.flatCoords;
                     this._flatCoordsOffset = result.flatCoordsOffset;
-                } else {
+                }
+                else {
                     this._flatCoords = concatArray(this._flatCoords, result.flatCoords);
                     this._flatCoordsOffset = concatArray(this._flatCoordsOffset, result.flatCoordsOffset);
                 }
@@ -64536,7 +65002,8 @@
         getLineCoordsCount: function (idx) {
             if (this._flatCoordsOffset) {
                 return this._flatCoordsOffset[idx * 2 + 1];
-            } else {
+            }
+            else {
                 return this._getCoordsFromItemModel(idx).length;
             }
         },
@@ -64551,7 +65018,8 @@
                     out[i][1] = this._flatCoords[offset + i * 2 + 1];
                 }
                 return len;
-            } else {
+            }
+            else {
                 var coords = this._getCoordsFromItemModel(idx);
                 for (var i = 0; i < coords.length; i++) {
                     out[i] = out[i] || [];
@@ -64627,7 +65095,8 @@
                 // dataItem is simply coords
                 if (dataItem instanceof Array) {
                     return NaN;
-                } else {
+                }
+                else {
                     lineData.hasItemOption = true;
                     var value = dataItem.value;
                     if (value != null) {
@@ -65122,7 +65591,8 @@
             }
             // PENDING really need to do this ?
             frame = Math.min(frame, len$$1 - 2);
-        } else {
+        }
+        else {
             for (var frame = lastFrame; frame < len$$1; frame++) {
                 if (offsets[frame] > t) {
                     break;
@@ -65191,7 +65661,8 @@
                         }
                     }
                 }
-            } else {
+            }
+            else {
                 for (var i = 0; i < segs.length;) {
                     var x0 = segs[i++];
                     var y0 = segs[i++];
@@ -65202,7 +65673,8 @@
                         var x2 = (x0 + x1) / 2 - (y0 - y1) * curveness;
                         var y2 = (y0 + y1) / 2 - (x1 - x0) * curveness;
                         path.quadraticCurveTo(x2, y2, x1, y1);
-                    } else {
+                    }
+                    else {
                         path.lineTo(x1, y1);
                     }
                 }
@@ -65233,7 +65705,8 @@
 
                     dataIndex++;
                 }
-            } else {
+            }
+            else {
                 var dataIndex = 0;
                 for (var i = 0; i < segs.length;) {
                     var x0 = segs[i++];
@@ -65247,7 +65720,8 @@
                         if (containStroke$3(x0, y0, x2, y2, x1, y1)) {
                             return dataIndex;
                         }
-                    } else {
+                    }
+                    else {
                         if (containStroke$1(x0, y0, x1, y1)) {
                             return dataIndex;
                         }
@@ -65309,7 +65783,8 @@
                 });
             }
             this.group.add(this._incremental);
-        } else {
+        }
+        else {
             this._incremental = null;
         }
     };
@@ -65330,7 +65805,8 @@
             lineEl.cursor = 'default';
             lineEl.__startIndex = taskParams.start;
             this.group.add(lineEl);
-        } else {
+        }
+        else {
             this._incremental.addDisplayable(lineEl, true);
         }
     };
@@ -65427,7 +65903,8 @@
                             totalCoordsCount += seriesModel.getLineCoordsCount(i);
                         }
                         points = new Float32Array(segCount + totalCoordsCount * 2);
-                    } else {
+                    }
+                    else {
                         points = new Float32Array(segCount * 4);
                     }
 
@@ -65446,7 +65923,8 @@
                     }
 
                     lineData.setLayout('linesPoints', points);
-                } else {
+                }
+                else {
                     for (var i = params.start; i < params.end; i++) {
                         var itemModel = lineData.getItemModel(i);
                         var len = seriesModel.getLineCoords(i, lineCoords);
@@ -65456,7 +65934,8 @@
                             for (var j = 0; j < len; j++) {
                                 pts.push(coordSys.dataToPoint(lineCoords[j]));
                             }
-                        } else {
+                        }
+                        else {
                             pts[0] = coordSys.dataToPoint(lineCoords[0]);
                             pts[1] = coordSys.dataToPoint(lineCoords[1]);
 
@@ -65473,7 +65952,7 @@
                 }
             }
 
-            return {progress: progress};
+            return { progress: progress };
         }
     };
 
@@ -65500,8 +65979,7 @@
 
         type: 'lines',
 
-        init: function () {
-        },
+        init: function () {},
 
         render: function (seriesModel, ecModel, api) {
             var data = seriesModel.getData();
@@ -65551,7 +66029,8 @@
             );
             if (clipPath) {
                 this.group.setClipPath(clipPath);
-            } else {
+            }
+            else {
                 this.group.removeClipPath();
             }
 
@@ -65587,12 +66066,13 @@
                 return {
                     update: true
                 };
-            } else {
+            }
+            else {
                 // TODO Use same logic with ScatterView.
                 // Manually update layout
                 var res = linesLayout.reset(seriesModel);
                 if (res.progress) {
-                    res.progress({start: 0, end: data.count()}, data);
+                    res.progress({ start: 0, end: data.count() }, data);
                 }
                 this._lineDraw.updateLayout();
                 this._clearLayer(api);
@@ -65657,8 +66137,7 @@
             this._clearLayer(api);
         },
 
-        dispose: function () {
-        }
+        dispose: function () {}
     });
 
     /*
@@ -65905,7 +66384,8 @@
                     pixels[offset++] = gradient[gradientOffset + 1];
                     pixels[offset++] = gradient[gradientOffset + 2];
                     pixels[offset++] = gradient[gradientOffset + 3] * alpha * 256;
-                } else {
+                }
+                else {
                     offset += 4;
                 }
             }
@@ -66065,7 +66545,8 @@
             var coordSys = seriesModel.coordinateSystem;
             if (coordSys.type === 'cartesian2d' || coordSys.type === 'calendar') {
                 this._renderOnCartesianAndCalendar(seriesModel, api, 0, seriesModel.getData().count());
-            } else if (isGeoCoordSys(coordSys)) {
+            }
+            else if (isGeoCoordSys(coordSys)) {
                 this._renderOnGeo(
                     coordSys, seriesModel, visualMapOfThisSeries, api
                 );
@@ -66157,7 +66638,8 @@
                             opacity: data.getItemVisual(idx, 'opacity')
                         }
                     });
-                } else {
+                }
+                else {
                     // Ignore empty data
                     if (isNaN(data.get(dataDims[1], idx))) {
                         continue;
@@ -66283,8 +66765,7 @@
             this.group.add(img);
         },
 
-        dispose: function () {
-        }
+        dispose: function () {}
     });
 
     /*
@@ -66458,7 +66939,8 @@
 
                     if (bar) {
                         updateBar(bar, opt, symbolMeta);
-                    } else {
+                    }
+                    else {
                         bar = createBar(data, opt, symbolMeta, true);
                     }
 
@@ -66491,7 +66973,8 @@
                         removeBar(data, bar.dataIndex, ecModel, bar);
                     });
                 }
-            } else {
+            }
+            else {
                 group.removeAll();
             }
         }
@@ -66568,11 +67051,14 @@
             ];
             symbolBoundingExtent[1] < symbolBoundingExtent[0] && (symbolBoundingExtent.reverse());
             boundingLength = symbolBoundingExtent[pxSignIdx];
-        } else if (symbolBoundingData != null) {
+        }
+        else if (symbolBoundingData != null) {
             boundingLength = convertToCoordOnAxis(valueAxis, symbolBoundingData) - zeroPx;
-        } else if (symbolRepeat) {
+        }
+        else if (symbolRepeat) {
             boundingLength = opt.coordSysExtent[valueDim.index][pxSignIdx] - zeroPx;
-        } else {
+        }
+        else {
             boundingLength = layout[valueDim.wh];
         }
 
@@ -66601,7 +67087,8 @@
         var symbolSize = data.getItemVisual(dataIndex, 'symbolSize');
         if (isArray(symbolSize)) {
             symbolSize = symbolSize.slice();
-        } else {
+        }
+        else {
             if (symbolSize == null) {
                 symbolSize = '100%';
             }
@@ -66778,7 +67265,8 @@
             path.__pictorialRepeatTimes = repeatTimes;
             if (index < repeatTimes) {
                 updateAttr(path, null, makeTarget(index), symbolMeta, isUpdate);
-            } else {
+            }
+            else {
                 updateAttr(path, null, {scale: [0, 0]}, symbolMeta, isUpdate, function () {
                     bundle.remove(path);
                 });
@@ -66876,7 +67364,8 @@
             mainPath
                 .on('mouseover', onMouseOver)
                 .on('mouseout', onMouseOut);
-        } else {
+        }
+        else {
             updateAttr(
                 mainPath,
                 null,
@@ -66919,7 +67408,8 @@
             });
 
             bar.add(barRect);
-        } else {
+        }
+        else {
             updateAttr(barRect, null, {shape: rectShape}, symbolMeta, isUpdate);
         }
     }
@@ -66937,7 +67427,8 @@
                 updateProps(
                     clipPath, {shape: clipShape}, animationModel, dataIndex
                 );
-            } else {
+            }
+            else {
                 clipShape[valueDim.wh] = 0;
                 clipPath = new Rect({shape: clipShape});
                 bar.__pictorialBundle.setClipPath(clipPath);
@@ -67002,7 +67493,8 @@
 
         if (symbolMeta.symbolRepeat) {
             createOrUpdateRepeatSymbols(bar, opt, symbolMeta);
-        } else {
+        }
+        else {
             createOrUpdateSingleSymbol(bar, opt, symbolMeta);
         }
 
@@ -67027,7 +67519,8 @@
 
         if (symbolMeta.symbolRepeat) {
             createOrUpdateRepeatSymbols(bar, opt, symbolMeta, true);
-        } else {
+        }
+        else {
             createOrUpdateSingleSymbol(bar, opt, symbolMeta, true);
         }
 
@@ -67082,7 +67575,8 @@
         // when symbolCip used, only clip path has init animation, otherwise it would be weird effect.
         if (symbolMeta.symbolClip && !isUpdate) {
             animationAttrs && el.attr(animationAttrs);
-        } else {
+        }
+        else {
             animationAttrs && graphic[isUpdate ? 'updateProps' : 'initProps'](
                 el, animationAttrs, symbolMeta.animationModel, symbolMeta.dataIndex, cb
             );
@@ -67512,7 +68006,8 @@
             if (orient === 'horizontal') {
                 return axis.contain(axis.toLocalCoord(point[0]))
                     && (point[1] >= rect.y && point[1] <= (rect.y + rect.height));
-            } else {
+            }
+            else {
                 return axis.contain(axis.toLocalCoord(point[1]))
                     && (point[0] >= rect.y && point[0] <= (rect.y + rect.height));
             }
@@ -67778,7 +68273,8 @@
                     p1[1] = gridRect.y;
                     p2[0] = tickCoord;
                     p2[1] = gridRect.y + gridRect.height;
-                } else {
+                }
+                else {
                     p1[0] = gridRect.x;
                     p1[1] = tickCoord;
                     p2[0] = gridRect.x + gridRect.width;
@@ -67961,7 +68457,8 @@
 
         if (seriesModel.getTooltipPosition) {
             point = seriesModel.getTooltipPosition(dataIndex) || [];
-        } else if (coordSys && coordSys.dataToPoint) {
+        }
+        else if (coordSys && coordSys.dataToPoint) {
             point = coordSys.dataToPoint(
                 data.getValues(
                     map(coordSys.dimensions, function (dim) {
@@ -67969,7 +68466,8 @@
                     }), dataIndex, true
                 )
             ) || [];
-        } else if (el) {
+        }
+        else if (el) {
             // Use graphic bounding rect
             var rect = el.getBoundingRect().clone();
             rect.applyTransform(el.transform);
@@ -68178,7 +68676,8 @@
                 var result = series.getAxisTooltipData(dataDim, value, axis);
                 dataIndices = result.dataIndices;
                 seriesNestestValue = result.nestestValue;
-            } else {
+            }
+            else {
                 dataIndices = series.getData().indicesOfNearest(
                     dataDim[0],
                     value,
@@ -68578,7 +69077,8 @@
         var actuallyPayload;
         if (showLen) {
             actuallyPayload = pendings.showTip[showLen - 1];
-        } else if (hideLen) {
+        }
+        else if (hideLen) {
             actuallyPayload = pendings.hideTip[hideLen - 1];
         }
         if (actuallyPayload) {
@@ -68609,7 +69109,8 @@
             var pendingList = pendings[payload.type];
             if (pendingList) {
                 pendingList.push(payload);
-            } else {
+            }
+            else {
                 payload.dispatchAction = dispatchAction;
                 api.dispatchAction(payload);
             }
@@ -68833,7 +69334,8 @@
                 this.createPointerEl(group, elOption, axisModel, axisPointerModel);
                 this.createLabelEl(group, elOption, axisModel, axisPointerModel);
                 api.getZr().add(group);
-            } else {
+            }
+            else {
                 var doUpdateProps = curry(updateProps$1, axisPointerModel, moveAnimation);
                 this.updatePointerEl(group, elOption, doUpdateProps, axisPointerModel);
                 this.updateLabelEl(group, elOption, doUpdateProps, axisPointerModel);
@@ -69197,7 +69699,8 @@
                 equals = equals && propsEqual(lastProps[key], item);
             });
             return !!equals;
-        } else {
+        }
+        else {
             return lastProps === newProps;
         }
     }
@@ -69257,7 +69760,8 @@
         if (axisPointerType === 'line') {
             style = styleModel.getLineStyle();
             style.fill = null;
-        } else if (axisPointerType === 'shadow') {
+        }
+        else if (axisPointerType === 'shadow') {
             style = styleModel.getAreaStyle();
             style.stroke = null;
         }
@@ -69372,7 +69876,8 @@
 
             if (isString(formatter)) {
                 text = formatter.replace('{value}', text);
-            } else if (isFunction$1(formatter)) {
+            }
+            else if (isFunction$1(formatter)) {
                 text = formatter(params);
             }
         }
@@ -70126,7 +70631,6 @@
             function keyGetter(item) {
                 return item.name;
             }
-
             var dataDiffer = new DataDiffer(
                 this._layersSeries || [], layerSeries,
                 keyGetter, keyGetter
@@ -70193,7 +70697,8 @@
                     polygon.setClipPath(createGridClipShape$2(polygon.getBoundingRect(), seriesModel, function () {
                         polygon.removeClipPath();
                     }));
-                } else {
+                }
+                else {
                     var layerGroup = oldLayersGroups[oldIdx];
                     polygon = layerGroup.childAt(0);
                     text = layerGroup.childAt(1);
@@ -70238,8 +70743,7 @@
             this._layers = newLayersGroups;
         },
 
-        dispose: function () {
-        }
+        dispose: function () {}
     });
 
 // add animation to the view
@@ -70307,7 +70811,8 @@
                 boundaryGap[1] = parsePercent$1(boundaryGap[1], rect.height);
                 var height = rect.height - boundaryGap[0] - boundaryGap[1];
                 themeRiverLayout$1(data, seriesModel, height);
-            } else {
+            }
+            else {
                 boundaryGap[0] = parsePercent$1(boundaryGap[0], rect.width);
                 boundaryGap[1] = parsePercent$1(boundaryGap[1], rect.width);
                 var width = rect.width - boundaryGap[0] - boundaryGap[1];
@@ -70513,7 +71018,7 @@
 
         getInitialData: function (option, ecModel) {
             // Create a virtual root.
-            var root = {name: option.name, children: option.data};
+            var root = { name: option.name, children: option.data };
 
             completeTreeValue$1(root);
 
@@ -70653,6 +71158,7 @@
     });
 
 
+
     /**
      * @param {Object} dataNode
      */
@@ -70746,11 +71252,9 @@
         function onEmphasis() {
             text.ignore = text.hoverIgnore;
         }
-
         function onNormal() {
             text.ignore = text.normalIgnore;
         }
-
         this.on('emphasis', onEmphasis)
             .on('normal', onNormal)
             .on('mouseover', onEmphasis)
@@ -70791,7 +71295,8 @@
         var style;
         if (state === 'normal') {
             style = normalStyle;
-        } else {
+        }
+        else {
             var stateStyle = itemModel.getModel(state + '.itemStyle')
                 .getItemStyle();
             style = merge(stateStyle, normalStyle);
@@ -70818,7 +71323,8 @@
                 node.dataIndex
             );
             sector.useStyle(style);
-        } else if (typeof style.fill === 'object' && style.fill.type
+        }
+        else if (typeof style.fill === 'object' && style.fill.type
             || typeof sector.style.fill === 'object' && sector.style.fill.type
         ) {
             // Disable animation for gradient since no interpolation method
@@ -70827,7 +71333,8 @@
                 shape: sectorShape
             }, seriesModel);
             sector.useStyle(style);
-        } else {
+        }
+        else {
             updateProps(sector, {
                 shape: sectorShape,
                 style: style
@@ -70854,9 +71361,11 @@
             if (n.piece) {
                 if (that.node === n) {
                     n.piece.updateData(false, n, 'emphasis');
-                } else if (isNodeHighlighted(n, that.node, highlightPolicy)) {
+                }
+                else if (isNodeHighlighted(n, that.node, highlightPolicy)) {
                     n.piece.childAt(0).trigger('highlight');
-                } else if (highlightPolicy !== NodeHighlightPolicy.NONE) {
+                }
+                else if (highlightPolicy !== NodeHighlightPolicy.NONE) {
                     n.piece.childAt(0).trigger('downplay');
                 }
             }
@@ -70931,16 +71440,19 @@
         if (labelPosition === 'outside') {
             r = layout.r + labelPadding;
             textAlign = midAngle > Math.PI / 2 ? 'right' : 'left';
-        } else {
+        }
+        else {
             if (!textAlign || textAlign === 'center') {
                 r = (layout.r + layout.r0) / 2;
                 textAlign = 'center';
-            } else if (textAlign === 'left') {
+            }
+            else if (textAlign === 'left') {
                 r = layout.r0 + labelPadding;
                 if (midAngle > Math.PI / 2) {
                     textAlign = 'right';
                 }
-            } else if (textAlign === 'right') {
+            }
+            else if (textAlign === 'right') {
                 r = layout.r - labelPadding;
                 if (midAngle > Math.PI / 2) {
                     textAlign = 'left';
@@ -70966,14 +71478,17 @@
             if (rotate < -Math.PI / 2) {
                 rotate += Math.PI;
             }
-        } else if (rotateType === 'tangential') {
+        }
+        else if (rotateType === 'tangential') {
             rotate = Math.PI / 2 - midAngle;
             if (rotate > Math.PI / 2) {
                 rotate -= Math.PI;
-            } else if (rotate < -Math.PI / 2) {
+            }
+            else if (rotate < -Math.PI / 2) {
                 rotate += Math.PI;
             }
-        } else if (typeof rotateType === 'number') {
+        }
+        else if (typeof rotateType === 'number') {
             rotate = rotateType * Math.PI / 180;
         }
         label.attr('rotation', rotate);
@@ -70982,7 +71497,8 @@
             var stateAttr = labelModel.get(name);
             if (stateAttr == null) {
                 return normalModel.get(name);
-            } else {
+            }
+            else {
                 return stateAttr;
             }
         }
@@ -71043,13 +71559,16 @@
         var color = node.getModel('itemStyle').get('color');
         if (color) {
             return color;
-        } else if (visualColor) {
+        }
+        else if (visualColor) {
             // Color mapping
             return visualColor;
-        } else if (node.depth === 0) {
+        }
+        else if (node.depth === 0) {
             // Virtual root node
             return ecModel.option.color[0];
-        } else {
+        }
+        else {
             // First-generation color
             var length = ecModel.option.color.length;
             color = ecModel.option.color[getRootId(node) % length];
@@ -71076,11 +71595,14 @@
     function isNodeHighlighted(node, activeNode, policy) {
         if (policy === NodeHighlightPolicy.NONE) {
             return false;
-        } else if (policy === NodeHighlightPolicy.SELF) {
+        }
+        else if (policy === NodeHighlightPolicy.SELF) {
             return node === activeNode;
-        } else if (policy === NodeHighlightPolicy.ANCESTOR) {
+        }
+        else if (policy === NodeHighlightPolicy.ANCESTOR) {
             return node === activeNode || node.isAncestorOf(activeNode);
-        } else {
+        }
+        else {
             return node === activeNode || node.isDescendantOf(activeNode);
         }
     }
@@ -71148,7 +71670,8 @@
             if (payload && payload.highlight && payload.highlight.piece) {
                 var highlightPolicy = seriesModel.getShallow('highlightPolicy');
                 payload.highlight.piece.onEmphasis(highlightPolicy);
-            } else if (payload && payload.unhighlight) {
+            }
+            else if (payload && payload.unhighlight) {
                 var piece = this.virtualPiece;
                 if (!piece && virtualRoot.children.length) {
                     piece = virtualRoot.children[0].piece;
@@ -71200,11 +71723,13 @@
 
                             // For tooltip
                             data.setItemGraphicEl(newNode.dataIndex, oldNode.piece);
-                        } else {
+                        }
+                        else {
                             // Remove
                             removeNode(oldNode);
                         }
-                    } else if (newNode) {
+                    }
+                    else if (newNode) {
                         // Add
                         var piece = new SunburstPiece(
                             newNode,
@@ -71237,7 +71762,8 @@
                         // Update
                         that.virtualPiece.updateData(
                             false, virtualRoot, 'normal', seriesModel, ecModel);
-                    } else {
+                    }
+                    else {
                         // Add
                         that.virtualPiece = new SunburstPiece(
                             virtualRoot,
@@ -71255,7 +71781,8 @@
                     };
                     viewRoot.piece._onclickEvent = event;
                     that.virtualPiece.on('click', event);
-                } else if (that.virtualPiece) {
+                }
+                else if (that.virtualPiece) {
                     // Remove
                     group.remove(that.virtualPiece);
                     that.virtualPiece = null;
@@ -71282,7 +71809,8 @@
                         var nodeClick = node.getModel().get('nodeClick');
                         if (nodeClick === 'rootToNode') {
                             that._rootToNode(node);
-                        } else if (nodeClick === 'link') {
+                        }
+                        else if (nodeClick === 'link') {
                             var itemModel = node.getModel();
                             var link = itemModel.get('link');
                             if (link) {
@@ -71616,7 +72144,8 @@
     function sort$2(children, sortOrder) {
         if (typeof sortOrder === 'function') {
             return children.sort(sortOrder);
-        } else {
+        }
+        else {
             var isAsc = sortOrder === 'asc';
             return children.sort(function (a, b) {
                 var diff = (a.getValue() - b.getValue()) * (isAsc ? 1 : -1);
@@ -72079,7 +72608,8 @@
                 : null;
             if (clipPath) {
                 group.setClipPath(clipPath);
-            } else {
+            }
+            else {
                 group.removeClipPath();
             }
 
@@ -72094,14 +72624,12 @@
         incrementalRender: function (params, customSeries, ecModel, api, payload) {
             var data = customSeries.getData();
             var renderItem = makeRenderItem(customSeries, data, ecModel, api);
-
             function setIncrementalAndHoverLayer(el) {
                 if (!el.isGroup) {
                     el.incremental = true;
                     el.useHoverLayer = true;
                 }
             }
-
             for (var idx = params.start; idx < params.end; idx++) {
                 var el = createOrUpdate$1(null, idx, renderItem(idx, payload), customSeries, this.group, data);
                 el.traverse(setIncrementalAndHoverLayer);
@@ -72156,17 +72684,22 @@
             // Path is also used for icon, so layout 'center' by default.
             el = makePath(pathData, null, pathRect, shape.layout || 'center');
             el.__customPathData = pathData;
-        } else if (graphicType === 'image') {
+        }
+        else if (graphicType === 'image') {
             el = new ZImage({});
             el.__customImagePath = elOption.style.image;
-        } else if (graphicType === 'text') {
+        }
+        else if (graphicType === 'text') {
             el = new Text({});
             el.__customText = elOption.style.text;
-        } else if (graphicType === 'group') {
+        }
+        else if (graphicType === 'group') {
             el = new Group();
-        } else if (graphicType === 'compoundPath') {
+        }
+        else if (graphicType === 'compoundPath') {
             throw new Error('"compoundPath" is not supported yet.');
-        } else {
+        }
+        else {
             var Clz = getShapeClass(graphicType);
 
             if (__DEV__) {
@@ -72228,7 +72761,8 @@
 
         if (isInit) {
             el.attr(transitionProps);
-        } else {
+        }
+        else {
             updateProps(el, transitionProps, animatableModel, dataIndex);
         }
 
@@ -73651,7 +74185,8 @@
         var radius = polarModel.get('radius');
         if (radius == null) {
             radius = [0, '100%'];
-        } else if (!isArray(radius)) {
+        }
+        else if (!isArray(radius)) {
             // r0 = 0
             radius = [0, radius];
         }
@@ -73893,7 +74428,8 @@
                     z2: 1,
                     silent: true
                 });
-            } else {
+            }
+            else {
                 shape = new Ring({
                     shape: {
                         cx: polar.cx,
@@ -74357,7 +74893,8 @@
             );
             align = labelLayout.textAlign;
             verticalAlign = labelLayout.textVerticalAlign;
-        } else { // angle axis
+        }
+        else { // angle axis
             var r = radiusExtent[1];
             position = polar.coordToPoint([r + labelMargin, coord]);
             var cx = polar.cx;
@@ -74607,7 +75144,8 @@
             if (typeof formatter === 'function') {
                 params.status = status;
                 return formatter(params);
-            } else if (typeof formatter === 'string') {
+            }
+            else if (typeof formatter === 'string') {
                 return formatter.replace('{a}', name != null ? name : '');
             }
         },
@@ -74664,7 +75202,8 @@
             var mapDraw = this._mapDraw;
             if (geoModel.get('show')) {
                 mapDraw.draw(geoModel, ecModel, api, this, payload);
-            } else {
+            }
+            else {
                 this._mapDraw.group.removeAll();
             }
 
@@ -74702,7 +75241,7 @@
             var selected = {};
 
             ecModel.eachComponent(
-                {mainType: 'geo', query: payload},
+                { mainType: 'geo', query: payload},
                 function (geoModel) {
                     geoModel[method](payload.name);
                     var geo = geoModel.coordinateSystem;
@@ -75336,7 +75875,8 @@
 
         if (!isArray(cellSize)) {
             cellSize = target.cellSize = [cellSize, cellSize];
-        } else if (cellSize.length === 1) {
+        }
+        else if (cellSize.length === 1) {
             cellSize[1] = cellSize[0];
         }
 
@@ -75602,12 +76142,15 @@
             if (position === 'bottom') {
                 point[1] += margin;
                 aligns = ['center', 'top'];
-            } else if (position === 'left') {
+            }
+            else if (position === 'left') {
                 point[0] -= margin;
-            } else if (position === 'right') {
+            }
+            else if (position === 'right') {
                 point[0] += margin;
                 aligns = ['center', 'top'];
-            } else { // top
+            }
+            else { // top
                 point[1] -= margin;
             }
 
@@ -75693,7 +76236,8 @@
                 if (position === 'start') {
                     vAlign = 'bottom';
                 }
-            } else {
+            }
+            else {
                 x = x + margin;
 
                 if (isCenter) {
@@ -75779,7 +76323,8 @@
             if (orient === 'horizontal') {
                 x = x + margin + (isStart ? 1 : -1) * cellSize[0] / 2;
                 align = isStart ? 'right' : 'left';
-            } else {
+            }
+            else {
                 y = y + margin + (isStart ? 1 : -1) * cellSize[1] / 2;
                 vAlign = isStart ? 'bottom' : 'top';
             }
@@ -75907,12 +76452,14 @@
         if (isArray(graphicOption)) {
             if (!graphicOption[0] || !graphicOption[0].elements) {
                 option.graphic = [{elements: graphicOption}];
-            } else {
+            }
+            else {
                 // Only one graphic instance can be instantiated. (We dont
                 // want that too many views are created in echarts._viewMap)
                 option.graphic = [option.graphic[0]];
             }
-        } else if (graphicOption && !graphicOption.elements) {
+        }
+        else if (graphicOption && !graphicOption.elements) {
             option.graphic = [{elements: [graphicOption]}];
         }
     });
@@ -76025,7 +76572,8 @@
             for (var i = existList.length - 1; i >= 0; i--) {
                 if (existList[i] == null) {
                     existList.splice(i, 1);
-                } else {
+                }
+                else {
                     // $action should be volatile, otherwise option gotten from
                     // `getOption` will contain unexpected $action.
                     delete existList[i].$action;
@@ -76190,10 +76738,12 @@
                     existEl
                         ? existEl.attr(elOptionCleaned)
                         : createEl$1(id, targetElParent, elOptionCleaned, elMap);
-                } else if ($action === 'replace') {
+                }
+                else if ($action === 'replace') {
                     removeEl(existEl, elMap);
                     createEl$1(id, targetElParent, elOptionCleaned, elMap);
-                } else if ($action === 'remove') {
+                }
+                else if ($action === 'remove') {
                     removeEl(existEl, elMap);
                 }
 
@@ -76359,7 +76909,8 @@
             var newElParentOption = newElOption.parentOption;
             if (newElParentOption) {
                 newElOption.parentId = newElParentOption.id;
-            } else if (existElOption) {
+            }
+            else if (existElOption) {
                 newElOption.parentId = existElOption.parentId;
             }
         }
@@ -76392,12 +76943,15 @@
                 mergeLayoutParam(existElOption, newElOptCopy, {ignoreSize: true});
                 // Will be used in render.
                 copyLayoutParams(newElOption, existElOption);
-            } else {
+            }
+            else {
                 existList[index] = newElOptCopy;
             }
-        } else if ($action === 'replace') {
+        }
+        else if ($action === 'replace') {
             existList[index] = newElOptCopy;
-        } else if ($action === 'remove') {
+        }
+        else if ($action === 'remove') {
             // null will be cleaned later.
             existElOption && (existList[index] = null);
         }
@@ -76699,7 +77253,8 @@
                             onclick: featureModel.option.onclick,
                             featureName: featureName
                         };
-                    } else {
+                    }
+                    else {
                         var Feature = get$1(featureName);
                         if (!Feature) {
                             return;
@@ -76707,7 +77262,8 @@
                         feature = new Feature(featureModel, ecModel, api);
                     }
                     features[featureName] = feature;
-                } else {
+                }
+                else {
                     feature = features[oldName];
                     // If feature does not exsit.
                     if (!feature) {
@@ -76872,7 +77428,8 @@
                     if (offsetX + rect.width / 2 > api.getWidth()) {
                         hoverStyle.textPosition = ['100%', topOffset];
                         hoverStyle.textAlign = 'right';
-                    } else if (offsetX - rect.width / 2 < 0) {
+                    }
+                    else if (offsetX - rect.width / 2 < 0) {
                         hoverStyle.textPosition = [0, topOffset];
                         hoverStyle.textAlign = 'left';
                     }
@@ -76991,7 +77548,8 @@
                 }
                 var blob = new Blob([u8arr]);
                 window.navigator.msSaveOrOpenBlob(blob, title + '.' + type);
-            } else {
+            }
+            else {
                 var lang$$1 = model.get('lang');
                 var html = ''
                     + '<body style="margin:0;">'
@@ -77216,7 +77774,6 @@
 
     var BLOCK_SPLITER = new Array(60).join('-');
     var ITEM_SPLITER = '\t';
-
     /**
      * Group series into two types
      *  1. on category axis, like line, bar
@@ -77248,10 +77805,12 @@
                         });
                     }
                     seriesGroupByCategoryAxis[key].series.push(seriesModel);
-                } else {
+                }
+                else {
                     otherSeries.push(seriesModel);
                 }
-            } else {
+            }
+            else {
                 otherSeries.push(seriesModel);
             }
         });
@@ -77348,7 +77907,6 @@
     function trim$1(str) {
         return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
     }
-
     /**
      * If a block is tsv format
      */
@@ -77361,7 +77919,6 @@
     }
 
     var itemSplitRegex = new RegExp('[' + ITEM_SPLITER + ']+', 'g');
-
     /**
      * @param {string} tsv
      * @return {Object}
@@ -77414,7 +77971,8 @@
                     value: []
                 };
                 value = data[i].value;
-            } else {
+            }
+            else {
                 value = data[i] = [];
             }
             for (var j = 0; j < items.length; j++) {
@@ -77455,7 +78013,8 @@
                     };
                     newOption.series = newOption.series.concat(result.series);
                 }
-            } else {
+            }
+            else {
                 var result = parseListContents(block);
                 newOption.series.push(result);
             }
@@ -77520,10 +78079,12 @@
             var htmlOrDom = optionToContent(api.getOption());
             if (typeof htmlOrDom === 'string') {
                 viewMain.innerHTML = htmlOrDom;
-            } else if (isDom(htmlOrDom)) {
+            }
+            else if (isDom(htmlOrDom)) {
                 viewMain.appendChild(htmlOrDom);
             }
-        } else {
+        }
+        else {
             // Use default textarea
             viewMain.appendChild(textarea);
             textarea.readOnly = model.get('readOnly');
@@ -77553,7 +78114,6 @@
             container.removeChild(root);
             self._dom = null;
         }
-
         addEventListener(closeButton, 'click', close);
 
         addEventListener(refreshButton, 'click', function () {
@@ -77561,10 +78121,12 @@
             try {
                 if (typeof contentToOption === 'function') {
                     newOption = contentToOption(viewMain, api.getOption());
-                } else {
+                }
+                else {
                     newOption = parseContents(textarea.value, blockMetaList);
                 }
-            } catch (e) {
+            }
+            catch (e) {
                 close();
                 throw new Error('Data view format error ' + e);
             }
@@ -77618,7 +78180,8 @@
                 return defaults({
                     value: newVal
                 }, original);
-            } else {
+            }
+            else {
                 return newVal;
             }
         });
@@ -77641,7 +78204,8 @@
                     // Default is scatter
                     type: 'scatter'
                 }, seriesOpt));
-            } else {
+            }
+            else {
                 var originalData = seriesModel.get('data');
                 newSeriesOptList.push({
                     name: seriesOpt.name,
@@ -77882,7 +78446,8 @@
                 if (targetInfo.panelId === areaPanelId) {
                     return targetInfo;
                 }
-            } else {
+            }
+            else {
                 for (var i = 0; i < targetInfoMatchers.length; i++) {
                     if (targetInfoMatchers[i](foundCpts, targetInfo)) {
                         return targetInfo;
@@ -78544,7 +79109,8 @@
             if (isCartesian) {
                 coordSysIndexName = 'gridIndex';
                 otherAxisDim = axisDim === 'x' ? 'y' : 'x';
-            } else {
+            }
+            else {
                 coordSysIndexName = 'polarIndex';
                 otherAxisDim = axisDim === 'angle' ? 'radius' : 'angle';
             }
@@ -78606,7 +79172,8 @@
                     boundValue = scale.parse(linearMap(
                         boundPercent, percentExtent, dataExtent
                     ));
-                } else {
+                }
+                else {
                     hasPropModeValue = true;
                     boundValue = boundValue == null ? dataExtent[idx] : scale.parse(boundValue);
                     // Calculating `percent` from `value` may be not accurate, because
@@ -78767,7 +79334,8 @@
                         // If both left out and right out, do not filter.
                         return hasValue && leftOut && rightOut;
                     });
-                } else {
+                }
+                else {
                     each$20(dataDims, function (dim) {
                         if (filterMode === 'empty') {
                             seriesModel.setData(
@@ -78775,7 +79343,8 @@
                                     return !isInWindow(value) ? NaN : value;
                                 })
                             );
-                        } else {
+                        }
+                        else {
                             var range = {};
                             range[dim] = valueWindow;
 
@@ -78840,14 +79409,16 @@
 
         if (min != null && min !== 'dataMin' && typeof min !== 'function') {
             dataExtent[0] = min;
-        } else if (isCategoryAxis) {
+        }
+        else if (isCategoryAxis) {
             dataExtent[0] = axisDataLen > 0 ? 0 : NaN;
         }
 
         var max = axisModel.getMax(true);
         if (max != null && max !== 'dataMax' && typeof max !== 'function') {
             dataExtent[1] = max;
-        } else if (isCategoryAxis) {
+        }
+        else if (isCategoryAxis) {
             dataExtent[1] = axisDataLen > 0 ? axisDataLen - 1 : NaN;
         }
 
@@ -78901,7 +79472,8 @@
                 percentSpan = linearMap(
                     dataExtent[0] + valueSpan, dataExtent, [0, 100], true
                 );
-            } else if (percentSpan != null) {
+            }
+            else if (percentSpan != null) {
                 valueSpan = linearMap(
                     percentSpan, [0, 100], dataExtent, true
                 ) - dataExtent[0];
@@ -79154,7 +79726,8 @@
 
             if (autoMode === 'axisIndex') {
                 this._autoSetAxisIndex();
-            } else if (autoMode === 'orient') {
+            }
+            else if (autoMode === 'orient') {
                 this._autoSetOrient();
             }
         },
@@ -79182,7 +79755,8 @@
 
             if (orient == null && hasIndexSpecified) {
                 return 'orient';
-            } else if (!hasIndexSpecified) {
+            }
+            else if (!hasIndexSpecified) {
                 if (orient == null) {
                     thisOption.orient = 'horizontal';
                 }
@@ -79206,7 +79780,8 @@
                 if (dependentModels[dimName + 'Axis'].length) {
                     thisOption[dimName + 'AxisIndex'] = [0];
                     autoAxisIndex = false;
-                } else {
+                }
+                else {
                     each$19(dependentModels.singleAxis, function (singleAxisModel) {
                         if (autoAxisIndex && singleAxisModel.get('orient', true) === orient) {
                             thisOption.singleAxisIndex = [singleAxisModel.componentIndex];
@@ -79457,7 +80032,8 @@
                 if (axisProxy) {
                     return axisProxy.getDataValueWindow();
                 }
-            } else {
+            }
+            else {
                 return this.getAxisProxy(axisDimName, axisIndex).getDataValueWindow();
             }
         },
@@ -79527,11 +80103,14 @@
             var valueSpecified = inputRawOption[names[1]] != null;
             if (percentSpecified && !valueSpecified) {
                 rangePropMode[index] = 'percent';
-            } else if (!percentSpecified && valueSpecified) {
+            }
+            else if (!percentSpecified && valueSpecified) {
                 rangePropMode[index] = 'value';
-            } else if (rangeModeInOption) {
+            }
+            else if (rangeModeInOption) {
                 rangePropMode[index] = rangeModeInOption[index];
-            } else if (percentSpecified) { // percentSpecified && valueSpecified
+            }
+            else if (percentSpecified) { // percentSpecified && valueSpecified
                 rangePropMode[index] = 'percent';
             }
             // else remain its original setting.
@@ -79957,7 +80536,8 @@
             if (brushType === 'rect') {
                 setBatch('x', coordSys, coordRange[0]);
                 setBatch('y', coordSys, coordRange[1]);
-            } else {
+            }
+            else {
                 setBatch(({lineX: 'x', lineY: 'y'})[brushType], coordSys, coordRange);
             }
         });
@@ -80435,7 +81015,8 @@
         if (backgroundColor) {
             if (env$1.canvasSupported) {
                 cssText.push('background-Color:' + backgroundColor);
-            } else {
+            }
+            else {
                 // for ie
                 cssText.push(
                     'background-Color:#' + toHex(backgroundColor)
@@ -80624,7 +81205,8 @@
                     // Set show false to avoid invoke hideLater mutiple times
                     this._show = false;
                     this._hideTimeout = setTimeout(bind(this.hide, this), time);
-                } else {
+                }
+                else {
                     this.hide();
                 }
             }
@@ -80743,7 +81325,8 @@
                         // TODO: textOffset is not implemented for rich text
                         textOffset: [3, 0]
                     };
-                } else {
+                }
+                else {
                     markers['marker' + name] = {
                         textWidth: 10,
                         textHeight: 10,
@@ -80818,7 +81401,8 @@
                     // Set show false to avoid invoke hideLater mutiple times
                     this._show = false;
                     this._hideTimeout = setTimeout(bind(this.hide, this), time);
-                } else {
+                }
+                else {
                     this.hide();
                 }
             }
@@ -80881,7 +81465,8 @@
             if (this._renderMode === 'html') {
                 tooltipContent = new TooltipContent(api.getDom(), api);
                 this._newLine = '<br/>';
-            } else {
+            }
+            else {
                 tooltipContent = new TooltipRichContent(api);
                 this._newLine = '\n';
             }
@@ -80949,7 +81534,8 @@
                     if (triggerOn !== 'none') {
                         if (triggerOn.indexOf(currTrigger) >= 0) {
                             this._tryShow(e, dispatchAction);
-                        } else if (currTrigger === 'leave') {
+                        }
+                        else if (currTrigger === 'leave') {
                             this._hide(dispatchAction);
                         }
                     }
@@ -81024,7 +81610,8 @@
                     offsetY: payload.y,
                     target: el
                 }, dispatchAction);
-            } else if (dataByCoordSys) {
+            }
+            else if (dataByCoordSys) {
                 this._tryShow({
                     offsetX: payload.x,
                     offsetY: payload.y,
@@ -81033,7 +81620,8 @@
                     dataByCoordSys: payload.dataByCoordSys,
                     tooltipOption: payload.tooltipOption
                 }, dispatchAction);
-            } else if (payload.seriesIndex != null) {
+            }
+            else if (payload.seriesIndex != null) {
 
                 if (this._manuallyAxisShowTip(tooltipModel, ecModel, api, payload)) {
                     return;
@@ -81051,7 +81639,8 @@
                         event: {}
                     }, dispatchAction);
                 }
-            } else if (payload.x != null && payload.y != null) {
+            }
+            else if (payload.x != null && payload.y != null) {
                 // FIXME
                 // should wrap dispatchAction like `axisPointer/globalListener` ?
                 api.dispatchAction({
@@ -81148,7 +81737,8 @@
             else if (el && el.tooltip) {
                 this._lastDataByCoordSys = null;
                 this._showComponentItemTooltip(e, el, dispatchAction);
-            } else {
+            }
+            else {
                 this._lastDataByCoordSys = null;
                 this._hide(dispatchAction);
             }
@@ -81230,7 +81820,8 @@
                                 html = seriesTooltip.html;
                                 var newMarkers = seriesTooltip.markers;
                                 merge(markers, newMarkers);
-                            } else {
+                            }
+                            else {
                                 html = seriesTooltip;
                             }
                             seriesDefaultHTML.push(html);
@@ -81244,7 +81835,8 @@
                     var firstLine = valueLabel;
                     if (renderMode !== 'html') {
                         singleDefaultHTML.push(seriesDefaultHTML.join(newLine));
-                    } else {
+                    }
+                    else {
                         singleDefaultHTML.push(
                             (firstLine ? encodeHTML(firstLine) + newLine : '')
                             + seriesDefaultHTML.join(newLine)
@@ -81267,7 +81859,8 @@
                         this._tooltipContent,
                         singleParamsList
                     );
-                } else {
+                }
+                else {
                     this._showTooltipContent(
                         singleTooltipModel, singleDefaultHTML, singleParamsList, Math.random(),
                         point[0], point[1], positionExpr, undefined, markers
@@ -81312,7 +81905,8 @@
             if (isObject$1(seriesTooltip)) {
                 defaultHtml = seriesTooltip.html;
                 markers = seriesTooltip.markers;
-            } else {
+            }
+            else {
                 defaultHtml = seriesTooltip;
                 markers = null;
             }
@@ -81387,7 +81981,8 @@
 
             if (formatter && typeof formatter === 'string') {
                 html = formatTpl(formatter, params, true);
-            } else if (typeof formatter === 'function') {
+            }
+            else if (typeof formatter === 'function') {
                 var callback = bind$3(function (cbTicket, html) {
                     if (cbTicket === this._ticket) {
                         tooltipContent.setContent(html, markers, tooltipModel);
@@ -81440,7 +82035,8 @@
             if (isArray(positionExpr)) {
                 x = parsePercent$2(positionExpr[0], viewWidth);
                 y = parsePercent$2(positionExpr[1], viewHeight);
-            } else if (isObject$1(positionExpr)) {
+            }
+            else if (isObject$1(positionExpr)) {
                 positionExpr.width = contentSize[0];
                 positionExpr.height = contentSize[1];
                 var layoutRect = getLayoutRect(
@@ -81460,7 +82056,8 @@
                 );
                 x = pos[0];
                 y = pos[1];
-            } else {
+            }
+            else {
                 var pos = refixTooltipPosition(
                     x, y, content, viewWidth, viewHeight, align ? null : 20, vAlign ? null : 20
                 );
@@ -81581,14 +82178,16 @@
         if (gapH != null) {
             if (x + width + gapH > viewWidth) {
                 x -= width + gapH;
-            } else {
+            }
+            else {
                 x += gapH;
             }
         }
         if (gapV != null) {
             if (y + height + gapV > viewHeight) {
                 y -= height + gapV;
-            } else {
+            }
+            else {
                 y += gapV;
             }
         }
@@ -81680,8 +82279,7 @@
             update: 'tooltip:manuallyShowTip'
         },
         // noop
-        function () {
-        }
+        function () {}
     );
 
     registerAction(
@@ -81691,8 +82289,7 @@
             update: 'tooltip:manuallyHideTip'
         },
         // noop
-        function () {
-        }
+        function () {}
     );
 
     /*
@@ -81842,8 +82439,7 @@
         return visualMappings;
 
         function createMappings() {
-            var Creater = function () {
-            };
+            var Creater = function () {};
             // Make sure hidden fields will not be visited by
             // object iteration (with hasOwnProperty checking).
             Creater.prototype.__hidden = Creater.prototype;
@@ -81871,7 +82467,8 @@
         has && each$1(keys, function (key) {
             if (newOption.hasOwnProperty(key) && hasKeys(newOption[key])) {
                 thisOption[key] = clone(newOption[key]);
-            } else {
+            }
+            else {
                 delete thisOption[key];
             }
         });
@@ -81905,7 +82502,8 @@
 
         if (dimension == null) {
             data.each(eachItem);
-        } else {
+        }
+        else {
             data.each([dimension], eachItem);
         }
 
@@ -82354,7 +82952,8 @@
                 };
             });
             return sels;
-        } else if (isFunction$1(brushSelector)) {
+        }
+        else if (isFunction$1(brushSelector)) {
             var bSelector = {};
             each$1(selector, function (sel, brushType) {
                 bSelector[brushType] = brushSelector;
@@ -82763,14 +83362,12 @@
      */
     registerAction(
         {type: 'brushSelect', event: 'brushSelected', update: 'none'},
-        function () {
-        }
+        function () {}
     );
 
     registerAction(
         {type: 'brushEnd', event: 'brushEnd', update: 'none'},
-        function () {
-        }
+        function () {}
     );
 
     /*
@@ -82891,7 +83488,8 @@
                 // Clear all areas of all brush components.
                 areas: []
             });
-        } else {
+        }
+        else {
             api.dispatchAction({
                 type: 'takeGlobalCursor',
                 key: 'brush',
@@ -83114,7 +83712,8 @@
                 // Adjust layout by text align
                 if (textAlign === 'right') {
                     layoutRect.x += layoutRect.width;
-                } else if (textAlign === 'center') {
+                }
+                else if (textAlign === 'center') {
                     layoutRect.x += layoutRect.width / 2;
                 }
             }
@@ -83125,7 +83724,8 @@
                 }
                 if (textVerticalAlign === 'bottom') {
                     layoutRect.y += layoutRect.height;
-                } else if (textVerticalAlign === 'middle') {
+                }
+                else if (textVerticalAlign === 'middle') {
                     layoutRect.y += layoutRect.height / 2;
                 }
 
@@ -83304,6 +83904,7 @@
 */
 
     registerAction(
+
         {type: 'timelineChange', event: 'timelineChanged', update: 'prepareAndUpdate'},
 
         function (payload, ecModel) {
@@ -83327,6 +83928,7 @@
     );
 
     registerAction(
+
         {type: 'timelinePlayChange', event: 'timelinePlayChanged', update: 'update'},
 
         function (payload, ecModel) {
@@ -83439,7 +84041,8 @@
 
             if (this.option.loop) {
                 currentIndex = (currentIndex % count + count) % count;
-            } else {
+            }
+            else {
                 currentIndex >= count && (currentIndex = count - 1);
                 currentIndex < 0 && (currentIndex = 0);
             }
@@ -83493,7 +84096,8 @@
                     if (isObject$1(item)) {
                         newItem = clone(item);
                         newItem.value = index;
-                    } else {
+                    }
+                    else {
                         newItem = index;
                     }
 
@@ -83873,7 +84477,8 @@
                 labelPosOpt = orient === 'horizontal'
                     ? ((viewRect.y + viewRect.height / 2) < api.getHeight() / 2 ? '-' : '+')
                     : ((viewRect.x + viewRect.width / 2) < api.getWidth() / 2 ? '+' : '-');
-            } else if (isNaN(labelPosOpt)) {
+            }
+            else if (isNaN(labelPosOpt)) {
                 labelPosOpt = ({
                     horizontal: {top: '-', bottom: '+'},
                     vertical: {left: '-', right: '+'}
@@ -83923,7 +84528,8 @@
                 showPlayBtn && (playPosition = [0, 0], xLeft += sizePlusGap);
                 showPrevBtn && (prevBtnPosition = [xLeft, 0], xLeft += sizePlusGap);
                 showNextBtn && (nextBtnPosition = [xRight - controlSize, 0], xRight -= sizePlusGap);
-            } else { // 'top' 'right'
+            }
+            else { // 'top' 'right'
                 showPlayBtn && (playPosition = [xRight - controlSize, 0], xRight -= sizePlusGap);
                 showPrevBtn && (prevBtnPosition = [0, 0], xLeft += sizePlusGap);
                 showNextBtn && (nextBtnPosition = [xRight - controlSize, 0], xRight -= sizePlusGap);
@@ -83997,7 +84603,8 @@
                 var mainBoundIdx = labelPosOpt === '+' ? 0 : 1;
                 toBound(mainPosition, mainBound, viewBound, 1, mainBoundIdx);
                 toBound(labelsPosition, labelBound, viewBound, 1, 1 - mainBoundIdx);
-            } else {
+            }
+            else {
                 var mainBoundIdx = labelPosOpt >= 0 ? 0 : 1;
                 toBound(mainPosition, mainBound, viewBound, 1, mainBoundIdx);
                 labelsPosition[1] = mainPosition[1] + labelPosOpt;
@@ -84105,7 +84712,8 @@
                 if (itemModel.get('tooltip')) {
                     el.dataIndex = value;
                     el.dataModel = timelineModel;
-                } else {
+                }
+                else {
                     el.dataIndex = el.dataModel = null;
                 }
 
@@ -84321,7 +84929,8 @@
 
             if (nextIndex === '+') {
                 nextIndex = currentIndex + 1;
-            } else if (nextIndex === '-') {
+            }
+            else if (nextIndex === '-') {
                 nextIndex = currentIndex - 1;
             }
 
@@ -84369,7 +84978,8 @@
             symbol.setStyle('strokeNoScale', true);
             group.add(symbol);
             callback && callback.onCreate(symbol);
-        } else {
+        }
+        else {
             symbol.setColor(color);
             group.add(symbol); // Group may be new, also need to add.
             callback && callback.onUpdate(symbol);
@@ -84426,7 +85036,8 @@
 
         if (noAnimation || !pointerModel.get('animation', true)) {
             pointer.attr({position: [toCoord, 0]});
-        } else {
+        }
+        else {
             pointer.stopAnimation(true);
             pointer.animateTo(
                 {position: [toCoord, 0]},
@@ -84486,7 +85097,6 @@
     function fillLabel(opt) {
         defaultEmphasis(opt, 'label', ['show']);
     }
-
     var MarkerModel = extendComponentModel({
 
         type: 'marker',
@@ -84549,7 +85159,8 @@
                             if (item instanceof Array) {
                                 fillLabel(item[0]);
                                 fillLabel(item[1]);
-                            } else {
+                            }
+                            else {
                                 fillLabel(item);
                             }
                         });
@@ -84567,7 +85178,8 @@
                         });
 
                         markerModel.__hostSeries = seriesModel;
-                    } else {
+                    }
+                    else {
                         markerModel._mergeOption(markerOpt, ecModel, true);
                     }
                     seriesModel[modelPropName] = markerModel;
@@ -84801,7 +85413,8 @@
                 );
                 // Force to use the value of calculated value.
                 item.value = item.coord[targetCoordIndex];
-            } else {
+            }
+            else {
                 // FIXME Only has one of xAxis and yAxis.
                 var coord = [
                     item.xAxis != null ? item.xAxis : item.radiusAxis,
@@ -84828,7 +85441,8 @@
             ret.valueAxis = coordSys.getAxis(dataDimToCoordDim(seriesModel, ret.valueDataDim));
             ret.baseAxis = coordSys.getOtherAxis(ret.valueAxis);
             ret.baseDataDim = data.mapDimension(ret.baseAxis.dim);
-        } else {
+        }
+        else {
             ret.baseAxis = seriesModel.getBaseAxis();
             ret.valueAxis = coordSys.getOtherAxis(ret.baseAxis);
             ret.baseDataDim = data.mapDimension(ret.baseAxis.dim);
@@ -84882,9 +85496,11 @@
                 }
             });
             return sum / count;
-        } else if (type === 'median') {
+        }
+        else if (type === 'median') {
             return data.getMedian(valueDataDim);
-        } else {
+        }
+        else {
             // max & min
             return data.getDataExtent(valueDataDim, true)[type === 'max' ? 1 : 0];
         }
@@ -84939,8 +85555,7 @@
             }, this);
         },
 
-        renderSeries: function () {
-        }
+        renderSeries: function () {}
     });
 
     /*
@@ -84978,7 +85593,8 @@
                 point = seriesModel.getMarkerPosition(
                     mpData.getValues(mpData.dimensions, idx)
                 );
-            } else if (coordSys) {
+            }
+            else if (coordSys) {
                 var x = mpData.get(coordSys.dimensions[0], idx);
                 var y = mpData.get(coordSys.dimensions[1], idx);
                 point = coordSys.dataToPoint([x, y]);
@@ -85098,7 +85714,8 @@
                 // In map series data don't have lng and lat dimension. Fallback to same with coordSys
                 return defaults({name: coordDim}, info);
             });
-        } else {
+        }
+        else {
             coordDimsInfos = [{
                 name: 'value',
                 type: 'float'
@@ -85244,7 +85861,8 @@
             if (item.yAxis != null || item.xAxis != null) {
                 valueAxis = coordSys.getAxis(item.yAxis != null ? 'y' : 'x');
                 value = retrieve(item.yAxis, item.xAxis);
-            } else {
+            }
+            else {
                 var axisInfo = getAxisInfo$1(item, data, coordSys, seriesModel);
                 valueAxis = axisInfo.valueAxis;
                 var valueDataDim = getStackedDimension(data, axisInfo.valueDataDim);
@@ -85339,14 +85957,16 @@
         var yPx = parsePercent$1(itemModel.get('y'), api.getHeight());
         if (!isNaN(xPx) && !isNaN(yPx)) {
             point = [xPx, yPx];
-        } else {
+        }
+        else {
             // Chart like bar may have there own marker positioning logic
             if (seriesModel.getMarkerPosition) {
                 // Use the getMarkerPoisition
                 point = seriesModel.getMarkerPosition(
                     data.getValues(data.dimensions, idx)
                 );
-            } else {
+            }
+            else {
                 var dims = coordSys.dimensions;
                 var x = data.get(dims[0], idx);
                 var y = data.get(dims[1], idx);
@@ -85367,7 +85987,8 @@
                 var dims = coordSys.dimensions;
                 if (isInifinity(data.get(dims[0], idx))) {
                     point[0] = xAxis.toGlobalCoord(xAxis.getExtent()[isFrom ? 0 : 1]);
-                } else if (isInifinity(data.get(dims[1], idx))) {
+                }
+                else if (isInifinity(data.get(dims[1], idx))) {
                     point[1] = yAxis.toGlobalCoord(yAxis.getExtent()[isFrom ? 0 : 1]);
                 }
             }
@@ -85542,7 +86163,8 @@
                 // In map series data don't have lng and lat dimension. Fallback to same with coordSys
                 return defaults({name: coordDim}, info);
             });
-        } else {
+        }
+        else {
             coordDimsInfos = [{
                 name: 'value',
                 type: 'float'
@@ -85767,14 +86389,16 @@
         var yPx = parsePercent$1(itemModel.get(dims[1]), api.getHeight());
         if (!isNaN(xPx) && !isNaN(yPx)) {
             point = [xPx, yPx];
-        } else {
+        }
+        else {
             // Chart like bar may have there own marker positioning logic
             if (seriesModel.getMarkerPosition) {
                 // Use the getMarkerPoisition
                 point = seriesModel.getMarkerPosition(
                     data.getValues(dims, idx)
                 );
-            } else {
+            }
+            else {
                 var x = data.get(dims[0], idx);
                 var y = data.get(dims[1], idx);
                 var pt = [x, y];
@@ -85788,7 +86412,8 @@
                 var y = data.get(dims[1], idx);
                 if (isInifinity$1(x)) {
                     point[0] = xAxis.toGlobalCoord(xAxis.getExtent()[dims[0] === 'x0' ? 0 : 1]);
-                } else if (isInifinity$1(y)) {
+                }
+                else if (isInifinity$1(y)) {
                     point[1] = yAxis.toGlobalCoord(yAxis.getExtent()[dims[1] === 'y0' ? 0 : 1]);
                 }
             }
@@ -85969,7 +86594,8 @@
                     type: coordDimsInfos[idx % 2].type
                 };
             }), maModel);
-        } else {
+        }
+        else {
             coordDimsInfos = [{
                 name: 'value',
                 type: 'float'
@@ -86137,10 +86763,12 @@
 
                     if (names.length) {
                         potentialData = potentialData.concat(names);
-                    } else {
+                    }
+                    else {
                         isPotential = true;
                     }
-                } else {
+                }
+                else {
                     isPotential = true;
                 }
 
@@ -86389,9 +87017,11 @@
                 // In the case one legend has some item unSelected in option. And if other legend
                 // doesn't has the item, they will assume it is selected.
                 legendModel[isSelected ? 'select' : 'unSelect'](payload.name);
-            } else if (methodName === 'allSelect' || methodName === 'inverseSelect') {
+            }
+            else if (methodName === 'allSelect' || methodName === 'inverseSelect') {
                 legendModel[methodName]();
-            } else {
+            }
+            else {
                 legendModel[methodName](payload.name);
                 isSelected = legendModel.isSelected(payload.name);
             }
@@ -86406,7 +87036,8 @@
                 if (selectedMap.hasOwnProperty(name)) {
                     // Unselected if any legend is unselected
                     selectedMap[name] = selectedMap[name] && isItemSelected;
-                } else {
+                }
+                else {
                     selectedMap[name] = isItemSelected;
                 }
             });
@@ -86421,7 +87052,6 @@
                 selected: selectedMap
             };
     }
-
     /**
      * @event legendToggleSelect
      * @type {Object}
@@ -86669,7 +87299,8 @@
                         .on('mouseout', curry$6(dispatchDownplayAction, seriesModel.name, null, api, excludeSeriesId));
 
                     legendDrawnMap.set(name, true);
-                } else {
+                }
+                else {
                     // Data legend of pie, funnel
                     ecModel.eachRawSeries(function (seriesModel) {
                         // In case multiple series has same data name
@@ -86840,7 +87471,8 @@
             var content = name;
             if (typeof formatter === 'string' && formatter) {
                 content = formatter.replace('{name}', name != null ? name : '');
-            } else if (typeof formatter === 'function') {
+            }
+            else if (typeof formatter === 'function') {
                 content = formatter(name);
             }
 
@@ -86929,7 +87561,8 @@
 
                 if (selectorPosition === 'end') {
                     selectorPos[orientIdx] += contentRect[wh] + selectorButtonGap;
-                } else {
+                }
+                else {
                     contentPos[orientIdx] += selectorRect[wh] + selectorButtonGap;
                 }
 
@@ -86943,7 +87576,8 @@
                 mainRect[hw] = Math.max(contentRect[hw], selectorRect[hw]);
                 mainRect[yx] = Math.min(0, selectorRect[yx] + selectorPos[1 - orientIdx]);
                 return mainRect;
-            } else {
+            }
+            else {
                 contentGroup.attr('position', contentPos);
                 return this.group.getBoundingRect();
             }
@@ -86967,7 +87601,8 @@
             if (!isSelected) {
                 itemStyle.stroke = inactiveBorderColor;
             }
-        } else {
+        }
+        else {
             itemStyle = legendModelItemStyle.getItemStyle(['borderWidth', 'borderColor']);
         }
         return symbol.setStyle(itemStyle);
@@ -87323,7 +87958,8 @@
             if (selector) {
                 if (selectorPosition === 'end') {
                     selectorPos[orientIdx] += mainRect[wh] + selectorButtonGap;
-                } else {
+                }
+                else {
                     var offset = selectorRect[wh] + selectorButtonGap;
                     selectorPos[orientIdx] -= offset;
                     mainRect[xy] -= offset;
@@ -87421,7 +88057,8 @@
                 // Consider content may be larger than container, container rect
                 // can not be obtained from `containerGroup.getBoundingRect()`.
                 containerGroup.__rectSize = clipShape[wh];
-            } else {
+            }
+            else {
                 // Do not remove or ignore controller. Keep them set as placeholders.
                 controllerGroup.eachChild(function (child) {
                     child.attr({invisible: true, silent: true});
@@ -87552,7 +88189,8 @@
                 ) {
                     if (winEndItemInfo.i > winStartItemInfo.i) {
                         winStartItemInfo = winEndItemInfo;
-                    } else { // e.g., when page size is smaller than item size.
+                    }
+                    else { // e.g., when page size is smaller than item size.
                         winStartItemInfo = currItemInfo;
                     }
                     if (winStartItemInfo) {
@@ -88127,7 +88765,8 @@
                 if (isEmpty && !lastIsEmpty && index) {
                     areaPoints.push([areaPoints[areaPoints.length - 1][0], 0]);
                     linePoints.push([linePoints[linePoints.length - 1][0], 0]);
-                } else if (!isEmpty && lastIsEmpty) {
+                }
+                else if (!isEmpty && lastIsEmpty) {
                     areaPoints.push([thisCoord, 0]);
                     linePoints.push([thisCoord, 0]);
                 }
@@ -89066,7 +89705,8 @@
                 ret.pixelLength = rect.width;
                 ret.pixelStart = rect.x;
                 ret.signal = axis.inverse ? 1 : -1;
-            } else { // axis.dim === 'y'
+            }
+            else { // axis.dim === 'y'
                 ret.pixel = newPoint[1] - oldPoint[1];
                 ret.pixelLength = rect.height;
                 ret.pixelStart = rect.y;
@@ -89093,7 +89733,8 @@
                 ret.pixelLength = radiusExtent[1] - radiusExtent[0];
                 ret.pixelStart = radiusExtent[0];
                 ret.signal = axis.inverse ? 1 : -1;
-            } else { // 'angleAxis'
+            }
+            else { // 'angleAxis'
                 ret.pixel = newPoint[1] - oldPoint[1];
                 // ret.pixelLength = Math.abs(angleExtent[1] - angleExtent[0]);
                 // ret.pixelStart = Math.min(angleExtent[0], angleExtent[1]);
@@ -89117,7 +89758,8 @@
                 ret.pixelLength = rect.width;
                 ret.pixelStart = rect.x;
                 ret.signal = axis.inverse ? 1 : -1;
-            } else { // 'vertical'
+            }
+            else { // 'vertical'
                 ret.pixel = newPoint[1] - oldPoint[1];
                 ret.pixelLength = rect.height;
                 ret.pixelStart = rect.y;
@@ -89165,6 +89807,7 @@
 * specific language governing permissions and limitations
 * under the License.
 */
+
 
 
 // Do not include './dataZoomSelect',
@@ -89649,7 +90292,8 @@
                 this.ecModel.eachSeries(function (seriesModel, index) {
                     seriesIndices.push(index);
                 });
-            } else {
+            }
+            else {
                 seriesIndices = normalizeToArray(optionSeriesIndex);
             }
 
@@ -89715,7 +90359,8 @@
                 return formatter
                     .replace('{value}', isMinMax ? textValue[0] : textValue)
                     .replace('{value2}', isMinMax ? textValue[1] : textValue);
-            } else if (isFunction$1(formatter)) {
+            }
+            else if (isFunction$1(formatter)) {
                 return isMinMax
                     ? formatter(value[0], value[1])
                     : formatter(value);
@@ -89724,12 +90369,15 @@
             if (isMinMax) {
                 if (value[0] === dataBound[0]) {
                     return edgeSymbols[0] + ' ' + textValue[1];
-                } else if (value[1] === dataBound[1]) {
+                }
+                else if (value[1] === dataBound[1]) {
                     return edgeSymbols[1] + ' ' + textValue[0];
-                } else {
+                }
+                else {
                     return textValue[0] + ' - ' + textValue[1];
                 }
-            } else { // Format single value (includes category case).
+            }
+            else { // Format single value (includes category case).
                 return textValue;
             }
 
@@ -89844,7 +90492,8 @@
                         if (defa) {
                             base[state] = {};
                             base[state][visualType] = defa;
-                        } else {
+                        }
+                        else {
                             // Mark as not specified.
                             delete base[state];
                         }
@@ -90076,7 +90725,8 @@
                 // value like 'auto') for user-friend. (consider getOption).
                 dataExtent.auto = 1;
                 this.option.range = dataExtent;
-            } else if (isArray(range)) {
+            }
+            else if (isArray(range)) {
                 if (range[0] > range[1]) {
                     range.reverse();
                 }
@@ -90813,7 +91463,8 @@
 
             if (isEnd) {
                 !this._hovering && this._clearHoverLinkToSeries();
-            } else if (useHoverLinkOnHandle(this.visualMapModel)) {
+            }
+            else if (useHoverLinkOnHandle(this.visualMapModel)) {
                 this._doHoverLinkToSeries(this._handleEnds[handleIndex], false);
             }
         },
@@ -91119,7 +91770,8 @@
             if (this.visualMapModel.option.hoverLink) {
                 zr.on('mouseover', this._hoverLinkFromSeriesMouseOver, this);
                 zr.on('mouseout', this._hideIndicator, this);
-            } else {
+            }
+            else {
                 this._clearHoverLinkFromSeries();
             }
         },
@@ -91158,9 +91810,11 @@
             if (hoverOnBar) {
                 if (valueRange[0] === -Infinity) {
                     this._showIndicator(cursorValue, valueRange[1], '< ', halfHoverLinkSize);
-                } else if (valueRange[1] === Infinity) {
+                }
+                else if (valueRange[1] === Infinity) {
                     this._showIndicator(cursorValue, valueRange[0], '> ', halfHoverLinkSize);
-                } else {
+                }
+                else {
                     this._showIndicator(cursorValue, cursorValue, '≈ ', halfHoverLinkSize);
                 }
             }
@@ -91500,7 +92154,8 @@
                 if (mode === 'categories') {
                     mappingOption.mappingMethod = 'category';
                     mappingOption.categories = clone(categories);
-                } else {
+                }
+                else {
                     mappingOption.dataExtent = this.getExtent();
                     mappingOption.mappingMethod = 'piecewise';
                     mappingOption.pieceList = map(this._pieceList, function (piece) {
@@ -91683,10 +92338,12 @@
             var representValue;
             if (this.isCategory()) {
                 representValue = piece.value;
-            } else {
+            }
+            else {
                 if (piece.value != null) {
                     representValue = piece.value;
-                } else {
+                }
+                else {
                     var pieceInterval = piece.interval || [];
                     representValue = (pieceInterval[0] === -Infinity && pieceInterval[1] === Infinity)
                         ? 0
@@ -91714,9 +92371,11 @@
                 var color = getColorVisual(representValue, valueState);
                 if (interval[0] === -Infinity) {
                     outerColors[0] = color;
-                } else if (interval[1] === Infinity) {
+                }
+                else if (interval[1] === Infinity) {
                     outerColors[1] = color;
-                } else {
+                }
+                else {
                     stops.push(
                         {value: interval[0], color: color},
                         {value: interval[1], color: color}
@@ -91728,7 +92387,8 @@
             var pieceList = this._pieceList.slice();
             if (!pieceList.length) {
                 pieceList.push({interval: [-Infinity, Infinity]});
-            } else {
+            }
+            else {
                 var edge = pieceList[0].interval[0];
                 edge !== -Infinity && pieceList.unshift({interval: [-Infinity, edge]});
                 edge = pieceList[pieceList.length - 1].interval[1];
@@ -91849,7 +92509,8 @@
                     var value = item.value = pieceListItem.value;
                     item.interval = [value, value];
                     item.close = [1, 1];
-                } else {
+                }
+                else {
                     // `min` `max` is legacy option.
                     // `lt` `gt` `lte` `gte` is recommanded.
                     var interval = item.interval = [];
@@ -92045,7 +92706,8 @@
                 return getItemAlign(
                     visualMapModel, this.api, visualMapModel.itemSize
                 );
-            } else { // horizontal, most case left unless specifying right.
+            }
+            else { // horizontal, most case left unless specifying right.
                 var align = modelOption.align;
                 if (!align || align === 'auto') {
                     align = 'left';
@@ -92133,7 +92795,8 @@
                 each$1(selected, function (o, key) {
                     selected[key] = key === newKey;
                 });
-            } else {
+            }
+            else {
                 selected[newKey] = !selected[newKey];
             }
 
@@ -92214,7 +92877,8 @@
             doCreateNode = function (tagName) {
                 return doc.createElement('<zrvml:' + tagName + ' class="zrvml">');
             };
-        } catch (e) {
+        }
+        catch (e) {
             doCreateNode = function (tagName) {
                 return doc.createElement('<' + tagName + ' xmlns="' + urn + '" class="zrvml">');
             };
@@ -92231,7 +92895,8 @@
         var styleSheets = doc.styleSheets;
         if (styleSheets.length < 31) {
             doc.createStyleSheet().addRule('.zrvml', 'behavior:url(#default#VML)');
-        } else {
+        }
+        else {
             // http://msdn.microsoft.com/en-us/library/ms531194%28VS.85%29.aspx
             styleSheets[0].addRule('.zrvml', 'behavior:url(#default#VML)');
         }
@@ -92354,7 +93019,8 @@
                         if (angle < 1e-6) {
                             angle = 0;
                         }
-                    } else {
+                    }
+                    else {
                         gradientType = 'gradientradial';
                         var p0 = [fill.x * rectWidth, fill.y * rectHeight];
                         var transform = zrEl.transform;
@@ -92419,7 +93085,8 @@
                     if (gradientType === 'radial') {
                         el.focusposition = focus.join(',');
                     }
-                } else {
+                }
+                else {
                     // FIXME Change from Gradient fill to color fill
                     setColorAndOpacity(el, fill, style.opacity);
                 }
@@ -92460,7 +93127,8 @@
 
                 isFill ? updateFillNode(el, style, zrEl) : updateStrokeNode(el, style);
                 append(vmlEl, el);
-            } else {
+            }
+            else {
                 vmlEl[isFill ? 'filled' : 'stroked'] = 'false';
                 remove(vmlEl, el);
             }
@@ -92522,7 +93190,8 @@
                             y2 = (y2 + 2 * y1) / 3;
                             x1 = (xi + 2 * x1) / 3;
                             y1 = (yi + 2 * y1) / 3;
-                        } else {
+                        }
+                        else {
                             x3 = data[i++];
                             y3 = data[i++];
                         }
@@ -92577,17 +93246,21 @@
                                 if (clockwise) {
                                     x0 += 270 / Z;
                                 }
-                            } else {
+                            }
+                            else {
                                 // Avoid case draw full circle
                                 if (Math.abs(y0 - cy) < 1e-4) {
                                     if ((clockwise && x0 < cx) || (!clockwise && x0 > cx)) {
                                         y1 -= 270 / Z;
-                                    } else {
+                                    }
+                                    else {
                                         y1 += 270 / Z;
                                     }
-                                } else if ((clockwise && y0 < cy) || (!clockwise && y0 > cy)) {
+                                }
+                                else if ((clockwise && y0 < cy) || (!clockwise && y0 > cy)) {
                                     x1 += 270 / Z;
-                                } else {
+                                }
+                                else {
                                     x1 -= 270 / Z;
                                 }
                             }
@@ -92710,7 +93383,8 @@
             // Text
             if (style.text != null) {
                 this.drawRectText(vmlRoot, this.getBoundingRect());
-            } else {
+            }
+            else {
                 this.removeRectText(vmlRoot);
             }
         };
@@ -92748,7 +93422,8 @@
                 if (src === this._imageSrc) {
                     ow = this._imageWidth;
                     oh = this._imageHeight;
-                } else {
+                }
+                else {
                     var imageRuntimeStyle = image.runtimeStyle;
                     var oldRuntimeWidth = imageRuntimeStyle.width;
                     var oldRuntimeHeight = imageRuntimeStyle.height;
@@ -92769,7 +93444,8 @@
                     this._imageHeight = oh;
                 }
                 image = src;
-            } else {
+            }
+            else {
                 if (image === this._imageSrc) {
                     ow = this._imageWidth;
                     oh = this._imageHeight;
@@ -92845,7 +93521,8 @@
                 vmlElStyle.filter = imageTransformPrefix + '.Matrix('
                     + transformFilter.join('') + ', SizingMethod=clip)';
 
-            } else {
+            }
+            else {
                 if (m) {
                     x = x * scaleX + m[4];
                     y = y * scaleY + m[5];
@@ -92882,7 +93559,8 @@
                         self._imageSrc = image;
                     };
                     tmpImage.src = image;
-                } else {
+                }
+                else {
                     imageELStyle.width = round$3(scaleX * ow * dw / sw) + 'px';
                     imageELStyle.height = round$3(scaleY * oh * dh / sh) + 'px';
                 }
@@ -92904,7 +93582,8 @@
                 if (imageEl.parentNode !== cropEl) {
                     cropEl.appendChild(imageEl);
                 }
-            } else {
+            }
+            else {
                 imageELStyle.width = round$3(scaleX * dw) + 'px';
                 imageELStyle.height = round$3(scaleY * dh) + 'px';
 
@@ -92977,7 +93656,8 @@
                 try {
                     style.font = fontString;
                     fontFamily = style.fontFamily.split(',')[0];
-                } catch (e) {
+                }
+                catch (e) {
                 }
 
                 fontStyle = {
@@ -93007,7 +93687,8 @@
 
             try {
                 textMeasureEl.style.font = textFont;
-            } catch (ex) {
+            }
+            catch (ex) {
                 // Ignore failures to set to invalid font.
             }
             textMeasureEl.innerHTML = '';
@@ -93081,7 +93762,8 @@
                     y = rect.y + parsePercent$3(textPosition[1], rect.height);
 
                     align = align || 'left';
-                } else {
+                }
+                else {
                     var res = this.calculateTextPosition
                         ? this.calculateTextPosition({}, style, rect)
                         : calculateTextPosition({}, style, rect);
@@ -93092,7 +93774,8 @@
                     align = align || res.textAlign;
                     verticalAlign = verticalAlign || res.textVerticalAlign;
                 }
-            } else {
+            }
+            else {
                 x = rect.x;
                 y = rect.y;
             }
@@ -93169,7 +93852,8 @@
                 append(textVmlEl, textPathEl);
 
                 this._textVmlEl = textVmlEl;
-            } else {
+            }
+            else {
                 // 这里是在前面 appendChild 保证顺序的前提下
                 skewEl = textVmlEl.firstChild;
                 pathEl = skewEl.nextSibling;
@@ -93194,7 +93878,8 @@
 
                 textVmlElStyle.left = '0px';
                 textVmlElStyle.top = '0px';
-            } else {
+            }
+            else {
                 skewEl.on = false;
                 textVmlElStyle.left = round$3(x) + 'px';
                 textVmlElStyle.top = round$3(y) + 'px';
@@ -93206,8 +93891,7 @@
                 textPathEl.style.font = font;
             }
                 // Error font format
-            catch (e) {
-            }
+            catch (e) {}
 
             updateFillAndStroke(textVmlEl, 'fill', {
                 fill: style.textFill,
@@ -93251,7 +93935,8 @@
                     x: style.x || 0, y: style.y || 0,
                     width: 0, height: 0
                 }, this.getBoundingRect(), true);
-            } else {
+            }
+            else {
                 this.removeRectText(vmlRoot);
             }
         };
@@ -93367,7 +94052,8 @@
                     }
                     // Set as already invisible
                     el.__alreadyNotVisible = true;
-                } else {
+                }
+                else {
                     if (el.__alreadyNotVisible) {
                         el.onAdd(vmlRoot);
                     }
@@ -93527,7 +94213,8 @@
             fill = fill === 'transparent' ? NONE : fill;
             attr(svgEl, 'fill', fill);
             attr(svgEl, 'fill-opacity', style.fillOpacity != null ? style.fillOpacity * style.opacity : style.opacity);
-        } else {
+        }
+        else {
             attr(svgEl, 'fill', NONE);
         }
 
@@ -93549,7 +94236,8 @@
             if (lineDash) {
                 attr(svgEl, 'stroke-dasharray', style.lineDash.join(','));
                 attr(svgEl, 'stroke-dashoffset', mathRound(style.lineDashOffset || 0));
-            } else {
+            }
+            else {
                 attr(svgEl, 'stroke-dasharray', '');
             }
 
@@ -93557,7 +94245,8 @@
             style.lineCap && attr(svgEl, 'stroke-linecap', style.lineCap);
             style.lineJoin && attr(svgEl, 'stroke-linejoin', style.lineJoin);
             style.miterLimit && attr(svgEl, 'stroke-miterlimit', style.miterLimit);
-        } else {
+        }
+        else {
             attr(svgEl, 'stroke', NONE);
         }
     }
@@ -93610,9 +94299,11 @@
                     var large = false;
                     if (isCircle) {
                         large = true;
-                    } else if (isAroundZero$1(dThetaPositive)) {
+                    }
+                    else if (isAroundZero$1(dThetaPositive)) {
                         large = false;
-                    } else {
+                    }
+                    else {
                         large = (unifiedTheta >= PI$6) === !!clockwise;
                     }
 
@@ -93625,7 +94316,8 @@
                     if (isCircle) {
                         if (clockwise) {
                             dTheta = PI2$6 - 1e-4;
-                        } else {
+                        }
+                        else {
                             dTheta = -PI2$6 + 1e-4;
                         }
 
@@ -93871,7 +94563,8 @@
                     updateTextLocation(tspanList[idx], textAlign, textX, textY + idx * lineHeight);
                 }
             }
-        } else {
+        }
+        else {
             el.__text = text;
             el.__canCacheByTextString = canCacheByTextString;
             var textLines = contentBlock.lines;
@@ -93887,7 +94580,8 @@
                     tspan = tspanList[idx] = createElement('tspan');
                     textSvgEl.appendChild(tspan);
                     tspan.appendChild(document.createTextNode(singleLineText));
-                } else if (tspan.__zrText !== singleLineText) {
+                }
+                else if (tspan.__zrText !== singleLineText) {
                     tspan.innerHTML = '';
                     tspan.appendChild(document.createTextNode(singleLineText));
                 }
@@ -93917,7 +94611,8 @@
             if (origin === 'center') {
                 baseX = hostRect.width / 2 + hostRect.x;
                 baseY = hostRect.height / 2 + hostRect.y;
-            } else if (origin) {
+            }
+            else if (origin) {
                 baseX = origin[0] + hostRect.x;
                 baseY = origin[1] + hostRect.y;
             }
@@ -93965,8 +94660,7 @@
 // Myers' Diff Algorithm
 // Modified from https://raw.githubusercontent.com/kpdecker/jsdiff/blob/master/src/diff/base.js
 
-    function Diff() {
-    }
+    function Diff() {}
 
     Diff.prototype = {
         diff: function (oldArr, newArr, equals) {
@@ -93986,7 +94680,7 @@
             var oldLen = oldArr.length;
             var editLength = 1;
             var maxEditLength = newLen + oldLen;
-            var bestPath = [{newPos: -1, components: []}];
+            var bestPath = [{ newPos: -1, components: [] }];
 
             // Seed editLength = 0, i.e. the content starts with the same values
             var oldPos = this.extractCommon(bestPath[0], newArr, oldArr, 0);
@@ -94027,7 +94721,8 @@
                     if (!canAdd || (canRemove && addPath.newPos < removePath.newPos)) {
                         basePath = clonePath(removePath);
                         self.pushComponent(basePath.components, undefined, true);
-                    } else {
+                    }
+                    else {
                         basePath = addPath;   // No need to clone, we've pulled it from the list
                         basePath.newPos++;
                         self.pushComponent(basePath.components, true, undefined);
@@ -94038,7 +94733,8 @@
                     // If we have hit the end of both strings, then we are done
                     if (basePath.newPos + 1 >= newLen && oldPos + 1 >= oldLen) {
                         return buildValues(self, basePath.components, newArr, oldArr);
-                    } else {
+                    }
+                    else {
                         // Otherwise track this path as a potential candidate and continue.
                         bestPath[diagonalPath] = basePath;
                     }
@@ -94060,9 +94756,10 @@
             if (last && last.added === added && last.removed === removed) {
                 // We need to clone here as the component clone operation is just
                 // as shallow array clone
-                components[components.length - 1] = {count: last.count + 1, added: added, removed: removed};
-            } else {
-                components.push({count: 1, added: added, removed: removed});
+                components[components.length - 1] = {count: last.count + 1, added: added, removed: removed };
+            }
+            else {
+                components.push({count: 1, added: added, removed: removed });
             }
         },
         extractCommon: function (basePath, newArr, oldArr, diagonalPath) {
@@ -94112,7 +94809,8 @@
                 if (!component.added) {
                     oldPos += component.count;
                 }
-            } else {
+            }
+            else {
                 var indices = [];
                 for (var i = oldPos; i < oldPos + component.count; i++) {
                     indices.push(i);
@@ -94126,7 +94824,7 @@
     }
 
     function clonePath(path) {
-        return {newPos: path.newPos, components: path.components.slice(0)};
+        return { newPos: path.newPos, components: path.components.slice(0) };
     }
 
     var arrayDiff = new Diff();
@@ -94208,10 +94906,12 @@
                     };
                 }
                 return defs;
-            } else {
+            }
+            else {
                 return null;
             }
-        } else {
+        }
+        else {
             return defs[0];
         }
     };
@@ -94235,7 +94935,8 @@
             if (typeof onUpdate === 'function') {
                 onUpdate(element);
             }
-        } else {
+        }
+        else {
             // No previous dom, create new
             var dom = this.add(element);
             if (dom) {
@@ -94350,11 +95051,14 @@
     Definable.prototype.getSvgProxy = function (displayable) {
         if (displayable instanceof Path) {
             return svgPath;
-        } else if (displayable instanceof ZImage) {
+        }
+        else if (displayable instanceof ZImage) {
             return svgImage;
-        } else if (displayable instanceof Text) {
+        }
+        else if (displayable instanceof Text) {
             return svgText;
-        } else {
+        }
+        else {
             return svgPath;
         }
     };
@@ -94438,7 +95142,8 @@
                             // _dom is no longer in defs, recreate
                             that.addDom(dom);
                         }
-                    } else {
+                    }
+                    else {
                         // New dom
                         dom = that.add(gradient);
                     }
@@ -94464,9 +95169,11 @@
         var dom;
         if (gradient.type === 'linear') {
             dom = this.createElement('linearGradient');
-        } else if (gradient.type === 'radial') {
+        }
+        else if (gradient.type === 'radial') {
             dom = this.createElement('radialGradient');
-        } else {
+        }
+        else {
             logError$1('Illegal gradient type.');
             return null;
         }
@@ -94502,7 +95209,8 @@
             ) {
                 // Gradient type is not changed, update gradient
                 that.updateDom(gradient, gradient._dom);
-            } else {
+            }
+            else {
                 // Remove and re-create if type is changed
                 that.removeDom(gradient);
                 that.add(gradient);
@@ -94524,11 +95232,13 @@
             dom.setAttribute('y1', gradient.y);
             dom.setAttribute('x2', gradient.x2);
             dom.setAttribute('y2', gradient.y2);
-        } else if (gradient.type === 'radial') {
+        }
+        else if (gradient.type === 'radial') {
             dom.setAttribute('cx', gradient.x);
             dom.setAttribute('cy', gradient.y);
             dom.setAttribute('r', gradient.r);
-        } else {
+        }
+        else {
             logError$1('Illegal gradient type.');
             return;
         }
@@ -94536,7 +95246,8 @@
         if (gradient.global) {
             // x1, x2, y1, y2 in range of 0 to canvas width or height
             dom.setAttribute('gradientUnits', 'userSpaceOnUse');
-        } else {
+        }
+        else {
             // x1, x2, y1, y2 in range of 0 to 1
             dom.setAttribute('gradientUnits', 'objectBoundingBox');
         }
@@ -94563,7 +95274,8 @@
                 // See https://www.w3.org/TR/SVG2/pservers.html#StopOpacityProperty
                 stop.setAttribute('stop-color', '#' + hex);
                 stop.setAttribute('stop-opacity', opacity);
-            } else {
+            }
+            else {
                 stop.setAttribute('stop-color', colors[i].color);
             }
 
@@ -94670,7 +95382,8 @@
                     // been previously removed
                     defs.appendChild(clipPathEl);
                 }
-            } else {
+            }
+            else {
                 // New <clipPath>
                 id = 'zr' + this._zrId + '-clip-' + this.nextId;
                 ++this.nextId;
@@ -94709,7 +95422,8 @@
 
                 // Set back transform of clipPath
                 clipPath.transform = transform;
-            } else {
+            }
+            else {
                 svgProxy.brush(clipPath);
             }
 
@@ -94730,7 +95444,8 @@
                 // Make the other clipPaths recursively
                 this.updateDom(clipPathEl, clipPaths.slice(1), isText);
             }
-        } else {
+        }
+        else {
             // No clipPath
             if (parentEl) {
                 parentEl.setAttribute('clip-path', 'none');
@@ -94810,7 +95525,8 @@
                     // _shadowDom is no longer in defs, recreate
                     this.addDom(dom);
                 }
-            } else {
+            }
+            else {
                 // New dom
                 dom = this.add(displayable);
             }
@@ -94860,7 +95576,8 @@
             Definable.prototype.update.call(this, displayable, function () {
                 that.updateDom(displayable, displayable._shadowDom);
             });
-        } else {
+        }
+        else {
             // Remove shadow
             this.remove(svgElement, displayable);
         }
@@ -94888,7 +95605,8 @@
         var domChild = dom.getElementsByTagName('feDropShadow');
         if (domChild.length === 0) {
             domChild = this.createElement('feDropShadow');
-        } else {
+        }
+        else {
             domChild = domChild[0];
         }
 
@@ -94906,12 +95624,14 @@
             offsetY = style.shadowOffsetY || 0;
             blur = style.shadowBlur;
             color = style.shadowColor;
-        } else if (style.textShadowBlur) {
+        }
+        else if (style.textShadowBlur) {
             offsetX = style.textShadowOffsetX || 0;
             offsetY = style.textShadowOffsetY || 0;
             blur = style.textShadowBlur;
             color = style.textShadowColor;
-        } else {
+        }
+        else {
             // Remove shadow
             this.removeDom(dom, style);
             return;
@@ -94972,16 +95692,17 @@
     function getSvgProxy(el) {
         if (el instanceof Path) {
             return svgPath;
-        } else if (el instanceof ZImage) {
+        }
+        else if (el instanceof ZImage) {
             return svgImage;
-        } else if (el instanceof Text) {
+        }
+        else if (el instanceof Text) {
             return svgText;
-        } else {
+        }
+        else {
             return svgPath;
         }
     }
-
-    // # CUSTOME EDITS
 
     function checkParentAvailable(parent, child) {
         return child && parent && child.parentNode !== parent;
@@ -95163,11 +95884,13 @@
                             : prepend(svgRoot, svgElement);
                         if (svgElement) {
                             insertAfter(svgRoot, textSvgElement, svgElement);
-                        } else if (prevSvgElement) {
+                        }
+                        else if (prevSvgElement) {
                             insertAfter(
                                 svgRoot, textSvgElement, prevSvgElement
                             );
-                        } else {
+                        }
+                        else {
                             prepend(svgRoot, textSvgElement);
                         }
                         // Insert text
@@ -95182,7 +95905,8 @@
                             .addWithoutUpdate(svgElement || textSvgElement, displayable);
                         this.clipPathManager.markUsed(displayable);
                     }
-                } else if (!item.removed) {
+                }
+                else if (!item.removed) {
                     for (var k = 0; k < item.count; k++) {
                         var displayable = newVisibleList[item.indices[k]];
                         prevSvgElement = getTextSvgElement(displayable)
@@ -95237,10 +95961,12 @@
                         };
                     }
                     return defs;
-                } else {
+                }
+                else {
                     return null;
                 }
-            } else {
+            }
+            else {
                 return defs[0];
             }
         },
@@ -95379,9 +96105,11 @@
 // ----------------------------------------------
 
 
+
 // ----------------
 // Charts (series)
 // ----------------
+
 
 
 // All of the series types, for example:
@@ -95394,6 +96122,7 @@
 // -------------------
 // Coordinate systems
 // -------------------
+
 
 
 // All of the axis modules have been included in the
@@ -95448,6 +96177,7 @@
 // ------------------
 // Other components
 // ------------------
+
 
 
 // `graphic` component, for example:
@@ -95528,6 +96258,7 @@
 // -----------------
 // Render engines
 // -----------------
+
 
 
 // Provide IE 6,7,8 compatibility.

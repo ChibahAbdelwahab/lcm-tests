@@ -11,101 +11,62 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://gmousse.github.io/dataframe-js/dist/dataframe.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.5.4/randomColor.js"></script>
-<script src="https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/html/echarts.js"></script>
+<script src="echarts.js"></script>
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<div id="main" style="width: 100vw;height:80vh;"></div>
+<div id="main" style="width: 100vw;height:100vh;"></div>
 <div style="white-space:nowrap">
     <div id="users_demographics" style="width: 50%;height:100vh;display:inline-block;white-space:normal"></div>
     <div id="groups_demographics" style="width: 50%;height:100vh;display:inline-block;white-space:normal"></div>
 </div>
-s_list = randomColor({
+<script type="text/javascript">
+    colors_list = randomColor({
         count: 10000,
         hue: 'random'
     });
-    file_name = window.location.pathname.split("/").pop().replace(".html", ".out")
+    file_name = decodeURI(window.location.pathname.split("/").pop().replace(".html", ".out"))
+
     var filters = {"DEPARTEMENT": [], "SEX": [], "AGE": [], "STATION_MGT_TYPE": []}
+    const periods = new Set();
 
-    d3.csv("https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/users/" + file_name,
-        function (users) {
-            d3.csv('https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/links/' + file_name,
+    d3.csv('../links/' + file_name,
+        function (row) {
+            return {
+                source: row.source,
+                target: row.target,
+                user_id: row.user_id.replace('"', "").split(","),
+                value: row.user_id.replace('"', "").split(",").length,
+                lineStyle: {
+                    color: colors_list[row.user_id % 1000],
+                    opacity: 1
+                }
+            };
+        },
+        function (links) {
+            d3.csv('../groups/' + file_name,
                 function (row) {
-                    return {
-                        source: row.source,
-                        target: row.target,
-                        user_id: row.user_id.replace('"', "").split(","),
-                        value: row.user_id.replace('"', "").split(",").length,
-                        lineStyle: {
-                            color: colors_list[row.user_id % 1000],
-                            opacity: 1
-                        }
-                    };
+                    row["name"] = row[""]
+                    row["size"] = parseInt(row.size)
+                    row["depth"] = row.depth * 1000000
+                    row["itemStyle"] = {
+                        z: 1,
+                        color: 'rgb(27,120,0)',
+                    }
+                    periods.add(row["period"])
+                    return row
                 },
-                function (links) {
-                    d3.csv('https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/groups/' + file_name,
-                        function (row) {
-                            row["name"] = row[""]
-                            row["size"] = parseInt(row.size)
-                            row["depth"] = row.depth * 100000
-                            row["itemStyle"] = {
-                                z: 1,
-                                color: 'rgb(27,120,0)',
-                            }
-                            return row
-                        },
-                        function (data) {
-                            d3.json('https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/stats/users/' + file_name,
-                                function (users_stats) {
-                                    d3.json('https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/stats/groups/' + file_name,
-                                        function (groups_stats) {
+                function (data) {
+                    data.forEach(e => {
+                        e["depth"] = Array.from(periods).indexOf(e["period"]) * 100 / periods.size
 
-                                            var stats = []
-                                            var radius_min = 0
-                                            var radius_max = 10
-                                            users_stats_pie = add_pie(users_stats, 10, 20)
-                                            groups_stats_pie = add_pie(groups_stats, 60, 70)
-                                            draw_chart(data, links, users, users_stats_pie, groups_stats_pie)
-                                        })
-                                }
-                            );
-                        }
-                    )
+                    })
+                    draw_chart(data, links)
                 }
             )
         }
     )
 
-    function add_pie(users_stats, radius_min, radius_max) {
-        var stats = []
-        for (var val in users_stats) {
-            users_stats[val].map(e => {
-                e.name = val + ":" + e.name
-            })
-            stats.push({
-                    name: val,
-                    type: 'pie',
-                    selectedMode: 'single',
-                    radius: [radius_min.toString() + "%", radius_max.toString() + '%'],
 
-                    label: {
-                        normal: {
-                            position: 'inner'
-                        }
-                    },
-                    labelLine: {
-                        normal: {
-                            show: false
-                        }
-                    },
-                    data: users_stats[val]
-                }
-            )
-            radius_min = radius_max + 5
-            radius_max = radius_max + 20
-        }
-        return stats
-    }
-
-    function draw_chart(data, links, users, user_stats, groups_stats) {
+    function draw_chart(data, links, users) {
         sankey = [{
             top: "2%",
             bottom: "5%",
@@ -113,11 +74,11 @@ s_list = randomColor({
             right: "10%",
             type: 'sankey',
             name: "Sankey",
-            nodeGap: 1,
+            // nodeGap: 1,
             focusNodeAdjacency: 'allEdges',
             nodeAlign: "center",
             layout: "none",
-            layoutIterations: 32,
+            layoutIterations: 100,
             // focusNodeAdjacency: 'false',
             data: data,
             links: links,
@@ -141,8 +102,7 @@ s_list = randomColor({
                         return "<b>Group id: </b>" + x.data.name +
                             "<br><b>Size: </b>" + x.data.size +
                             "<hr><b>Users: </b>" + x.data.user_ids +
-                            "<br><b>Description name :</b>" + x.data.itemset_name +
-                            "<br><b>Description Ids :</b>" + x.data.itemsets +
+                            "<br><b>Itemset :</b>" + x.data.itemset_name +
                             "<br><b>Period :</b>" + x.data.period
                     }
                     if (x.dataType == "edge") {
@@ -171,121 +131,6 @@ s_list = randomColor({
         };
         // use configuration item and data specified to show chart
         myChart.setOption(option);
-        groups_demographics.setOption({
-            tooltip: {
-                trigger: 'axis',
-                formatter: "<strong>{b}</strong><br> Count: {c} ({d}%)"
-            },
-            legend: {},
-            series: groups_stats
-        })
-        users_demographics.setOption({
-            tooltip: {
-                trigger: 'item',
-                formatter: "<strong>{b}</strong><br> Count: {c} ({d}%)"
-            },
-            legend: {},
-            series: user_stats
-        })
-        users_demographics.on('legendselectchanged', function (params) {
-            filters.DEPARTEMENT = []
-            filters.AGE = []
-            filters.SEX = []
-            for (val_ in params.selected) {
-                let name = val_.split(":")[0]
-                let value = val_.split(":")[1]
-                if (params.selected[val_] == true) {
-                    continue
-                }
-                filters[name].push(value)
-            }
-            console.log(filters)
-            var filtred_users = JSON.parse(JSON.stringify(users))
-
-            if ("DEPARTEMENT" in filters) {
-                filtred_users = filtred_users.filter(e => {
-                    return filters.DEPARTEMENT.includes(e.DEPARTEMENT.toString()) == false
-                })
-            }
-            if ("SEX" in filters) {
-                filtred_users = filtred_users.filter(e => {
-                    return filters.SEX.includes(e.SEX.toString()) == false
-                })
-            }
-
-            if ("AGE" in filters) {
-                filtred_users = filtred_users.filter(e => {
-                    return filters.AGE.includes(e.AGE.toString()) == false
-                })
-            }
-            filtred_users = filtred_users.map(e => e.CUST_ID)
-            if ('DEPARTEMENT' in filters) {
-                var filtred_groups = data.filter(e => {
-                    return filters.DEPARTEMENT.includes(e.property_values) == false
-                })
-            }
-            var links_copy = JSON.parse(JSON.stringify(links))
-
-            var groups_in_links = []
-            var filtred_links = links_copy.map(e => {
-                e.user_id = e.user_id.filter(ee => {
-                    return filtred_users.includes(ee.toString())
-                })
-                e.size = e.user_id.length
-                e.value = e.size
-                if (e.size > 0) {
-                    groups_in_links.push(e.source)
-                    groups_in_links.push(e.target)
-                }
-                return e
-            })
-            filtred_links = filtred_links.filter(e => {
-                return e.size > 0
-            })
-            filtred_groups = filtred_groups.filter(e => {
-                return groups_in_links.includes(e.name)
-            })
-            option.series.map(function (element) {
-                if (element.type == "sankey") {
-                    element.data = filtred_groups
-                    element.links = filtred_links
-                }
-            });
-            myChart.setOption(option);
-        })
-        groups_demographics.on('legendselectchanged', function (params) {
-            filters.STATION_MGT_TYPE = []
-            filters.DEPARTEMENT = []
-            for (val_ in params.selected) {
-                let name = val_.split(":")[0]
-                let value = val_.split(":")[1]
-                if (params.selected[val_] == true) {
-                    continue
-                }
-                filters[name].push(value)
-            }
-            var filtred_groups = JSON.parse(JSON.stringify(data))
-            if ('STATION_MGT_TYPE' in data[0]) {
-                filtred_groups["STATION_MGT_TYPE"] = []
-                filtred_groups = filtred_groups.filter(e => {
-                    return filters.STATION_MGT_TYPE.includes(e.STATION_MGT_TYPE.toString()) == false
-                })
-            }
-
-            if ('DEPARTEMENT' in data[0]) {
-                filtred_groups["DEPARTEMENT"] = []
-                filtred_groups = filtred_groups.filter(e => {
-                    return filters.DEPARTEMENT.includes(e.DEPARTEMENT.toString()) == false
-                })
-            }
-            option.series.map(function (element) {
-                if (element.type == "sankey") {
-                    element.data = filtred_groups
-                    // element.links = filtred_links
-                }
-            });
-            myChart.setOption(option);
-        })
     }
 
 
