@@ -28,15 +28,16 @@
     var filters = {"DEPARTEMENT": [], "SEX": [], "AGE": [], "STATION_MGT_TYPE": []}
     const periods = new Set();
 
-    d3.csv('../links/' + file_name,
+    d3.csv('../labeled_links/' + file_name,
         function (row) {
             return {
                 source: row.source,
                 target: row.target,
                 user_id: row.user_id.replace('"', "").split(","),
                 value: row.user_id.replace('"', "").split(",").length,
+                label: row.label,
                 lineStyle: {
-                    color: colors_list[row.user_id % 1000],
+                    color: colors_list[row.label % 1000],
                     opacity: 1
                 }
             };
@@ -108,6 +109,7 @@
                     if (x.dataType == "edge") {
                         return "<b>Users: </b>" + x.data.user_id +
                             "<br><b>Count: </b>" + x.data.value +
+                            "<br><b>Label: </b>" + x.data.label +
                             "<hr><b>" + x.data.source + "</b>" + "=><b>" + x.data.target
                     } else
                         return '<b>User_id :</b>' + x.data.user_id + " <br><b>Count :</b>" + x.data.value
