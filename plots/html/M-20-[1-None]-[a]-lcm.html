@@ -23,22 +23,23 @@
         count: 10000,
         hue: 'random'
     });
-        file_name = decodeURI(window.location.pathname.split("/").pop().replace(".html", ".out"))
+    file_name = decodeURI(window.location.pathname.split("/").pop().replace(".html", ".out"))
 
     var filters = {"DEPARTEMENT": [], "SEX": [], "AGE": [], "STATION_MGT_TYPE": []}
 
     d3.csv("https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/users/" + file_name,
         function (users) {
-            d3.csv('https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/links/' + file_name,
+            d3.csv('https://raw.githubusercontent.com/ChibahAbdelwahab/lcm-tests/master/plots/labeled_links/' + file_name,
                 function (row) {
                     return {
                         source: row.source,
                         target: row.target,
                         user_id: row.user_id.replace('"', "").split(","),
                         value: row.user_id.replace('"', "").split(",").length,
+                        label: row.label,
                         lineStyle: {
-                            color: colors_list[row.user_id % 1000],
-                            opacity: 1
+                            color: colors_list[row.label % 1000],
+                            opacity: 1,
                         }
                     };
                 },
@@ -119,7 +120,7 @@
             focusNodeAdjacency: 'allEdges',
             nodeAlign: "center",
             layout: "none",
-            layoutIterations: 0,
+            layoutIterations: 100,
             // focusNodeAdjacency: 'false',
             data: data,
             links: links,
@@ -149,6 +150,7 @@
                     if (x.dataType == "edge") {
                         return "<b>Users: </b>" + x.data.user_id +
                             "<br><b>Count: </b>" + x.data.value +
+                            "<br><b>Label: </b>" + x.data.label +
                             "<hr><b>" + x.data.source + "</b>" + "=><b>" + x.data.target
                     } else
                         return '<b>User_id :</b>' + x.data.user_id + " <br><b>Count :</b>" + x.data.value
